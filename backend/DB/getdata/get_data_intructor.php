@@ -18,13 +18,13 @@ class get_data
 
         return (array) $sql->fetch(PDO::FETCH_ASSOC);
     }
-    public function question_user(int $id_user, int $flag = 1)
+    public function question_user(int $id_intructor, int $flag = 1)
     {
-        $this->id_user = $id_user;
+        $this->id_user = $id_intructor;
         $this->flag = $flag - 1;
         $sql = $this->sql->prepare('SELECT * FROM question WHERE id_user = :id_user LIMIT :flag ,15 ;');
         $sql->bindParam(':flag', $this->flag, PDO::PARAM_INT);
-        $sql->bindParam(':id_user', $this->id_user, PDO::PARAM_INT);
+        $sql->bindParam(':id_user', $this->id_intructor, PDO::PARAM_INT);
         $sql->execute();
 
         return (array) $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -33,15 +33,11 @@ class get_data
     {
         $this->flag = $flag - 1;
         $this->id_user = $id_user;
-        $sql = $this->sql->prepare('SELECT * FROM course WHERE id_user = :id_user LIMIT :flag ,15 ;');
+        $sql = $this->sql->prepare('SELECT * FROM course WHERE id_user = :id_user LIMIT :flag ,5 ;');
         $sql->bindParam(':flag', $this->flag, PDO::PARAM_INT);
         $sql->bindParam(':id_user',$this->id_user);
         $sql->execute();
 
         return (array) $sql->fetchAll(PDO::FETCH_ASSOC);
-    }
-    public function FunctionName($value='')
-    {
-      # code...
     }
 }

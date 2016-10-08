@@ -55,10 +55,11 @@ class authen
             if ($fetch) {
                 if (password_verify($this->password, $fetch['password'])) {
                     $_SESSION['id'] = $fetch['id'];
+                    return $_SESSION['id'];
                 } else {
-                    echo 'รหัสผ่านไม่ถูกต้อง';
-                    echo 'กำลังพาไปหน้าหลัก....';
+                    $return = array('1' =>"รหัสผ่านไม่ถูกต้อง");
                     header('refresh: 3; url=index.php');
+                    return ;
                 }
             } else {
                 echo 'ไม่มีชื่อนี้ในฐานข้อมูล';
@@ -69,7 +70,6 @@ class authen
             echo 'error : '.$e->getMessage();
         }
 
-        return @$_SESSION['id'];
     }
     public function check_session($id_user)
     {
