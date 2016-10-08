@@ -1,7 +1,6 @@
 <?php
-include 'authen.php';
-include 'config/config_DB.php';
-class Co_func extends config
+require 'C:\Users\Dell\Documents\GitHub\robruu\backend\DB\authen\authen_DB.php';
+class Co_func
 {
     private $sql;
     private $user_id;
@@ -11,7 +10,7 @@ class Co_func extends config
     private $course_id;
     public function __construct($user_id)
     {
-        $this->sql = new PDO('mysql:dbname='.parent::$DB.';host=127.0.0.1', parent::$user, parent::$password);
+        $this->sql = new PDO('mysql:dbname=robruu_online;host=127.0.0.1', 'root', '@PeNtesterMYSQL');
         $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->user_id = $user_id;
     }
