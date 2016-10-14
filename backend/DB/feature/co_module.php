@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-require 'C:/Users/Dell/Documents/GitHub/robruu/backend/DB/authen/authen_DB.php';
 class Co_func
 {
     private $sql;
