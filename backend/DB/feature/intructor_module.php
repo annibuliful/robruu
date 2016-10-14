@@ -91,21 +91,26 @@ class intruction
 
         return $return;
     }
-    public function publish($id_user, $flag)
+    public function picture_upload(array $picture)
     {
-        $check = $flag;
-        $this->id_user = $id_user;
-        $sql = $this->pdo->prepare('SELECT * FROM save_draft WHERE id_user = :id_user ;');
-        $sql->bindParam(':id_user', $this->id_user, PDO::PARAM_INT);
-        $sql->execute();
-        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-        if ($fetch == true && $check == 1) {
-            $sql = $this->pdo->prepare('INSERT INTO question(id_user,detail,score,hint,concept,
-                                                          answer,level,rating)
-                                                          VALUES (:id_user ,:detail ,:score ,
-                                                                  :hint ,:concept , :answer ,
-                                                                  :level , 0) ');
-        }
+      $sql = $this->pdo->prepare('SELECT * FROM user WHERE username= :username ;');
+      $sql->bindParam(':username', $this->id_user);
+      $sql->execute();
+      $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+      if ($fetch) {
+          $sql = $this->pdo->prepare('INSERT INTO picture(id_auther,name,score,rating)
+                                      VALUES (:id_author ,:name ,:score ,0);');
+          $sql->bindParam(':id_author',$id_autho,PDO::PARAM_INT);
+          $sql->bindParam(':name',$picture['name'],PDO::PARAM_STR);
+          $sql->bindParam(':score',$score,PDO::PARAM_INT);
+          $sql->execute();
+          move_uploaded_file($this->picture['tmp_name'],
+                             "C:/Users/Dell/Documents/GitHub/robruu/backend/store/videos/".$picture['name']);
+      } else {
+          echo 'ไม่มีชื่อผู้ใช้งาน';
+          echo 'กำลังพาไปหน้าหลัก....';
+          header('refresh: 3; url=index.php');
+      }
     }
     public function video_upload($id_user, array $video, $dir, $price)
     {
@@ -120,12 +125,13 @@ class intruction
         if ($fetch) {
             $sql = $this->pdo->prepare('INSERT INTO video(name,id_author,date,price)
                                         VALUES (:video , :id_user , :date ,:price);');
-            $sql->bindParam(':video', $this->video['name'].$this->user_id);
-            $sql->bindParam(':id_user', $this->user_id);
+            $sql->bindParam(':video', $this->video['name'].$this->user_id,PDO::PARAM_STR);
+            $sql->bindParam(':id_user', $this->user_id,PDO::PARAM_INT);
             $sql->bindParam('date', date('d / m / Y'));
-            $sql->bindParam(':price', $this->price);
+            $sql->bindParam(':price', $this->price,PDO::PARAM_INT);
             $sql->execute();
-            move_uploaded_file($this->video['tmp_name'], $this->$dir);
+            move_uploaded_file($this->video['tmp_name'],
+                               "C:/Users/Dell/Documents/GitHub/robruu/backend/store/videos/".$video['name']);
         } else {
             echo 'ไม่มีชื่อผู้ใช้งาน';
             echo 'กำลังพาไปหน้าหลัก....';
