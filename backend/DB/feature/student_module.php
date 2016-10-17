@@ -1,6 +1,5 @@
 <?php
 
-include 'connect_DB.php';
 class student
 {
     private $ID_user;
@@ -8,49 +7,64 @@ class student
     private $sql;
     private $question_id;
     private $answer;
-    public function __construct($user_id, $level)
+    public function __construct()
     {
-        $this->ID_user = $user_id;
-        $this->grade = $level;
         $this->sql = new PDO("mysql:host=localhost;dbname=robruu_online", 'root', '@PeNtesterMYSQL');
         $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
-    public function answer($question_id, $answer)
+    public function answer(int $id_question,int $id_answer,int $id_user)
     {
-        $this->question_id = $question_id;
-        $this->answer = $answer;
-        $answer = $this->sql->prepare('SELECT * FROM user WHERE id = :user;');
-        $answer->bindparam(':user', $this->ID_user, PDO::PARAM_INT);
+        $answer = $this->sql->prepare('SELECT * FROM user WHERE id = :id ;');
+        $answer->bindparam(':id', $id_user, PDO::PARAM_INT);
         $answer->execute();
-        $fetch = $answer->fetch();
+        $fetch = $answer->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
-            $answer = $this->sql->prepare('SELECT * FROM question WHERE id= :question_id AND id_answer= :answer');
-            $answer->bindparam(':question_id', $this->question_id, PDO::PARAM_INT);
-            $answer->bindparam(':answer', $this->answer, PDO::PARAM_STR);
-            $answer->execute();
-            $fetch = $answer->fetch(PDO::FETCH_ASSOC);
-            if ($fetch) {
-                $score = $this->sql->prepare('UPDATE score = socre + :score WHERE id= :id ;');
-                $score->bindparam(':score', $fetch['score'], PDO::PARAM_INT);
-                $score->bindparam(':id', $this->ID_user);
-                $score->execute();
-                $show_score = $score->fetch();
-                echo 'คุณได้คะแนน '.$this->sql->fetch['score'];
-            } else {
-                echo 'ตอบไม่ถูก';
+          $sql = $this->sql->prepare('SELECT * FROM check_user WHERE id_question =:id_question AND id_user = :id_user');
+          $sql->bindParam(':id_question',$id_question,PDO::PARAM_INT);
+          $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+          $sql->execute();
+          $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+          if ($fetch['id_question'] != $id_question) {
+            $sql = $this->sql->prepare('SELECT id_answer,score FROM picture
+                                        WHERE id = :id_question AND id_answer = :id_answer ');
+            $sql->bindParam(':id_question',$id_question,PDO::PARAM_INT);
+            $sql->bindParam(':id_answer',$id_answer,PDO::PARAM_INT);
+            $sql->execute();
+            $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+            if ($fetch['id_answer'] == $id_answer) {
+              $sql = $this->sql->prepare('UPDATE user SET score = score + :score WHERE id = :id_user ;');
+              $sql->bindParam(':score',$fetch['score'],PDO::PARAM_INT);
+              $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+              $sql->execute();
+              $sql = $this->sql->prepare('INSERT INTO check_user(id_question,id_user) VALUES(:id_question, :id_user) ;');
+              $sql->bindParam(':id_question',$id_question,PDO::PARAM_INT);
+              $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+              $sql->execute();
+              return true ;
+            }else {
+              return false;
             }
-        } else {
-            echo 'ไม่มีชื่อผู้ใช้นี้ โปรดลงชื่อเข้าใช้ก่อน';
-            header('refresh: 2; url=XXXXXXXXX');
+          }else {
+          }
+
         }
     }
-    public function list_tutor()
+    public function list_tutor(int $id_user)
     {
         $list = $this->sql->prepare('SELECT * FROM following WHERE id_u = :ID_user');
-        $list->bindparam(':ID_user', $this->ID_user, PDO::PARAM_INT);
+        $list->bindparam(':ID_user', $id_user, PDO::PARAM_INT);
         $list->execute();
-        $fetch = $list->fetch(PDO::FETCH_ASSOC);
+        $fetch = $list->fetchAll(PDO::FETCH_ASSOC);
 
         return (array) $fetch;
     }
-}?>
+    public function list_course(int $id_user)
+    {
+      $sql = $this->sql->prepare('SELECT * FROM course_user WHERE id_user = :id_user');
+      $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+      $sql->execute();
+      $fetch = $sql->fetchAll(PDO::FETCH_ASSOC);
+      return (array) $fetch ;
+    }
+}
+?>
