@@ -11,10 +11,12 @@ class co_controller
   }
   public function buy(string $id_course,int $id_user)
   {
-    $co = $this->co->buy($id_course,$id_user);
+    $this->co->buy($id_course,$id_user);
+  }
+  public function comment(int $id_user, string $comment, string $id_video)
+  {
+    $this->co->comment($id_user,$comment,$id_video);
   }
 }
-$s = new co_func();
-$s->buy('58043b652e3cb',1);
 
  ?>
