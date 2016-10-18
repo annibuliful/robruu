@@ -12,44 +12,44 @@ class co_func
     public function __construct()
     {
         $this->sql = new PDO('mysql:dbname=robruu_online;host=127.0.0.1', 'root', '@PeNtesterMYSQL');
-        $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    }
-    public function buy(string $id_course,int $id_user)
+        $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    public function buy(string $id_course, int $id_user)
     {
         $sql = $this->sql->prepare('SELECT money FROM user WHERE id = :user_id');
-        $sql->bindParam(':user_id', $id_user,PDO::PARAM_INT);
+        $sql->bindParam(':user_id', $id_user, PDO::PARAM_INT);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
             $sql = $this->sql->prepare('SELECT price,flag_num FROM video_playlist WHERE id_playlist = :id ;');
-            $sql->bindParam(':id', $id_course,PDO::PARAM_INT);
+            $sql->bindParam(':id', $id_course, PDO::PARAM_INT);
             $sql->execute();
             $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
             print_r($fetch1);
             if ($fetch1 == true && $fetch1['flag_num'] == 1) {
-              $sql = $this->sql->prepare('SELECT * FROM course_user WHERE user_id = :id_user ;');
-              $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
-              $sql->execute();
-              $fetch3 = $sql->fetch(PDO::FETCH_ASSOC);
-              print_r($fetch3);
-              if (!$fetch3) {
-                if ($fetch['money'] >= $fetch1['price']) {
-                    $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id)
+                $sql = $this->sql->prepare('SELECT * FROM course_user WHERE user_id = :id_user ;');
+                $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                $sql->execute();
+                $fetch3 = $sql->fetch(PDO::FETCH_ASSOC);
+                print_r($fetch3);
+                if (!$fetch3) {
+                    if ($fetch['money'] >= $fetch1['price']) {
+                        $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id)
                                                 VALUES (:id_user ,:id_course ) ;');
-                    $sql->bindParam(':id_user', $id_user);
-                    $sql->bindParam(':id_course', $id_course);
-                    $sql->execute();
-                    $sql = $this->sql->prepare('UPDATE user SET
+                        $sql->bindParam(':id_user', $id_user);
+                        $sql->bindParam(':id_course', $id_course);
+                        $sql->execute();
+                        $sql = $this->sql->prepare('UPDATE user SET
                                                 money = money - :price WHERE id = :id_user ; ');
-                    $sql->bindParam(':price', $fetch1['price'], PDO::PARAM_INT);
-                    $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                    $sql->execute();
+                        $sql->bindParam(':price', $fetch1['price'], PDO::PARAM_INT);
+                        $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                        $sql->execute();
+                    } else {
+                        echo 'เงินหรือคะแนนของคุณไม่พอ';
+                    }
                 } else {
-                    echo 'เงินหรือคะแนนของคุณไม่พอ';
+                    echo 'คุณมีคอสเรียนนี้แล้ว';
                 }
-              }else {
-                echo "คุณมีคอสเรียนนี้แล้ว";
-              }
-
             } else {
                 echo 'ไม่มีคอร์สเรียนนี้';
             }
@@ -59,26 +59,35 @@ class co_func
             header('refresh: 3; url=index.php');
         }
     }
-    public function comment(int $id_user, string $comment, int $id_video) // ยังไม่เสร็จเปลียน ใช้สำหรับวิดีโอ
+    public function comment(int $id_user, string $comment, string $id_playlist)
     {
-        $sql = $this->sql->prepare('SELECT id_post,COUNT(id_post) FROM comment WHERE id_post = :id_post ;');
-        $sql->bindParam(':id_post', $id_post, PDO::PARAM_INT);
+        $sql = $this->sql->prepare('SELECT id_playlist FROM video_playlist WHERE id_playlist = :id_playlist ;');
+        $sql->bindParam(':id_playlist', $id_video, PDO::PARAM_STR);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-        if ($fetch) {
-            if ($comments != null) {
+        print_r($fetch);
+        if ($fetch['id_playlist'] == $id_video) {
+            $sql = $this->sql->prepare('SELECT id_post,COUNT(id_post) FROM comment WHERE id_post = :id_post ;');
+            $sql->bindParam(':id_post', $id_video, PDO::PARAM_STR);
+            $sql->execute();
+            $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+            if ($fetch) {
+                $id_N = $fetch['COUNT(id_post)'] + 1;
                 $sql = $this->sql->prepare('INSERT INTO comment(id_post,id_N,comment,time,id_user)
-                                        VALUES (:id_post ,:id_N ,:comment ,:time , :id_user)');
-                $this->sql->bindParam(':id_post', $id_post, PDO::PARAM_INT);
-                $this->sql->bindParam(':id_N', $fetch['COUNT(id_post)'], PDO::PARAM_INT);
-                $this->sql->bindParam(':comment', $comment, PDO::PARAM_STR);
-                $this->sql->bindParam(':time', date('D / m / Y'), PDO::PARAM_STR);
-                $this->sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                $this->sql->execute();
+                                            VALUES (:id_post ,:id_N ,:comment ,:time , :id_user)');
+                $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
+                $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
+                $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
+                $sql->bindParam(':time', date('D / m / Y'), PDO::PARAM_STR);
+                $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                $sql->execute();
+                return true;
+            } else {
+              return false;
             }
         }
     }
-    public function rating(int $id_user, int $id_question, int $id_video, int $id_playlist)
+    public function rating(int $id_user, int $id_question, int $id_playlist)
     {
         if ($id_question != null) {
             $sql = $this->sql->prepare('SELECT id FROM question WHERE id = :id ; ');
@@ -145,4 +154,3 @@ class co_func
         }
     }
 }
-?>
