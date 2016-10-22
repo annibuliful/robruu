@@ -29,7 +29,19 @@ class co_controller
   }
   public function comment(int $id_user, string $comment, string $id_video)
   {
-    $this->co->comment($id_user,$comment,$id_video);
+    $check = $this->co->comment($id_user,$comment,$id_video);
+    if ($check == 'complete') {
+      $this->view->comment_complete();
+    }elseif ($check == 'error') {
+      $this->view->comment_error();
+    }
+  }
+  public function rating(int $id_user, string $id_question = null, string $id_playlist = null)
+  {
+    $check = $this->co->rating($id_user,$id_question,$id_playlist);
+    if ($check == 'error') {
+      $this->view->rating_error();
+    }
   }
   public function search(int $type, string $detail)
   {
@@ -37,5 +49,6 @@ class co_controller
   }
 
 }
+
 
  ?>
