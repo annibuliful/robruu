@@ -21,17 +21,16 @@ class co_func
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
-            $sql = $this->sql->prepare('SELECT price,flag_num FROM video_playlist WHERE id_playlist = :id ;');
+            $sql = $this->sql->prepare('SELECT price,flag_num FROM video_playlist WHERE id_playlist = :id AND flag_num=1;');
             $sql->bindParam(':id', $id_course, PDO::PARAM_INT);
             $sql->execute();
             $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
-            print_r($fetch1);
             if ($fetch1 == true && $fetch1['flag_num'] == 1) {
-                $sql = $this->sql->prepare('SELECT * FROM course_user WHERE user_id = :id_user ;');
+                $sql = $this->sql->prepare('SELECT * FROM course_user WHERE user_id = :id_user AND course_id=:course_id ;');
                 $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                $sql->bindParam(':course_id', $id_course, PDO::PARAM_STR);
                 $sql->execute();
                 $fetch3 = $sql->fetch(PDO::FETCH_ASSOC);
-                print_r($fetch3);
                 if (!$fetch3) {
                     if ($fetch['money'] >= $fetch1['price']) {
                         $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id)
@@ -44,19 +43,19 @@ class co_func
                         $sql->bindParam(':price', $fetch1['price'], PDO::PARAM_INT);
                         $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                         $sql->execute();
+
+                        return 'complete';
                     } else {
-                        echo 'เงินหรือคะแนนของคุณไม่พอ';
+                        return 'not_enough_money';
                     }
                 } else {
-                    echo 'คุณมีคอสเรียนนี้แล้ว';
+                    return 'have_course';
                 }
             } else {
-                echo 'ไม่มีคอร์สเรียนนี้';
+                return 'error';
             }
         } else {
-            echo 'คุณยังไม่ได้เข้าสู่ระบบ';
-            echo 'กำลังพาไปหน้าหลัก....';
-            header('refresh: 3; url=index.php');
+            return 'not_login';
         }
     }
     public function comment(int $id_user, string $comment, string $id_playlist)
@@ -81,37 +80,107 @@ class co_func
                 $sql->bindParam(':time', date('D / m / Y'), PDO::PARAM_STR);
                 $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                 $sql->execute();
-                return true;
+
+                return 'complete';
             } else {
-              return false;
+                return 'error';
             }
         }
     }
-    public function rating(int $id_user, int $id_question, int $id_playlist)
+    public function rating(int $id_user, string $id_question = null, string $id_playlist = null)
     {
         if ($id_question != null) {
-            $sql = $this->sql->prepare('SELECT id FROM question WHERE id = :id ; ');
-            $this->sql->bindParam(':id', $id_question, PDO::PARAM_INT);
-            $this->execute();
-            $fetch = $this->sql->fetch(PDO::FETCH_ASSOC);
+            $sql = $this->sql->prepare('SELECT id FROM picture WHERE id = :id ; ');
+            $sql->bindParam(':id', $id_question, PDO::PARAM_INT);
+            $sql->execute();
+            $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
-                $sql = $this->sql->prepare('INSERT INTO rating(id_user,id_rating,type)
-                                        VALUES (:id_user ,:id_rating ,1);');
+                $sql = $this->sql->prepare('SELECT * FROM check_rating WHERE id_post = :id_question
+                                            AND type = 1 AND id_user = :id_user ; ');
+                $sql->bindParam(':id_question', $id_question, PDO::PARAM_INT);
                 $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                $sql->bindParam(':id_rating', $id_question, PDO::PARAM_INT);
                 $sql->execute();
+                $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+                if (!$fetch) {
+                    $sql = $this->sql->prepare('SELECT num FROM rating WHERE id_post = :id_question AND type = 1;');
+                    $sql->bindParam(':id_question',$id_question,PDO::PARAM_INT);
+                    $sql->execute();
+                    $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+                    if ($fetch) {
+                        $sql = $this->sql->prepare('UPDATE rating SET num = num + 1 WHERE id_post = :id_post AND type = 1;');
+                        $sql->bindParam(':id_post', $id_question, PDO::PARAM_INT);
+                        $sql->execute();
+                        $sql = $this->sql->prepare('INSERT INTO check_rating(id_user,id_post,type)
+                                                VALUES (:id_user ,:id_post ,1);');
+                        $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                        $sql->bindParam(':id_post', $id_question, PDO::PARAM_INT);
+                        $sql->execute();
+
+                        return 'liked';
+                    }else {
+                        $sql = $this->sql->prepare('INSERT INTO rating(id_post,type,num)
+                                                    VALUES(:id_post ,1,1)');
+                        $sql->bindParam(':id_post', $id_question, PDO::PARAM_INT);
+                        $sql->execute();
+                        $sql = $this->sql->prepare('INSERT INTO check_rating(id_user,id_post,type)
+                                              VALUES (:id_user ,:id_post ,1);');
+                        $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                        $sql->bindParam(':id_post', $id_question, PDO::PARAM_INT);
+                        $sql->execute();
+                        return 'liked';
+                    }
+                }else {
+                  return 'error1';
+                }
+            }else {
+              return 'error2';
             }
         } elseif ($id_playlist != null) {
-            $sql = $this->sql->prepare('SELECT id FROM playlist WHERE id = :id ;');
-            $this->sql->bindParam(':id', $id_playlist, PDO::PARAM_INT);
-            $this->execute();
-            $fetch = $this->sql->fetch(PDO::FETCH_ASSOC);
+            $sql = $this->sql->prepare('SELECT id FROM video_playlist WHERE id_playlist = :id ;');
+            $sql->bindParam(':id', $id_playlist, PDO::PARAM_STR);
+            $sql->execute();
+            $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
-                $sql = $this->sql->prepare('INSERT INTO rating(id_user,id_rating,type)
-                                        VALUES (:id_user ,:id_rating ,2);');
+                $sql = $this->sql->prepare('SELECT * FROM check_rating WHERE id_post = :id_playlist
+                                            AND type = 2 AND id_user = :id_user ; ');
+                $sql->bindParam(':id_playlist', $id_playlist, PDO::PARAM_STR);
                 $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                $sql->bindParam(':id_rating', $id_playlist, PDO::PARAM_INT);
                 $sql->execute();
+                $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+                if (!$fetch) {
+                    $sql = $this->sql->prepare('SELECT num FROM rating WHERE id_post = :id_playlist
+                                                AND type = 2;');
+                    $sql->bindParam(':id_playlist',$id_playlist,PDO::PARAM_STR);
+                    $sql->execute();
+                    $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+                    if ($fetch) {
+                        $sql = $this->sql->prepare('UPDATE rating SET num = num + 1 WHERE id_post = :id_post AND type = 2;');
+                        $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
+                        $sql->execute();
+                        $sql = $this->sql->prepare('INSERT INTO check_rating(id_user,id_post,type)
+                                                VALUES (:id_user ,:id_post ,2);');
+                        $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                        $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
+                        $sql->execute();
+
+                        return 'liked';
+                    }else {
+                        $sql = $this->sql->prepare('INSERT INTO rating(id_post,type,num)
+                                                    VALUES(:id_post ,2,1)');
+                        $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
+                        $sql->execute();
+                        $sql = $this->sql->prepare('INSERT INTO check_rating(id_user,id_post,type)
+                                              VALUES (:id_user ,:id_post ,2);');
+                        $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                        $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
+                        $sql->execute();
+                        return 'liked';
+                    }
+                }else {
+                  return 'error1';
+                }
+            }else {
+              return 'error2';
             }
         }
     }
