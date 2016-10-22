@@ -64,7 +64,6 @@ class co_func
         $sql->bindParam(':id_playlist', $id_video, PDO::PARAM_STR);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-        print_r($fetch);
         if ($fetch['id_playlist'] == $id_video) {
             $sql = $this->sql->prepare('SELECT id_post,COUNT(id_post) FROM comment WHERE id_post = :id_post ;');
             $sql->bindParam(':id_post', $id_video, PDO::PARAM_STR);
@@ -130,10 +129,10 @@ class co_func
                         return 'liked';
                     }
                 }else {
-                  return 'error1';
+                  return 'error';
                 }
             }else {
-              return 'error2';
+              return 'error';
             }
         } elseif ($id_playlist != null) {
             $sql = $this->sql->prepare('SELECT id FROM video_playlist WHERE id_playlist = :id ;');
@@ -177,10 +176,10 @@ class co_func
                         return 'liked';
                     }
                 }else {
-                  return 'error1';
+                  return 'error';
                 }
             }else {
-              return 'error2';
+              return 'error';
             }
         }
     }
@@ -201,17 +200,15 @@ class co_func
             $course->bindParam(':detail', $detail, PDO::PARAM_STR);
             $course->execute();
             $course_f = $course->fetchAll(PDO::FETCH_ASSOC);
-            $return = array_merge($course_f, $question_f);
 
-            return (array) $return;
+            return (array) array_merge($course_f, $question_f);;
         } elseif ($type == 2) {
             $intructor = $this->sql->prepare('SELECT id_author
                                          FROM video_playlist WHERE course_name
                                          LIKE :detail ; ');
             $intructor->bindParam(':detail', $detail, PDO::PARAM_STR);
             $intructor->execute();
-
-            return $intructor->fetchAll(PDO::FETCH_ASSOC);
+            return (array)$intructor->fetchAll(PDO::FETCH_ASSOC);
         } elseif ($type == 3) {
             $course = $this->sql->prepare('SELECT id_author
                                        FROM video_playlist WHERE course_name
@@ -219,7 +216,7 @@ class co_func
             $course->bindParam(':detail', $detail, PDO::PARAM_STR);
             $course->execute();
 
-            return $course->fetchAll(PDO::FETCH_ASSOC);
+            return (array)$course->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 }
