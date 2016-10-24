@@ -45,9 +45,13 @@ class co_controller
   }
   public function search(int $type, string $detail)
   {
-    $this->co->search($type,$detail);
+    $check = $this->co->search($type,$detail);
+    if ($check != null) {
+      $this->view->search();
+    }else {
+      echo "error";
+    }
   }
-
 }
 
 
