@@ -60,8 +60,8 @@ class co_func
                     $sql = $this->sql->prepare('SELECT num FROM rating WHERE id_post = :id_question AND type = 1;');
                     $sql->bindParam(':id_question', $id_question, PDO::PARAM_INT);
                     $sql->execute();
-                    $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-                    if ($fetch) {
+                    $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
+                    if ($fetch1) {
                         $sql = $this->sql->prepare('UPDATE rating SET num = num + 1 WHERE id_post = :id_post AND type = 1;');
                         $sql->bindParam(':id_post', $id_question, PDO::PARAM_INT);
                         $sql->execute();
@@ -70,8 +70,7 @@ class co_func
                         $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                         $sql->bindParam(':id_post', $id_question, PDO::PARAM_INT);
                         $sql->execute();
-
-                        return 'liked';
+                        return (array) $fetch1;
                     } else {
                         $sql = $this->sql->prepare('INSERT INTO rating(id_post,type,num)
                                                     VALUES(:id_post ,1,1)');
@@ -82,8 +81,7 @@ class co_func
                         $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                         $sql->bindParam(':id_post', $id_question, PDO::PARAM_INT);
                         $sql->execute();
-
-                        return 'liked';
+                        return (array) $fetch1;
                     }
                 } else {
                     return 'error';
@@ -108,8 +106,8 @@ class co_func
                                                 AND type = 2;');
                     $sql->bindParam(':id_playlist', $id_playlist, PDO::PARAM_STR);
                     $sql->execute();
-                    $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-                    if ($fetch) {
+                    $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
+                    if ($fetch1) {
                         $sql = $this->sql->prepare('UPDATE rating SET num = num + 1 WHERE id_post = :id_post AND type = 2;');
                         $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
                         $sql->execute();
@@ -119,7 +117,7 @@ class co_func
                         $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
                         $sql->execute();
 
-                        return 'liked';
+                        return (array) $fetch1;
                     } else {
                         $sql = $this->sql->prepare('INSERT INTO rating(id_post,type,num)
                                                     VALUES(:id_post ,2,1)');
@@ -131,7 +129,7 @@ class co_func
                         $sql->bindParam(':id_post', $id_playlist, PDO::PARAM_STR);
                         $sql->execute();
 
-                        return 'liked';
+                        return (array) $fetch1;
                     }
                 } else {
                     return 'error';
@@ -146,7 +144,6 @@ class co_func
         $return = array();
         $detail = '%'.$detail.'%';
         if ($type == 1) {
-            print_r($detail);
             $course = $this->sql->prepare('SELECT course_name,price,id_author
                                            FROM video_playlist WHERE course_name
                                            LIKE :detail ; ');
@@ -161,7 +158,7 @@ class co_func
 
             return (array) array_merge($course_f, $question_f);
         } elseif ($type == 2) {
-            $intructor = $this->sql->prepare('SELECT id_author
+            $intructor = $this->sql->prepare('SELECT *
                                          FROM video_playlist WHERE course_name
                                          LIKE :detail ; ');
             $intructor->bindParam(':detail', $detail, PDO::PARAM_STR);
