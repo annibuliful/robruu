@@ -79,3 +79,4 @@ class authen_DB
         return false;
     }
 }
+?>
