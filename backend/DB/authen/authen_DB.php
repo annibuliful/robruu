@@ -1,4 +1,5 @@
 <?php
+
 class authen_DB
 {
     private $id_user;
@@ -10,27 +11,32 @@ class authen_DB
     private $email;
     public function __construct()
     {
-      $this->sql = new PDO('mysql:dbname=robruu_online;host=127.0.0.1', 'root', '@PeNtesterMYSQL');
-      $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->sql = new PDO('mysql:dbname=robruu_online;host=127.0.0.1', 'root', '@PeNtesterMYSQL');
+        $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
-    public function register($user, $password, $email)
+    public function register(string $user, string $password, string $email,int $flag)
     {
-        $hash_pass = password_hash($password, PASSWORD_DEFAULT);
-        $sql = $this->sql->prepare('SELECT * FROM user WHERE username = :user OR email= :email ;');
-        $sql->bindParam(':user',$user);
-        $sql->bindParam(':email',$email);
-        $sql->execute();
-        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-        if ($fetch) {
-            return "have_user";
-        } else {
-            $sql = $this->sql->prepare('INSERT INTO user(username,password,image,email,score,money,rating)
-                                      VALUES (:user ,:password ,0,:email ,0,0,0);');
+        if ($user != null && $password != null && $email != null && $flag != null) {
+            $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+            $sql = $this->sql->prepare('SELECT * FROM user WHERE username = :user OR email= :email ;');
             $sql->bindParam(':user', $user);
-            $sql->bindParam(':password', $hash_pass);
             $sql->bindParam(':email', $email);
             $sql->execute();
-            return 'registered';
+            $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+            if ($fetch) {
+                return 'have_user';
+            } else {
+                $sql = $this->sql->prepare('INSERT INTO user(username,password,image,email,score,money,rating,flag)
+                                      VALUES (:user ,:password ,0,:email ,0,0,0,:flag );');
+                $sql->bindParam(':user', $user,PDO::PARAM_STR);
+                $sql->bindParam(':password', $hash_pass,PDO::PARAM_STR);
+                $sql->bindParam(':email', $email,PDO::PARAM_STR);
+                $sql->bindParam(':flag',$flag,PDO::PARAM_INT);
+                $sql->execute();
+                return 'registered';
+            }
+        }else {
+          echo "ใส่ข้อมูลไม่ครบ";
         }
     }
     public function login($user, $password, $email)
@@ -43,7 +49,7 @@ class authen_DB
             $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
                 if (password_verify($password, $fetch['password'])) {
-                    return $fetch['id'];
+                    return (int)$fetch['id'];
                 } else {
                     return 'failed';
                 }
@@ -53,7 +59,6 @@ class authen_DB
         } catch (PDOException $e) {
             echo 'error : '.$e->getMessage();
         }
-
     }
     public function check_session($id_user)
     {
@@ -63,19 +68,14 @@ class authen_DB
             $sql->execute();
             $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
-                return true;
+                return $fetch;
             } else {
-                echo 'ไม่มีชื่อนี้ในฐานข้อมูล';
-                echo 'กำลังพาไปหน้าหลัก....';
-                header('refresh: 3; url=index.php');
+                return false;
             }
         } else {
-            echo 'คุณยังไม่ลงชื่อเข้าใช้';
-            echo 'กำลังพาไปหน้าหลัก....';
-            header('refresh: 3; url=index.php');
+            return false;
         }
 
         return false;
     }
 }
-?>
