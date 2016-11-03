@@ -64,8 +64,14 @@ class student
         $sql = $this->sql->prepare('SELECT * FROM course_user WHERE user_id = :id_user');
         $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
         $sql->execute();
-
         return (array) $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function showdetail_course(int $id_course)
+    {
+       $sql = $this->sql->prepare('SELECT course_name FROM video_playlist WHERE id_playlist = :id_playlist ;');
+       $sql->bindParam(':id_playlist',$id_course,PDO::PARAMT_INT);
+       $sql->execute();
+       return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
