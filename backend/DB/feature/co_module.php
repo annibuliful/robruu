@@ -139,7 +139,7 @@ class co_func
             }
         }
     }
-    public function search(int $type, string $detail)
+    /*public function search(int $type, string $detail)
     {
         $return = array();
         $detail = '%'.$detail.'%';
@@ -174,50 +174,85 @@ class co_func
 
             return (array) $course->fetchAll(PDO::FETCH_ASSOC);
         }
-    }
+    }*/
     public function buy(string $id_course, int $id_user)
     {
-        $sql = $this->sql->prepare('SELECT money FROM user WHERE id = :user_id');
-        $sql->bindParam(':user_id', $id_user, PDO::PARAM_INT);
+      $sql = $this->sql->prepare('SELECT * FROM course_user WHERE user_id = :id_user
+                                  AND course_id = :id_course ;');
+      $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+      $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+      $sql->execute();
+      $check = $sql->fetch(PDO::FETCH_ASSOC);
+      if (!$check) {
+        $sql = $this->sql->prepare('SELECT price,id_author,course_name,id_video FROM video_playlist
+                                    WHERE id_playlist = :id_playlist ;');
+        $sql->bindParam(':id_playlist',$id_course,PDO::PARAM_STR);
         $sql->execute();
-        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-        if ($fetch) {
-            $sql = $this->sql->prepare('SELECT price,flag_num FROM video_playlist WHERE id_playlist = :id AND flag_num=1;');
-            $sql->bindParam(':id', $id_course, PDO::PARAM_INT);
-            $sql->execute();
-            $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
-            if ($fetch1 == true && $fetch1['flag_num'] == 1) {
-                $sql = $this->sql->prepare('SELECT * FROM course_user WHERE user_id = :id_user AND course_id=:course_id ;');
-                $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                $sql->bindParam(':course_id', $id_course, PDO::PARAM_STR);
-                $sql->execute();
-                $fetch3 = $sql->fetch(PDO::FETCH_ASSOC);
-                if (!$fetch3) {
-                    if ($fetch['money'] >= $fetch1['price']) {
-                        $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id)
-                                                VALUES (:id_user ,:id_course ) ;');
-                        $sql->bindParam(':id_user', $id_user);
-                        $sql->bindParam(':id_course', $id_course);
-                        $sql->execute();
-                        $sql = $this->sql->prepare('UPDATE user SET
-                                                money = money - :price WHERE id = :id_user ; ');
-                        $sql->bindParam(':price', $fetch1['price'], PDO::PARAM_INT);
-                        $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                        $sql->execute();
-
-                        return 'complete';
-                    } else {
-                        return 'not_enough_money';
-                    }
-                } else {
-                    return 'have_course';
-                }
-            } else {
-                return 'error';
-            }
-        } else {
-            return 'not_login';
+        $price = $sql->fetch(PDO::FETCH_ASSOC);
+        if ($price) {
+          $sql = $this->sql->prepare('SELECT money FROM user WHERE id = :id_user ;');
+          $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+          $sql->execute();
+          $money = $sql->fetch(PDO::FETCH_ASSOC);
+          if ($money['money'] >= $price['price']) {
+               $sql = $this->sql->prepare('UPDATE user SET money = money - :money
+                                           WHERE id = :id_user ;');
+               $sql->bindParam(':money',$price['price'],PDO::PARAM_INT);
+               $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+               $sql->execute();
+               $sql = $this->sql->prepare('UPDATE user SET money = money + :money
+                                           WHERE id = :id_author');
+               $sql->bindParam(':money',$price['price']);
+               $sql->bindParam(':id_author',$price['id_author']);
+               $sql->execute();
+               $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id,course_name,id_video)
+                                           VALUES (:id_user ,:id_course ,:course_name ,:id_video )  ');
+               $sql->bindparam(':id_user',$id_user,PDO::PARAM_INT);
+               $sql->bindparam(':id_course',$id_course,PDO::PARAM_STR);
+               $sql->bindparam(':course_name',$price['course_name']);
+               $sql->bindparam(':id_video',$price['id_video']);
+               $sql->execute();
+               echo "<h2>ซื้อคอสสำเร็จ</h2>";
+          }else {
+            echo "<h2>เงินคุณไม่พอ</h2>";
+          }
+        }else {
+          echo "<h2>เกิดปัญหาการซื้อคอสนี้</h2>";
         }
+      }else {
+        echo "<h2>คุณมีคอสเรียนนี้แล้ว</h2>";
+      }
+
+    }
+    public function search($detail)
+    {
+      $detail = "%$detail%";
+      $sql = $this->sql->prepare("SELECT id_playlist,course_name,description,price FROM video_playlist
+                                 WHERE course_name LIKE :detail ;");
+      $sql->bindParam(':detail',$detail,PDO::PARAM_STR);
+      $sql->execute();
+      return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+    public function point_to_money(string $id_user)
+    {
+      $sql = $this->sql->prepare('SELECT score FROM user WHERE id = :id_user ;');
+      $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+      $sql->execute();
+      $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+      if ($fetch) {
+        $score = (int) $fetch['score'];
+        $money = $score / 14;
+        $sql = $this->sql->prepare('UPDATE user SET money = money + :money WHERE id = :id_user ;');
+        $sql->bindParam(':money',$money,PDO::PARAM_INT);
+        $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+        $sql->execute();
+        $sql = $this->sql->prepare('UPDATE user SET score = 0 WHERE id =:id_user ;');
+        $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+        $sql->execute();
+        echo "<h2>แลกคะแนนเป็นเงินเรียบร้อย</h2>";
+      }
     }
 }
+
 ?>

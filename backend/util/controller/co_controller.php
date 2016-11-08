@@ -16,17 +16,6 @@ class co_controller
     public function buy(string $id_course, int $id_user)
     {
         $check = $this->co->buy($id_course, $id_user);
-        if ($check == 'have_course') {
-            $this->view->buy_have();
-        } elseif ($check == 'not_enough_money') {
-            $this->view->buy_not_enough();
-        } elseif ($chec == 'error') {
-            $this->view->buy_error();
-        } elseif ($check == 'not_login') {
-            $this->view->buy_not_login();
-        } elseif ($check == 'complete') {
-            $this->view->buy_complete();
-        }
     }
     public function comment(int $id_user, string $comment, string $id_video)
     {
@@ -46,14 +35,17 @@ class co_controller
             echo'OK';
         }
     }
-    public function search(int $type, string $detail)
+    public function search(string $detail,string $id_user)
     {
-        $check = $this->co->search($type, $detail);
+        $check = $this->co->search($detail);
         if ($check != null) {
-            $this->view->search();
-            print_r($check);
+            $this->view->search($id_user,$check);
         } else {
-            echo 'error';
+            echo '<h2>ไม่เจอคอสเรียนนี้</h2>';
         }
+    }
+    public function point_to_money(string $id_user)
+    {
+      $check = $this->co->point_to_money($id_user);
     }
 }

@@ -2,30 +2,43 @@
 
 declare(strict_types=1);
 require 'C:/Users/Dell/Documents/GitHub/robruu/backend/DB/feature/intructor_module.php';
+require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/view/intructor_view.php';
 class intructor_controller
 {
-  private $intructor;
+    private $intructor;
+    private $view;
     public function __construct()
     {
         $this->intructor = new intructor();
+        $this->view = new intructor_view();
     }
-    public function question(array $picture,int $id_author,int $id_answer,array $choices, int $id_question,int $check_c,int $score)
+    public function make_course(string $id_user, array $video, string $description = null, string $course_name, string $price = null)
     {
-        $check1 = $this->intructor->picture_upload($picture,$id_author,$id_answer,$score);
-        $check2 = $this->intructor->make_choices($choices,$id_author,$id_question, $check_c);
-        if ($check1 == true && $check2 == true) {
-          echo "yes";
-        }else {
-          echo "false";
+        $check = $this->intructor->video_upload($id_user, $video, $description, $course_name, $price);
+        if ($check == true) {
+            echo 'สร้างคอสเรียนสำเร็จ';
+        } else {
+            echo 'error';
         }
     }
-    public function video(int $id_user, array $video)
+    public function list_course(string $id_author)
     {
-      $this->intructor->video_upload($id_user,$video);
+        $check = $this->intructor->list_course($id_author);
+        if ($check != null && gettype($check) == 'array') {
+          $this->view->list_course($check);
+        }else {
+          echo "error";
+        }
     }
-    public function make_course(int $id_user,int $id_video,string $course_name,int $price)
+    public function question(array $picture,string $answer1,string $answer2,string $answer3,string $answer4, string $id_author, string $id_answer, string $score)
     {
-      $this->intructor->make_course($id_user,$id_video,$course_name,$price);
+        $check1 = $this->intructor->picture_upload($picture,$answer1,$answer2,$answer3,$answer4, $id_author, $id_answer, $score);
+        if ($check1 == true) {
+            echo 'สร้างโจทย์สำเร็จ';
+        } else {
+            echo 'error';
+        }
+
     }
 }
 ?>

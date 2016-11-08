@@ -14,7 +14,7 @@ class authen_DB
         $this->sql = new PDO('mysql:dbname=robruu_online;host=127.0.0.1', 'root', '@PeNtesterMYSQL');
         $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
-    public function register(string $user, string $password, string $email,int $flag)
+    public function register(string $user, string $password, string $email,int $flag,string $name,string $surname,array $image,string $payment_number =  null)
     {
         if ($user != null && $password != null && $email != null && $flag != null) {
             $hash_pass = password_hash($password, PASSWORD_DEFAULT);
@@ -26,13 +26,21 @@ class authen_DB
             if ($fetch) {
                 return 'have_user';
             } else {
-                $sql = $this->sql->prepare('INSERT INTO user(username,password,image,email,score,money,rating,flag)
-                                      VALUES (:user ,:password ,0,:email ,0,0,0,:flag );');
+                $sql = $this->sql->prepare('INSERT INTO user(username,name,surname,
+                                            password,image,email,score,money,rating,flag,payment_number)
+                                      VALUES (:user ,:name ,:surname ,:password ,:image ,:email ,
+                                              0,100,0, :flag ,:payment_number );');
                 $sql->bindParam(':user', $user,PDO::PARAM_STR);
                 $sql->bindParam(':password', $hash_pass,PDO::PARAM_STR);
                 $sql->bindParam(':email', $email,PDO::PARAM_STR);
-                $sql->bindParam(':flag',$flag,PDO::PARAM_INT);
+                $sql->bindParam(':flag',$flag,PDO::PARAM_STR);
+                $sql->bindParam(':name',$name,PDO::PARAM_STR);
+                $sql->bindParam(':surname',$surname,PDO::PARAM_STR);
+                $sql->bindParam(':image',$image['name'],PDO::PARAM_STR);
+                $sql->bindParam(':payment_number',$payment_number,PDO::PARAM_STR);
                 $sql->execute();
+                move_uploaded_file($image['tmp_name'],
+                                 '../../frontend/store/pictures/'.$image['name']);
                 return 'registered';
             }
         }else {

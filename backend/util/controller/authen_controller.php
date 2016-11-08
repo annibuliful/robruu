@@ -12,9 +12,9 @@ class authen_controller
         $this->authen = new authen_DB();
         $this->view = new authen_view();
     }
-    public function register($user, $password, $email, $flag)
+    public function register(string $user, string $password, string $email,int $flag,string $name,string $surname,array $image)
     {
-        $check = $this->authen->register($user, $password, $email, $flag);
+        $check = $this->authen->register($user,$password,$email,$flag,$name,$surname,$image);
         if ($check == 'registered') {
             $this->view->registered();
         } elseif ($check == 'have_user') {
@@ -32,12 +32,15 @@ class authen_controller
             $this->view->login_failed();
         }
     }
-    public function check_session(int $user)
+    public function check_session(string $user)
     {
         $check = $this->authen->check_session($user);
-        if ($check != null && gettype($check) == 'integer') {
+        if ($check != null && gettype($check) == 'array') {
             $this->view->check_session($check);
         } elseif ($check == false) {
+          echo "error";
+        }else {
+          echo "error";
         }
     }
 }

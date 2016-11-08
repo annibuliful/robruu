@@ -1,0 +1,10 @@
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (1, 'Beverly', 79, 68, 67, 46);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (2, 'Joshua', 53, 49, 29, 98);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (3, 'Gloria', 96, 74, 40, 19);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (4, 'Teresa', 97, 82, 13, 94);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (5, 'Lawrence', 53, 25, 63, 53);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (6, 'Samuel', 30, 7, 68, 90);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (7, 'Shirley', 35, 70, 30, 86);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (8, 'Helen', 60, 50, 84, 1);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (9, 'Jack', 94, 36, 2, 52);
+insert into video_playlist (id, course_name, price, id_video, id_author, flag_num) values (10, 'Louis', 22, 41, 67, 47);

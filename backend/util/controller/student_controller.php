@@ -11,29 +11,39 @@ class student_controller
         $this->student = new student();
         $this->view = new student_view();
     }
-    public function answer(int $id_question,int $id_answer,int $id_user)
+    public function answer(string $id_question,string $id_answer,string $id_user)
     {
-       $check = $this->student->answer($id_question,$id_answer,$id_user);
-      if ($check == 'true') {
-        echo "1";
+       $this->student->answer($id_question,$id_answer,$id_user);
+      /*if ($check == 'true') {
         $this->view->answer_true();
       }elseif ($check == 'false') {
-        echo "2";
         $this->view->answer_false();
       }elseif ($check == 'answered') {
-        echo "3";
         $this->view->answer_answered();
+      }*/
+
+    }
+    public function list_course(string $id_user)
+    {
+        $check = $this->student->list_course($id_user);
+        if ($check != null && gettype($check) == 'array') {
+          $this->view->list_course($check);
+        }else {
+          echo "error";
+        }
+    }
+    public function showdetail_video(string $id_course)
+    {
+        $this->view->detail_video($id_course);
+
+    }
+    public function show_question($id_user)
+    {
+      $check = $this->student->show_question();
+      if ($check != null && gettype($check) == 'array') {
+        $this->view->question($check,$id_user);
       }
 
     }
-    public function list_course(int $id_user)
-    {
-        $check = $this->student->list_course($id_user);
-        if ($check != null) {
-          $this->view->list_course($check);
-        }
-    }
 }
-// tested with answer function
-// tested with list course function 
  ?>

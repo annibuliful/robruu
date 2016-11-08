@@ -1,6 +1,6 @@
 <?php
 
-header('location; url=frontend/index.php');
+header('location: ../../frontend/index.html');
 
 
  ?>

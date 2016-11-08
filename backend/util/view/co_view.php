@@ -24,8 +24,6 @@ class co_view
     public function buy_not_login()
     {
         echo '<h3>ยังไม่ได้เข้าสู่ระบบ</h3>';
-        header('refresh: 2; url=C:/Users/Dell/Documents/GitHub/robruu/index.php');
-        exit(0);
     }
     public function comment_complete()
     {
@@ -39,9 +37,35 @@ class co_view
     {
       echo "<h3>เกิดปัญหาการกดไลค์</h3>";
     }
-    public function search(array $return){
-      foreach ($return as $key => $value) {
-        echo "{$key} => {$value}";
+    public function search(string $id_user,array $list){
+      echo "<div class=\"table-responsive\">
+              <table class=\"table\">
+              <thead>
+                <tr>
+                  <th>ชื่อคอสเรียน</th>
+                  <th>ราคา</th>
+                  <th>#</th>
+               </tr>
+              </thead>";
+      for ($i=0; $i <count($list) ; $i++) {
+        echo "
+                  <tbody>
+                       <th>
+                         {$list[$i]["course_name"]}
+                       </th>
+                       <th>
+                         {$list[$i]["price"]}
+                       </th>
+                       <th>
+                       <form action=\"\" method=\"post\" id=\"{$i}\">
+                       <input type=\"hidden\" value=\"{$id_user}\" name=\"id_user\">
+                         <button class=\"btn btn-danger\" type=\"submit\" form=\"{$i}\"name=\"id_playlist\" value=\"{$list[$i]['id_playlist']}\">ซื้อ</button>
+
+                          </form>
+                       </th>
+                  </tbody>
+                ";
       }
+      echo " </table></div>";
     }
 }
