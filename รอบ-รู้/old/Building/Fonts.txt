@@ -1,6 +1,0 @@
-Fonts used in this design;
-
-Font: Exo, 
-Author: Natanael Gama, 
-Url: http://www.fontsquirrel.com/fonts/exo; 
-
