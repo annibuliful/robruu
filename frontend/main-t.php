@@ -37,7 +37,7 @@ if (isset($_SESSION['id'])) {
           <div class="modal-dialog modal-sm">
               <div class="modal-content">
                   <div class="modal-body">
-                      <form class="" action="" method="post">
+                      <form class="" action="../../backend/DB/feature/tmtopup_api.php" method="get">
                         <div class="form-group">
                           <label for=""></label>
                           <img src="../../frontend/true.png" class="img-responsive img-circle" />

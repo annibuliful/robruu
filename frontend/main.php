@@ -52,7 +52,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-body">
-                    <form class="" action="" method="post">
+                    <form class="" action="../../backend/DB/feature/tmtopup_api.php" method="get">
                       <div class="form-group">
                         <label for=""></label>
                         <img src="../../frontend/true.png" class="img-responsive img-circle" />
@@ -98,7 +98,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                     </ul>
                     <ul class="nav navbar-nav" style="margin-top: 10px;margin-left: 30%">
                         <form class="form-inline float-xs-left" action="buy.php" method="post">
-                            <input class="form-control" type="text" name="course_name" placeholder="ค้นหาคอสเรียน">
+                            <input class="form-control" type="text" name="course_name" placeholder="ค้นหาคอร์สเรียน">
                             <input type="submit" class="btn btn-outline-success" name="name" value="ค้นหา">
                         </form>
                     </ul>
@@ -117,7 +117,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <button class="btn btn-primary" id="list" style="width: 100% ;height:100px ;" type="button" data-toggle="collapse" data-target="#list_free" aria-expanded="false" aria-controls="list_free">
-            <h1>คอสเรียนของคุณ</h1>
+            <h1>คอร์สเรียนของคุณ</h1>
           </button>
                     <center>
                         <div class="collapse" id="list_free">
