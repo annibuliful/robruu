@@ -168,12 +168,31 @@ class intructor
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function question_detail(int $id_author,string $id_picture)
+    public function del_question(string $id_author,string $id_question)
     {
-      $sql = $this->sql->prepare('SELECT * FROM picture WHERE id_author = :id_author AND id = :id_picture ;');
+      $sql = $this->pdo->prepare('SELECT id FROM picture WHERE id = :id_question AND id_author = :id_author ;');
+      $sql->bindParam(':id_question',$id_question,PDO::PARAM_STR);
+      $sql->bindParam(':id_author',$id_author,PDO::PARAM_INT);
+      $sql->execute();
+      $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+      if ($fetch) {
+        $sql = $this->pdo->prepare('DELETE FROM picture WHERE id = :id_question AND id_author = :id_author ;');
+        $sql->bindParam(':id_question',$id_question,PDO::PARAM_STR);
+        $sql->bindParam(':id_author',$id_author,PDO::PARAM_INT);
+        $sql->execute();
+        return true;
+      }else {
+        return false;
+      }
+
+    }
+    public function question_detail(string $id_author,string $id_picture)
+    {
+      $sql = $this->pdo->prepare('SELECT * FROM picture WHERE id_author = :id_author AND id = :id_picture ;');
       $sql->bindParam(':id_author',$id_author,PDO::PARAM_INT);
       $sql->bindParam(':id_picture',$id_picture,PDO::PARAM_STR);
       $sql->execute();
       return $sql->fetch(PDO::FETCH_ASSOC);
     }
 }
+?>

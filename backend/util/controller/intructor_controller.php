@@ -32,13 +32,22 @@ class intructor_controller
     }
     public function question(array $picture,string $answer1,string $answer2,string $answer3,string $answer4, string $id_author, string $id_answer, string $score)
     {
-        $check1 = $this->intructor->picture_upload($picture,$answer1,$answer2,$answer3,$answer4, $id_author, $id_answer, $score);
-        if ($check1 == true) {
+        $check = $this->intructor->picture_upload($picture,$answer1,$answer2,$answer3,$answer4, $id_author, $id_answer, $score);
+        if ($check == true) {
             echo 'สร้างโจทย์สำเร็จ';
         } else {
             echo 'error';
         }
 
+    }
+    public function del_question(string $id_author,string $id_question)
+    {
+      $check = $this->intructor->del_question($id_author,$id_question);
+      if ($check == true) {
+        $this->view->del_question_true();
+      }else {
+        $this->view->del_question_false();
+      }
     }
 }
 ?>
