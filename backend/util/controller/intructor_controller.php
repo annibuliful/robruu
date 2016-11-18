@@ -30,15 +30,24 @@ class intructor_controller
           echo "error";
         }
     }
-    public function question(array $picture,string $answer1,string $answer2,string $answer3,string $answer4, string $id_author, string $id_answer, string $score)
+    public function question(string $id_author,string $question,string $id_answer,string $answer1,string $answer2,string $answer3,string $answer4,string $score)
     {
-        $check = $this->intructor->picture_upload($picture,$answer1,$answer2,$answer3,$answer4, $id_author, $id_answer, $score);
+        $check = $this->intructor->make_question($id_author,$question,$id_answer,$answer1,$answer2,$answer3,$answer4,$score);
         if ($check == true) {
-            echo 'สร้างโจทย์สำเร็จ';
+            $this->view->question_true();
         } else {
-            echo 'error';
+            $this->view->question_false();
         }
 
+    }
+    public function get_question(string $id_author,string $id_question)
+    {
+      $check = $this->intructor->get_question($id_author,$id_question);
+      if ($check != null && gettype($check) == 'array') {
+        $this->view->detail_question($check);
+      }else {
+        $this->view->detail_question_false();
+      }
     }
     public function del_question(string $id_author,string $id_question)
     {
