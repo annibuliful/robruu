@@ -68,15 +68,15 @@ class authen_DB
             echo 'error : '.$e->getMessage();
         }
     }
-    public function check_session($id_user)
+    public function check_session(string $id_user)
     {
         if ($id_user != null) {
-            $sql = $this->sql->prepare('SELECT * FROM user WHERE id = :id_user ; ');
+            $sql = $this->sql->prepare('SELECT id FROM user WHERE id = :id_user ; ');
             $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT, 11);
             $sql->execute();
             $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
-                return $fetch;
+                return true;
             } else {
                 return false;
             }
