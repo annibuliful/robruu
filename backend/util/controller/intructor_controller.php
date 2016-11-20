@@ -58,5 +58,17 @@ class intructor_controller
         $this->view->del_question_false();
       }
     }
+    public function make_exam(string $id_author,string $question,string $id_answer,string $answer1,string $answer2,string $answer3,string $answer4,string $id_course)
+    {
+      $check = $this->intructor->make_exam($id_author, $question,$id_answer,$answer1,$answer2,$answer3,$answer4,$id_course);
+      if ($check == true) {
+        $this->view->make_exam_true();
+      }else {
+        $this->view->make_exam_false();
+      }
+    }
 }
+$s = new intructor_controller();
+$s->make_exam('2','asdasdasdwwww','1','awsfwss','3ewewrr','4ertstsdsa','rtst','58203fc2adc63');
+
 ?>

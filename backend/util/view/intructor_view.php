@@ -73,6 +73,13 @@ class intructor_view
   {
     echo "เกิดปัญหาการสร้างโจทย์ โปรดลองใหม่ภายหลัง";
   }
-
+  public function make_exam_true()
+  {
+    echo "เพิ่มข้อสอบสำเร็จ";
+  }
+  public function make_exam_false()
+  {
+    echo "เกิดปัญหาในการเพิ่มข้อสอบ";
+  }
 }
  ?>

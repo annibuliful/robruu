@@ -1,28 +1,21 @@
 <?php
+declare(strict_types=1);
+require 'C:/Users/Dell/Documents/GitHub/robruu/backend/DB/authen/authen_DB.php';
 
 class intructor
 {
     private $sql;
-    private $id_user;
-    private $detail;
-    private $score;
     private $video = array();
-    private $dir;
-    private $price;
-    private $course_name;
-    private $id_video;
-    private $flag_num;
-    private $question;
-    private $level;
-    private $concept;
-    private $hint;
-    private $answer;
     private $uuid;
+    private $authen;
+    private $uuid_exam;
     public function __construct()
     {
         $this->sql = new pdo('mysql:host=localhost;dbname=robruu_online', 'root', '@PeNtesterMYSQL');
         $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->uuid = uniqid('question_');
+        $this->uuid_exam = uniqid('exam_');
+        $this->authen = new authen_DB();
     }
     public function video_upload(string $id_user, array $video, string $description = null, string $course_name, string $price = null)
     {
@@ -193,5 +186,40 @@ class intructor
         return false;
       }
     }
+    public function make_exam(string $id_author,string $question,string $id_answer,string $answer1,string $answer2,string $answer3,string $answer4,string $id_course)
+    {
+      $sql = $this->sql->prepare('SELECT id FROM user WHERE id = :id_author');
+      $sql->bindParam(':id_author',$id_author,PDO::PARAM_INT);
+      $sql->execute();
+      $fetch = $sql->fetch(PDO::FETCH_COLUMN);
+      if ($fetch == true) {
+        $sql = $this->sql->prepare('SELECT id FROM video_playlist WHERE id_playlist = :id_course ;');
+        $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+        $sql->execute();
+        $fetch = $sql->fetch(PDO::FETCH_COLUMN);
+        if ($fetch != null) {
+          $sql = $this->sql->prepare('INSERT INTO question VALUES
+                                      (:id ,:id_author,:question ,:answer1 ,:answer2 ,
+                                        :answer3 ,:answer4 ,0,:id_answer,:id_course ,0)');
+          $sql->bindParam(':id', $this->uuid_exam , PDO::PARAM_STR);
+          $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
+          $sql->bindParam(':question', $question, PDO::PARAM_STR);
+          $sql->bindParam(':answer1', $answer1, PDO::PARAM_STR);
+          $sql->bindParam(':answer2', $answer2, PDO::PARAM_STR);
+          $sql->bindParam(':answer3', $answer3, PDO::PARAM_STR);
+          $sql->bindParam(':answer4', $answer4, PDO::PARAM_STR);
+          $sql->bindParam(':id_answer', $id_answer, PDO::PARAM_INT);
+          $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+          $sql->execute();
+          return true;
+        }else {
+          return false;
+        }
+
+      }else {
+        return false;
+      }
+    }
 }
+
 ?>
