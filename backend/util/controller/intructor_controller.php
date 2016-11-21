@@ -12,13 +12,13 @@ class intructor_controller
         $this->intructor = new intructor();
         $this->view = new intructor_view();
     }
-    public function make_course(string $id_user, array $video, string $description = null, string $course_name, string $price = null)
+    public function make_course(string $id_user, array $video, string $description = null, string $course_name, string $price = null,string $major)
     {
-        $check = $this->intructor->video_upload($id_user, $video, $description, $course_name, $price);
-        if ($check == true) {
-            echo 'สร้างคอสเรียนสำเร็จ';
+        $check = $this->intructor->make_course($id_user, $video, $description, $course_name, $price,$major);
+        if ($check[0]= true && gettype($check) == 'array') {
+            header("refresh: 3; url=../../edit_course.php?id_course={$check[1]}&id_user={$check[2]}");
         } else {
-            echo 'error';
+            echo '<h1>เกิดปัญหาการอัพโหลด</h1>';
         }
     }
     public function list_course(string $id_author)
@@ -69,6 +69,6 @@ class intructor_controller
     }
 }
 $s = new intructor_controller();
-$s->make_exam('2','asdasdasdwwww','1','awsfwss','3ewewrr','4ertstsdsa','rtst','58203fc2adc63');
+$s->make_course('2',$_FILES['video'],$_POST['description'],$_POST['course_name'],$_POST['price'],$_POST['major']);
 
 ?>

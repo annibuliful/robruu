@@ -9,6 +9,7 @@ class intructor
     private $uuid;
     private $authen;
     private $uuid_exam;
+    private $uuid_course;
     public function __construct()
     {
         $this->sql = new pdo('mysql:host=localhost;dbname=robruu_online', 'root', '@PeNtesterMYSQL');
@@ -16,21 +17,23 @@ class intructor
         $this->uuid = uniqid('question_');
         $this->uuid_exam = uniqid('exam_');
         $this->authen = new authen_DB();
+        $this->uuid_course = uniqid('course_');
     }
-    public function video_upload(string $id_user, array $video, string $description = null, string $course_name, string $price = null)
+    public function make_course(string $id_user, array $video, string $description = null, string $course_name, string $price = null,string $major)
     {
         $sql = $this->sql->prepare('SELECT id FROM user WHERE id= :id_user ;');
         $sql->bindParam(':id_user', $id_user);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
-            $sql = $this->sql->prepare('INSERT INTO video_playlist(id_playlist,course_name,
-                                             description,price,id_video,id_author,flag_num)
-                                            VALUES (:id_playlist ,:course_name ,:description ,:price ,
+            $sql = $this->sql->prepare('INSERT INTO course(id_playlist,course_name,
+                                             description,major,price,id_video,id_author,flag_num)
+                                            VALUES (:id_playlist ,:course_name ,:description,:major ,:price ,
                                                     :id_video ,:id_author ,1)');
-            $sql->bindParam(':id_playlist', uniqid());
+            $sql->bindParam(':id_playlist', $this->uuid_course,PDO::PARAM_STR);
             $sql->bindParam(':course_name', $course_name, PDO::PARAM_STR);
             $sql->bindParam(':description', $description, PDO::PARAM_STR);
+            $sql->bindParam(':major', $major, PDO::PARAM_INT);
             $sql->bindParam(':price', $price, PDO::PARAM_INT);
             $name = uniqid('video_').'.mp4';
             $sql->bindParam(':id_video', $name, PDO::PARAM_STR);
@@ -39,53 +42,12 @@ class intructor
             move_uploaded_file($video['tmp_name'],
                                '../../frontend/store/videos/'.$name);
 
-            return true;
+            return array(true,$this->uuid_course,$id_user);
         } else {
             echo 'ไม่มีชื่อผู้ใช้งาน';
             echo 'กำลังพาไปหน้าหลัก....';
-            header('refresh: 3; url=index.html');
+            header('refresh: 3; url=../../index.php');
         }
-    }
-    public function make_course(int $id_user, int $id_video, string $course_name, int $price)
-    {
-        $sql = $this->sql->prepare('SELECT COUNT(id_video),id_video,id_playlist FROM video_playlist WHERE
-                                    course_name = :course_name AND id_video = :id_video
-                                    AND id_author = :id_author ;');
-        $sql->bindParam(':course_name', $course_name, PDO::PARAM_STR);
-        $sql->bindParam(':id_video', $id_video, PDO::PARAM_INT);
-        $sql->bindParam(':id_author', $id_user, PDO::PARAM_INT);
-        $sql->execute();
-        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-        $flag = $fetch['COUNT(id_video)'] + 1;
-        if ($fetch['id_video'] != $id_video) {
-            $sql = $this->sql->prepare('INSERT INTO video_playlist(id_playlist,course_name,price,
-                                      id_video,id_author,flag_num) VALUES (:id_playlist ,:course_name ,:price,
-                                      :id_video,:id_author,:flag_num ) ;');
-            $sql->bindParam(':id_playlist', uniqid(), PDO::PARAM_STR);
-            $sql->bindParam(':course_name', $course_name, PDO::PARAM_STR);
-            $sql->bindParam(':price', $price, PDO::PARAM_INT);
-            $sql->bindParam(':id_video', $id_video, PDO::PARAM_INT);
-            $sql->bindParam(':id_author', $id_user, PDO::PARAM_INT);
-            $sql->bindParam(':flag_num', $flag, PDO::PARAM_INT);
-            $sql->execute();
-            echo 'inserted';
-
-            return true;
-        } else {
-            $this->update_course($id_video, $id_user, $course_name, $flag, $fetch['id_playlist']);
-            echo 'updated';
-        }
-    }
-    public function update_course(int $id_video, int $id_user, string $course_name, int $flag_num, string $id_playlist)
-    {
-        $sql = $this->sql->prepare('INSERT INTO video_playlist(id_playlist,course_name,price,id_video,id_author,flag_num)
-                                VALUES (:id_playlist,:course_name ,0,:id_video ,:id_author ,:flag_num ) ;');
-        $sql->bindParam(':id_playlist', $id_playlist, PDO::PARAM_STR);
-        $sql->bindParam(':course_name', $course_name, PDO::PARAM_STR, 120);
-        $sql->bindParam(':id_video', $id_video, PDO::PARAM_INT, 50);
-        $sql->bindParam(':id_author', $id_user, PDO::PARAM_INT, 10);
-        $sql->bindParam(':flag_num', $flag_num, PDO::PARAM_INT);
-        $sql->execute();
     }
     public function list_course(string $id_author)
     {
