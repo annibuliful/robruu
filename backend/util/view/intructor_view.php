@@ -81,5 +81,32 @@ class intructor_view
   {
     echo "เกิดปัญหาในการเพิ่มข้อสอบ";
   }
+  public function get_list_video_course(array $detail)
+  {
+    for ($i=0; $i <count($detail) ; $i++) {
+      echo "<div class=\"table-responsive\">
+              <table class=\"table\">
+                <tbody>
+                     <th>
+                       {$detail[$i]['description']}
+                     </th>
+                     <th>
+                        <button id=\"del\" class=\"btn-warning\" value=\"{$detail[$i]['id_video']}\">ลบวิดีโอ</button>
+                        <button id =\"detail\"class\"btn-info\" value=\"{$detail[$i]['id_video']}\">รายละเอียด</button>
+                     </th>
+                </tbody>
+              </table>
+            </div>";
+    }
+
+  }
+  public function update_course_true()
+  {
+    echo "เพิ่มวิดีโอเรียบร้อย";
+  }
+  public function update_course_false()
+  {
+    echo "เกิดปัญหาในการเพิ่มวิดีโอ";
+  }
 }
  ?>

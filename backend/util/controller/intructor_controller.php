@@ -21,6 +21,24 @@ class intructor_controller
             echo '<h1>เกิดปัญหาการอัพโหลด</h1>';
         }
     }
+    public function update_course(string $id_author, string $id_course, array $video, string $description = null)
+    {
+      $check = $this->intructor->update_course($id_author,$id_course,$video,$description);
+      if ($check == true) {
+        $this->view->update_course_true();
+      }else {
+        $this->view->update_course_false();
+      }
+    }
+    public function get_list_video_course(string $id_course)
+    {
+        $check = $this->intructor->get_list_video_course($id_course);
+        if ($check != null &&gettype($check) == 'array') {
+          $this->view->get_list_video_course($check);
+        }else {
+          echo "เกิดปัญหาในการแก้ไข";
+        }
+    }
     public function list_course(string $id_author)
     {
         $check = $this->intructor->list_course($id_author);
@@ -69,6 +87,6 @@ class intructor_controller
     }
 }
 $s = new intructor_controller();
-$s->make_course('2',$_FILES['video'],$_POST['description'],$_POST['course_name'],$_POST['price'],$_POST['major']);
+$s->update_course($_POST['id_author'],$_POST['id_course'],$_FILES['video'],$_POST['description']);
 
 ?>
