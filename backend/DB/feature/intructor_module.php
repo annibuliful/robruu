@@ -82,33 +82,35 @@ class intructor
                 $name = uniqid('video_').'.mp4';
                 $sql->bindParam(':id_video', $name, PDO::PARAM_STR);
                 $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
-                $sql->bindParam(':flag_num',$flag_num,PDO::PARAM_INT);
+                $sql->bindParam(':flag_num', $flag_num, PDO::PARAM_INT);
                 $sql->execute();
+
                 return true;
-            }elseif ($description != null) {
-              $sql = $this->sql->prepare('INSERT INTO course(id_playlist,course_name,
+            } elseif ($description != null) {
+                $sql = $this->sql->prepare('INSERT INTO course(id_playlist,course_name,
                                     description,major,price,id_video,id_author,flag_num)
                                     VALUES (:id_playlist ,:course_name ,:description,:major ,:price ,
                                             :id_video ,:id_author ,:flag_num ) ;');
-              $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_STR);
-              $sql->bindParam(':course_name', $fetch['course_name'], PDO::PARAM_STR);
-              $sql->bindParam(':description', $description, PDO::PARAM_STR);
-              $sql->bindParam(':major', $fetch['major'], PDO::PARAM_INT);
-              $sql->bindParam(':price', $fetch['price'], PDO::PARAM_INT);
-              $name = uniqid('video_').'.mp4';
-              $sql->bindParam(':id_video', $name, PDO::PARAM_STR);
-              $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
-              $sql->bindParam(':flag_num',$flag_num,PDO::PARAM_INT);
-              $sql->execute();
-              return true;
+                $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_STR);
+                $sql->bindParam(':course_name', $fetch['course_name'], PDO::PARAM_STR);
+                $sql->bindParam(':description', $description, PDO::PARAM_STR);
+                $sql->bindParam(':major', $fetch['major'], PDO::PARAM_INT);
+                $sql->bindParam(':price', $fetch['price'], PDO::PARAM_INT);
+                $name = uniqid('video_').'.mp4';
+                $sql->bindParam(':id_video', $name, PDO::PARAM_STR);
+                $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
+                $sql->bindParam(':flag_num', $flag_num, PDO::PARAM_INT);
+                $sql->execute();
+
+                return true;
             }
-        }else {
-          return false;
+        } else {
+            return false;
         }
     }
     public function get_list_video_course(string $id_course)
     {
-        $sql = $this->sql->prepare('SELECT * FROM course WHERE id_playlist = :id_playlist ;');
+        $sql = $this->sql->prepare('SELECT course_name,id_playlist FROM course WHERE id_playlist = :id_playlist AND flag_num = 1;');
         $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_STR);
         $sql->execute();
 
@@ -122,13 +124,14 @@ class intructor
     }
     public function del_question(string $id_author, string $id_question)
     {
-        $sql = $this->sql->prepare('SELECT id FROM picture WHERE id = :id_question AND id_author = :id_author ;');
+        $sql = $this->sql->prepare('SELECT id FROM question WHERE id = :id_question AND id_author =
+                                    :id_author ;');
         $sql->bindParam(':id_question', $id_question, PDO::PARAM_STR);
         $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
-            $sql = $this->sql->prepare('DELETE FROM picture WHERE id = :id_question AND id_author = :id_author ;');
+            $sql = $this->sql->prepare('DELETE FROM question WHERE id = :id_question AND id_author = :id_author ;');
             $sql->bindParam(':id_question', $id_question, PDO::PARAM_STR);
             $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
             $sql->execute();
@@ -140,7 +143,7 @@ class intructor
     }
     public function question_detail(string $id_author, string $id_picture)
     {
-        $sql = $this->sql->prepare('SELECT * FROM picture WHERE id_author = :id_author
+        $sql = $this->sql->prepare('SELECT * FROM question WHERE id_author = :id_author
                                   AND id = :id_picture ;');
         $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
         $sql->bindParam(':id_picture', $id_picture, PDO::PARAM_STR);
@@ -150,7 +153,7 @@ class intructor
     }
     public function get_question(string $id_author, string $id_question)
     {
-        $sql = $this->sql->prepare('SELECT * FROM picture WHERE id = :id_question
+        $sql = $this->sql->prepare('SELECT * FROM question WHERE id = :id_question
                                   AND id_author = :id_author ;');
         $sql->bindParam(':id_question', $id_question, PDO::PARAM_STR);
         $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
@@ -161,13 +164,13 @@ class intructor
     public function edit_question(string $id_author, string $id_question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, int $score)
     {
         $id_answer1 = (int) $id_answer - 1;
-        $sql = $this->sql->prepare('SELECT id FROM picture WHERE id = :id_question AND id_author = :id_author ;');
+        $sql = $this->sql->prepare('SELECT id FROM question WHERE id = :id_question AND id_author = :id_author ;');
         $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
         $sql->bindParam(':id_question', $id_question, PDO::PARAM_STR);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
-            $sql = $this->sql->prepare('UPDATE picture SET id_answer = :id_answer ,
+            $sql = $this->sql->prepare('UPDATE question SET id_answer = :id_answer ,
                                    score = :score ,answer1 = :answer1 ,answer2 = :answer2
                                    answer3 = :answer3 ,answer4 = :answer4 WHERE id = :id_question
                                   AND id_author = :id_author ;');
@@ -212,7 +215,7 @@ class intructor
             return false;
         }
     }
-    public function make_exam(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $id_course)
+    public function make_exam(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $id_course, string $score)
     {
         $sql = $this->sql->prepare('SELECT id FROM user WHERE id = :id_author');
         $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
@@ -226,7 +229,7 @@ class intructor
             if ($fetch != null) {
                 $sql = $this->sql->prepare('INSERT INTO question VALUES
                                       (:id ,:id_author,:question ,:answer1 ,:answer2 ,
-                                        :answer3 ,:answer4 ,0,:id_answer,:id_course ,0)');
+                                        :answer3 ,:answer4 ,:score ,:id_answer,:id_course ,0)');
                 $sql->bindParam(':id', $this->uuid_exam, PDO::PARAM_STR);
                 $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
                 $sql->bindParam(':question', $question, PDO::PARAM_STR);
@@ -236,6 +239,7 @@ class intructor
                 $sql->bindParam(':answer4', $answer4, PDO::PARAM_STR);
                 $sql->bindParam(':id_answer', $id_answer, PDO::PARAM_INT);
                 $sql->bindParam(':id_course', $id_course, PDO::PARAM_STR);
+                $sql->bindParam(':score', $score, PDO::PARAM_INT);
                 $sql->execute();
 
                 return true;
@@ -244,6 +248,50 @@ class intructor
             }
         } else {
             return false;
+        }
+    }
+    public function return_draft(string $id_author, string $id_course)
+    {
+        $sql = $this->sql->prepare('SELECT data FROM content WHERE id_author = :id_author AND id_course = :id_course');
+        $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
+        $sql->bindParam(':id_course', $id_course, PDO::PARAM_STR);
+        $sql->execute();
+        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+        if ($fetch) {
+            return (array)$fetch;
+        } else {
+            $data = '';
+            $flag = 'true';
+            $sql = $this->sql->prepare('INSERT INTO content VALUES
+                                        (:id_author ,:id_course ,:data ,:flag );');
+            $sql->bindValue(':data',$data,PDO::PARAM_STR);
+            $sql->bindValue(':flag',$flag,PDO::PARAM_STR);
+            $sql->bindParam(':id_author',$id_author,PDO::PARAM_INT);
+            $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+            $sql->execute();
+            return true;
+        }
+    }
+    public function save_draft(string $id_author, string $id_course, string $data = null, string $flag = null)
+    {
+        if ($flag == 'public') {
+            $draft = 'false';
+            $sql = $this->sql->prepare('UPDATE content SET draft = :flag ,data =:data WHERE id_author = :id_author
+                                      AND id_course = :id_course ;');
+            $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
+            $sql->bindParam(':id_course', $id_course, PDO::PARAM_STR);
+            $sql->bindValue(':flag', $draft, PDO::PARAM_STR);
+            $sql->bindParam(':data', $data, PDO::PARAM_STR);
+            $sql->execute();
+            echo "สร้างเนื้อหาเรียบร้อย";
+        }elseif ($data != null && $flag == 'save') {
+            $sql = $this->sql->prepare('UPDATE content SET data = :data WHERE
+                                        id_author = :id_author AND id_course = :id_course ;');
+            $sql->bindParam(':data',$data,PDO::PARAM_STR);
+            $sql->bindParam(':id_author',$id_author,PDO::PARAM_INT);
+            $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+            $sql->execute();
+            echo "บันทึกเรียบร้อย";
         }
     }
 }

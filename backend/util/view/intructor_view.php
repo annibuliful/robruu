@@ -108,5 +108,9 @@ class intructor_view
   {
     echo "เกิดปัญหาในการเพิ่มวิดีโอ";
   }
+  public function return_draft(array $draft)
+  {
+    echo $draft['data'];
+  }
 }
  ?>

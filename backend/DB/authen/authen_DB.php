@@ -83,8 +83,6 @@ class authen_DB
         } else {
             return false;
         }
-
-        return false;
     }
 }
 ?>
