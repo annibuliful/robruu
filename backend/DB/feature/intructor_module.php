@@ -20,7 +20,7 @@ class intructor
         $this->authen = new authen_DB();
         $this->uuid_course = uniqid('course_');
     }
-    public function make_course(string $id_user, array $video, string $description = null, string $course_name, string $price = null, string $major)
+    public function make_course(string $id_user, array $video, string $description = null, string $course_name, string $price = null, string $major,array $cover)
     {
         $sql = $this->sql->prepare('SELECT id FROM user WHERE id= :id_user ;');
         $sql->bindParam(':id_user', $id_user);
@@ -28,21 +28,23 @@ class intructor
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
             $sql = $this->sql->prepare('INSERT INTO course(id_playlist,course_name,
-                                             description,major,price,id_video,id_author,flag_num)
+                                             description,major,price,id_video,id_author,flag_num,cover)
                                             VALUES (:id_playlist ,:course_name ,:description,:major ,:price ,
-                                                    :id_video ,:id_author ,1)');
+                                                    :id_video ,:id_author ,1,:cover)');
             $sql->bindParam(':id_playlist', $this->uuid_course, PDO::PARAM_STR);
             $sql->bindParam(':course_name', $course_name, PDO::PARAM_STR);
             $sql->bindParam(':description', $description, PDO::PARAM_STR);
             $sql->bindParam(':major', $major, PDO::PARAM_INT);
             $sql->bindParam(':price', $price, PDO::PARAM_INT);
             $name = uniqid('video_').'.mp4';
+            $cover_name = uniqid('cover_').'.png';
             $sql->bindParam(':id_video', $name, PDO::PARAM_STR);
             $sql->bindParam(':id_author', $id_user, PDO::PARAM_INT);
+            $sql->bindParam(':cover',$cover_name,PDO::PARAM_STR);
             $sql->execute();
             move_uploaded_file($video['tmp_name'],
                                '../../frontend/store/videos/'.$name);
-
+            move_uploaded_file($cover['tmp_name'],'../../frontend/store/pictures/'.$cover_name);
             return array(true, $this->uuid_course, $id_user);
         } else {
             echo 'ไม่มีชื่อผู้ใช้งาน';
