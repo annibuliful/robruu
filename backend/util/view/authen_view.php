@@ -34,7 +34,7 @@ class authen_view
   public function check_session(array $detail)
   {
     echo "
-    <ul class=\"nav navbar-nav navbar-right\">
+    <ul class=\"nav navbar-nav navbar-right\" >
      <li ><a href=\"#\">{$detail['score']}
      <img src=\"picture/Point.png\" style=\"width: 15px; height:15px;margin-bottom: 5px\" ><br>
      </a></li>
