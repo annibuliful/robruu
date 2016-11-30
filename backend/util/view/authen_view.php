@@ -37,7 +37,6 @@ class authen_view
     <ul class=\"nav navbar-nav navbar-right\">
      <li ><a href=\"#\">{$detail['score']}
      <img src=\"picture/Point.png\" style=\"width: 15px; height:15px;margin-bottom: 5px\" ><br>
-     {$detail['money']} <img src=\"picture/Coin.png\" style=\"width: 15px; height:15px;margin-bottom: 5px\" >
      </a></li>
       <li class=\"dropdown\">
         <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">
@@ -45,8 +44,6 @@ class authen_view
           style=\"width: 30px; height: 30px; !important\" />
         <span class=\"caret\"></span></a>
         <ul class=\"dropdown-menu\">
-          <li><a href=\"#\" data-toggle=\"modal\" data-target=\"#topup\">topup</a></li>
-          <li><a href=\"../../frontend/controller/point_to_money.php?id_user={$detail['id']}\">แลกเปลี่ยนเงิน</a></li>
           <li><a href=\"logout.php\">logout</a></li>
         </ul>
       </li>

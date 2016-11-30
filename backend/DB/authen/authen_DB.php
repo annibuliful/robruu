@@ -71,12 +71,12 @@ class authen_DB
     public function check_session(string $id_user)
     {
         if ($id_user != null) {
-            $sql = $this->sql->prepare('SELECT id FROM user WHERE id = :id_user ; ');
+            $sql = $this->sql->prepare('SELECT * FROM user WHERE id = :id_user ; ');
             $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT, 11);
             $sql->execute();
             $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
-                return true;
+                return $fetch;
             } else {
                 return false;
             }

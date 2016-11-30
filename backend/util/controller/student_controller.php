@@ -27,14 +27,19 @@ class student_controller
     {
         $check = $this->student->list_course($id_user);
         if ($check != null && gettype($check) == 'array') {
-          $this->view->list_course($check);
+          $this->view->list_course($check,$id_user);
         }else {
           echo "error";
         }
     }
-    public function showdetail_video(string $id_course)
+    public function showdetail_course(string $id_course)
     {
-        $this->view->detail_video($id_course);
+        $check = $this->student->showdetail_course($id_course);
+        if ($check != null && gettype($check) =='array') {
+          $this->view->showdetail_course($check);
+        }else {
+          echo "error";
+        }
 
     }
     public function show_question($id_user)
@@ -44,6 +49,10 @@ class student_controller
         $this->view->question($check,$id_user);
       }
 
+    }
+    public function exam(array $id_answer,array $id_question,string $id_user)
+    {
+      $check = $this->student->answer_exam($id_answer,$id_question,$id_user);
     }
 }
  ?>

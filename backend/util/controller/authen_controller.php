@@ -37,9 +37,7 @@ class authen_controller
         $check = $this->authen->check_session($user);
         if ($check != null && gettype($check) == 'array') {
             $this->view->check_session($check);
-        } elseif ($check == false) {
-          echo "error";
-        }else {
+        } else{
           echo "error";
         }
     }

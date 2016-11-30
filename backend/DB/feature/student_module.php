@@ -21,7 +21,7 @@ class student
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
       if (!$fetch) {
 
-        $sql = $this->sql->prepare('SELECT score,id FROM picture WHERE id = :id_question AND id_answer = :id_answer ;');
+        $sql = $this->sql->prepare('SELECT score,id FROM question WHERE id = :id_question AND id_answer = :id_answer ;');
         $sql->bindparam(':id_question', $id_question, PDO::PARAM_STR);
         $sql->bindparam(':id_answer',$id_answer,PDO::PARAM_STR);
         $sql->execute();
@@ -61,21 +61,44 @@ class student
 
         return (array) $sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function showdetail_video(string $id_course)
+    public function showdetail_course(string $id_course)
     {
-        $sql = $this->sql->prepare('SELECT * FROM video_playlist WHERE id_playlist = :id_playlist ;');
+        $sql = $this->sql->prepare('SELECT * FROM course WHERE id_playlist = :id_playlist ;');
         $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_INT);
         $sql->execute();
 
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
+        return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function show_question()
+    public function answer_exam(array $id_answer,array $id_question,string $id_user)
     {
-        $sql = $this->sql->prepare('SELECT id,name,answer1,answer2,answer3,answer4 FROM picture ;');
+      $return_score = 0;
+      for ($i=0; $i <count($id_question) ; $i++) {
+        $sql = $this->sql->prepare('SELECT * FROM check_user WHERE id_user = :id_user AND id_question = :id_question ;');
+        $sql->bindparam(':id_user',$id_user,PDO::PARAM_INT);
+        $sql->bindparam(':id_question',$id_question,PDO::PARAM_STR);
         $sql->execute();
+        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+      if (!$fetch) {
 
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql = $this->sql->prepare('SELECT score,id FROM question WHERE id = :id_question AND id_answer = :id_answer ;');
+        $sql->bindparam(':id_question', $id_question[$i], PDO::PARAM_STR);
+        $sql->bindparam(':id_answer',$id_answer[$i],PDO::PARAM_STR);
+        $sql->execute();
+        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+        if ($fetch) {
+            $sql = $this->sql->prepare('UPDATE user SET score = score + :score WHERE id = :id_user ;');
+            $sql->bindParam(':score',$fetch['score'],PDO::PARAM_INT);
+            $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+            $sql->execute();
+            $sql = $this->sql->prepare('INSERT INTO check_user(id_user,id_question) VALUES (:id_user ,:id_question )');
+            $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
+            $sql->bindParam(':id_question',$id_question,PDO::PARAM_STR);
+            $sql->execute();
+            $return_score += (int)$fetch['score'];
+        }
+      }
+      }
+      echo"<h2>คุณได้คะแนน ".$return_score."</h2>";
     }
-
 }
     ?>

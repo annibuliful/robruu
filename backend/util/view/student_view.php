@@ -15,23 +15,36 @@ class student_view
   public function answer_answered(){
     echo "โจทย์ข้อนี้คุณตอบไปแล้ว";
   }
-  public function list_course(array $list)
+  public function showdetail_course(array $detail)
+  {
+    for ($i=0; $i <count($detail) ; $i++) {
+      echo "<h3>{$detail[$i]['description']}</h3>
+      <button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#demo{$i}\">กดดูวิดีโอ</button>
+       <div id=\"demo{$i}\" class=\"collapse\">
+        <center><video width=\"100%\" height=\"50%\" controls >
+         <source src=\"../../frontend/store/videos/{$detail[$i]['id_video']}\" type=\"video/mp4\"/>
+      </video></center>
+    </div>";
+    }
+
+  }
+  public function list_course(array $list,$id_user)
   {
     for ($i=0; $i < count($list) ; $i++) {
-      echo "<div class=\"table-responsive\">
-              <table class=\"table\">
-                <tbody>
-                     <th>
-                       {$list[$i]["course_name"]}
-                     </th>
-                     <th>
-                       <input type=\"image\" class=\"img-responsive img-circle\"src=\"picture/video.png\"
-                           style=\"width: 60px; height: 60px\" value=\"{$list[$i]['id_video']}\" id=\"detail\" data-toggle=\"modal\"
-                           data-target=\"#myModal\">
-                     </th>
-                </tbody>
-              </table>
-            </div>";
+      echo "<li class=\"media\">
+                <a class=\"pull-left\" href=\"#\"><img class=\"media-object\" src=\"store/pictures/\" height=\"150\" width=\"150\"></a>
+                <div class=\"media-body\">
+                  <font size=\"5\" style=\"font-weight:bold\">{$list[$i]['course_name']}</font>
+                  <pre style=\"font-size:18\">{$list[$i]['description']}</pre>
+                  <button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#c1{$i}\">Do it!</button>
+                  <div id=\"c1{$i}\" class=\"collapse\">
+                    <img src=\"button/sheet.png\" width=\"50\">
+                    <a href=\"video.php?id_course={$list[$i]['course_id']}&id_user={$id_user}\"><img src=\"button/video.png\" width=\"50\"></a>
+                    <img src=\"button/exercise.png\" width=\"50\">
+                    <img src=\"button/quiz.png\" width=\"50\">
+                  </div>
+                </div>
+              </li>";
     }
   }
   public function detail_video(string $detail)
