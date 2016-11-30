@@ -1,14 +1,12 @@
 <html>
 
 <head>
-    <title>Rob-Roo l รอบรู้ทุกการศึกษาของวัยเรียน วัยTEEN</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <link href="lib/pingendo.css" rel="stylesheet" type="text/css">
     <link href="lib/front_awesome.css" rel="stylesheet" type="text/css">
-
     <style>
         @font-face {
             font-family: thaisan;
@@ -18,64 +16,114 @@
         * {
             font-family: thaisan;
             !important;
-            font-size: 18px;
+        }
+    </style>
+    <style>
+        .center {
+            text-align: center;
         }
     </style>
 </head>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm"style="width:350px,margin:auto;">
+        <div class="modal-content">
+            <div class="modal-body">
+                <center>
+                    <form class="form-inline" style="font-size: 15" action="controller/register.php" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>ชื่อผู้ใช้งาน</label>
+                            <input type="text" name="name" class="form-control" style="margin-left:12px;width:200px" placeholder="ชื่อผู้ใช้งาน">
+                            <br><br>
+                        </div>
+                        <div class="form-group">
+                            <label>รหัสผ่าน</label>
+                            <input type="text" name="pass" class="form-control" style="margin-left:19px;width:200px" placeholder="รหัสผ่าน">
+                        </div><br><br>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input type="text" name="email" class="form-control" style="margin-left:25px;width:200px" placeholder="รหัสผ่าน">
+                        </div><br><br>
+                        <div class="form-group">
+                            <label>ชื่อ-นามสกุล</label>
+                            <input type="text" name="user" class="form-control" style="width:200px" placeholder="ชื่อจริง">
+                        </div><br><br>
+                        <div class="form-group">
+                            <label>รูปโปรไฟล์</label>
+                            <input type="file" name="image" class="form-control" style="margin-left:10px;width:200px" placeholder="รหัสผ่าน">
+                        </div><br><br>
+                        <input type="submit" class="btn btn-default btn-info btn-lg"name="submit" value="สมัคร">
 
-<body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-             </button>
-                <a href="#"><span></span><img src="band.png" style="height: 60px" class="img-responsive"></a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav" style="margin-top: 10px;margin-left: 35%">
-                    <form class="form-inline float-xs-left">
-                        <input class="form-control" type="text" placeholder="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
-                </ul>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-    <div class="cover col-md-8">
-        <div class="cover-image" style="background-image: url(bgcover.png);"></div>
+</div>
+
+<body>
+
+    <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; text-align: center;">
+        <div class="container" style="; width:90%">
+            <div class="navbar-heade" style="margin-top:1%;height:10%">
+                <img src="pic/brand.png" style="height:100%">
+            </div>
+        </div>
     </div>
-    <div class="cover col-md-4" style="background-color: #f2f2f2">
+    <div class="cover">
+        <div class="cover-image" style="background-image: url(pic/22918-NU6SNY.jpg);"></div>
         <div class="container">
-            <div class="col-md-10" style="margin-left: 10%">
-                <center>
-                    <img src="logo.png" class="img-responsive" style="margin-top: 50; height: 200px">
-                </center>
-                <br>
-                <br>
-                <form class="form-horizontal" role="form" action="main.php" method="post">
-                    <center>
+            <div class="row">
+                <div class="col-md-12 text-center" style="margin-top:2%">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6 text-center" style="background-color:368d7c;opacity:0.96;">
+                        <font style="background-color:368d7c;font-size:45;" color="white">เรียนไป สอนไป</font>
+                        <font style="background-color:368d7c;font-size:55;" color="white">
+                            <i>เก่งไปด้วยกัน</i>
+                        </font>
+                    </div>
+                    <br><br>
+                    <div class="col-md-12">
+                      <div class="col-md-3"></div>
+                      <div class="col-md-6 text-center">
+                          <font style="background-color:774538;font-size:27;opacity:0.9;" color="white">Web APP ที่ทุกคนสามารถใช้แลกเปลี่ยนความรู้ด้วยกันได้</font>
+                      </div>
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <a class="btn btn-danger" data-toggle="collapse" data-target="#login" style="font-size:200%;width:300;height:60">Join</a>
+                    <br>
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4 collapse img-thumbnail" style="margin:auto;background-color:#ffffff;" id="login">
+                    <br>
+                    <form class="form-horizontal" action="main.php" method="post"style="margin-left: 50px" role="form">
                         <div class="form-group">
-                            <div class="col-sm-2">
-                                <label for="inputEmail3" class="control-label">User</label>
+                            <div class="col-sm-3">
+                                <label for="inputEmail3" class="control-label">ชื่อผู้ใช้งาน</label>
                             </div>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="inputEmail3" name="user" placeholder="User OR E-mail">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="user" id="inputEmail3" placeholder="Username or E-mail">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-2">
-                                <label for="inputPassword3" class="control-label" style="font-size:100%">Password </label>
+                            <div class="col-sm-3">
+                                <label for="inputPassword3" class="control-label">รหัสผ่าน</label>
                             </div>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" name="pass" id="inputPassword3" placeholder="Password">
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="pass"id="inputPassword3" placeholder="Password">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
+                            <div class="col-sm-offset-2 col-sm-4">
                                 <div class="checkbox">
                                     <label>
                       <input type="checkbox">Remember me</label>
@@ -84,276 +132,133 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-default">
-                    <img src="button\Login.png" style="height: 60px">
-                  </button>
+                                <button type="submit" class="btn btn-default btn-info btn-lg"><font size="5">Sign in</font></button>
+
+                                <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#myModal">
+                                        <font size="5">Register</font>
+                                    </button>
                             </div>
                         </div>
-                        <center>
-                            <div style="margin-top: 100">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
-                                  <font size="5"><i><u>Register</u></i></font>
-                                </button>
-                            </div>
-                        </center>
-                    </center>
-                </form>
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12 text-center">
-                                            <h2>register</h2>
-                                            <form action="controller/register.php" method="post" enctype="multipart/form-data">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="user" placeholder="username">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" name="pass" placeholder="password">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="email" placeholder="E-mail">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="name" placeholder="ชื่อจริง">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" name="surname" placeholder="นามสกุล">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="file" class="form-control" name="image">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="radio-inline"><input type="radio" name="flag" value="1">นักเรียน</label>
-                                                    <label class="radio-inline"><input type="radio" name="flag" value="2" data-toggle="collapse" data-target="#payment">คุณครู</label>
-                                                    <div id="payment" class="collapse">
-                                                        <div class="container">
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" name="payment_number" placeholder="หมายเลขบัญชี">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="submit" class="btn btn-default" name="submit" value="สมัครสมาชิก">
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-
-                    </div>
+                        <br>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container"></div>
-    <br>
+    <div class="section" style="background-color:f2f2f2;margin-top:10">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" align="center">
+                    <img src="pic/float.gif" style="width:30%;">
+                    <br>
+                    <font style="font-weight: bold;font-size:400%;">รอบรู้ คืออะไร?</font>
+                    <br>
+                    <p>
+                        <font style=";font-size:200%;">เว็บแอ็พ ศูนย์รวบรวมความรู้ที่ทุกคนสามารถใช้เพื่อแลกเปลี่ยนหรือหาความรู้ได้</font>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <font style="font-weight: bold;font-size: 270%;margin-left:5%">รอบรู้มีอะไร ทำอะไรได้บ้าง?</font>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" style="background-color:#4285f4">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                <font style="font-weight: bold;font-size: 200%;margin-left:5%" color="white">เรียนได้ฟรีๆไม่เสียเงิน</font>
+            </a>
+            <div>เรียนได้ง่ายๆ แค่คลิ๊ก อ่าน และลงมือทำ
+                <br>.</div>
+        </div>
+        <div class="col-md-3" style="background-color:#ea4335">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                <font style="font-weight: bold;font-size: 200%;margin-left:5%" color="white">รอบรู้มีอะไร ทำอะไรได้บ้าง?</font>
+            </a>
+            <div>เรียนได้ง่ายๆ แค่คลิ๊ก อ่าน และลงมือทำ</div>
+        </div>
+        <div class="col-md-3" style="background-color:#fbbc05">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                <font style="font-weight: bold;font-size: 200%;margin-left:5%" color="white">Point</font>
+            </a>
+            <div>เรียนได้ง่ายๆ แค่คลิ๊ก อ่าน และลงมือทำ</div>
+        </div>
+        <div class="col-md-3" style="background-color:#23a884">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                <font style="font-weight: bold;font-size: 200%;margin-left:5%" color="white">แบ่งปันความรู้ที่มี</font>
+            </a>
+            <div>สำหรับผู้ที่ศึกษาเรื่องๆหนึ่งเป็นอย่างดีแล้วต้องการจะแชร์ ความรู้ แชร์เทคนิคการทำ ก็ทำได้
+            </div>
+        </div>
+    </div>
+    <div class="panel-collapse collapse" id="collapse1">
+        <div class="section panel-body" style="background-color:#4285f4">555555</div>
+    </div>
+    <div class="panel-collapse collapse" id="collapse2">
+        <div class="section" style="background-color:#ea4335">555555</div>
+    </div>
+    <div class="panel-collapse collapse" id="collapse3">
+        <div class="section panel-bod" style="background-color:#fbbc05">555555</div>
+    </div>
+    <div class="panel-collapse collapse" id="collapse4">
+        <div class="section panel-bod" style="background-color:#23a884">555555</div>
+    </div>
     <div class="section">
         <div class="container">
             <div class="row">
-                <div class="col-md-12" style="margin-left: 20px;">
-                    <font style="font-weight: bold;font-size:500%">รอบรู้มีอะไร ?</font>
+                <div class="col-md-12" align="center" style="font-size:40">เพราะการสอนคือการเรียนรู้ ยิ่งสอนผู้อื่น คุณก็จะเข้าใจมากขึ้น
+                    <br>
+                    <i>ร่วมเรียนรู้ไปกับเรา</i>
                 </div>
             </div>
         </div>
     </div>
-    <div class="section" style="background-color: ">
+    <footer class="section section-primary">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <center>
-                        <img src="icon\Point1.png" style="height: 200px" class="img-responsive">
-                        <font class="text-primary" style="font-weight: bold;font-size:300%">เรียนฟรีไม่เสียงเงิน</font>
-                        <br>
-                        <font size="6">เพียงทำแบบฝึกให้บ่อย ก็ได้ Point ไปแลก เป็นบทเรียนได้แบบไม่ต้องเสียเงิน</font>
-                        <br>
-                        <hr width="70%" size="8" color="cecece">
-                    </center>
-                </div>
-                <div class="col-md-4">
-                    <center>
-                        <img src="icon\Coin1.png" style="height: 200px" class="img-responsive">
-                        <font style="font-weight: bold;font-size:300%" color="337cc1">หากต้องการเรียนต่อทันที</font>
-                        <br>
-                        <font size="6">ก็สามารถเติมเงินเป็น Coin แล้วนำมาแลกเป็นบทเรียนได้ทันที</font>
-                        <br>
-                        <hr width="70%" size="8" color="cecece">
-                    </center>
-                </div>
-                <font size="6">
-                    <div class="col-md-4">
-                        <center>
-                            <img src="icon\teach.png" style="height: 200px" class="img-responsive">
-                            <font class="text-primary" style="font-weight: bold;font-size:140%">หากคุณเป็นผู้สอน</font>
-                            <br>
-                            <font size="6" color="000000">คุณก็สามารถสร้างบทเรียน
-                                <br>และหารายได้เสริมได้ง่าย</font>
-                            <br>
-                            <hr width="70%" size="8" color="cecece">
-                        </center>
-                    </div>
-                </font>
-            </div>
-            <font size="6"></font>
-        </div>
-        <font size="6"></font>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="section" style="background-color: #eaf5ff">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="margin-left: 20px">
-                    <font style="font-weight: bold;font-size:350%">Point : คะแนนฟรี</font>
-                </div>
-                <div class="col-md-7">
-                    <font class="text-primary" style="font-weight: bold;font-size:280%">เล่น Quiz ก็ได้ Point</font>
-                    <br>
-                    <center>
-                        <hr width="70%" size="9" color="000000">
-                    </center>
-                </div>
-                <font size="6">
-                    <div class="col-md-5">
-                        <font class="text-primary" style="font-weight: bold;font-size:120%">ยิ่งคะแนนสูง Point ยิ่งสูงตาม</font>
-                    </div>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="section" style="background-color:#c6e6ff">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="margin-left: 20px">
-                    <font style="font-weight: bold;font-size:150%">Coin : ซื้อง่าย จ่ายสะดวก เรียนได้ทันที</font>
-                </div>
-                <div class="col-md-6" style="margin-top: 50px">
-                    <font class="text-primary" style="font-weight: bold;font-size:100%;">ซื้อ Coin ด้วยบัตร Truemoney</font>
-                    <br>
-                    <font size="6">เติมเงินง่ายๆ ได้ด้วยบัตร Trumoney ที่หาซื้อได้ทั่วไป</font><br>
-                    <br>
-                    <center>
-                        <img src="cap3.png" style="height: 30%">
-                        <br>
-                        <hr width="70%" size="9" color="000000">
-                    </center>
-                    <br>
-                </div>
-                <font size="6">
-                    <div class="col-md-6">
-                        <font class="text-primary" style="font-weight: bold;font-size:100%">แล้วนำ Coin ไปแลกเป็นบทเรียนได้ทันที</font>
-                        <center></center>
-                    </div>
-                </font>
-            </div>
-            <font size="6"></font>
-        </div>
-        <font size="6"></font>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="section" style="background-color: #f2f2f2; margin-top:7%">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="margin-left: 20px">
-                    <font style="font-weight: bold;font-size:150%">สำหรับผู้สอนที่ต้องการลงบทเรียน</font>
-                </div>
-                <div class="col-md-6">
-                    <font class="text-primary" style="font-weight: bold;font-size:120%">ลงบทเรียนให้นักเรียนใช้งานฟรี</font>
-                    <br>
-                    <font size="6">
-                        <center>ร่วมพัฒนาการศึกษาให้แก่นักเรียน</center>
-                    </font>
-                    <br>
-                    <br>
-                </div>
-                <font size="6">
-                    <div class="col-md-6">
-                        <font class="text-primary" style="font-weight: bold;font-size:120%">หารายได้เสริมโดยการจัดขายคอร์ส</font>
-                        <br>
-                        <font style="font-size:100%">
-                            <center>หากท่านมีบทเรียนที่ขายออนไลน์สำเร็จรูปอยู่แล้ว<br>สามารถนำมาลงเพิ่มกับเว็บรอบรู้ของเราได้</center>
-                        </font>
-                    </div>
-                </font>
-            </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="section" style="background-color: #cecece">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <center>
-                        <font style="font-weight: bold;font-size:200%"> ร่วมเรียนและเปิดคอร์สกับเรา</font>
-                        <br>
-                        <font style="font-weight: bold;font-size:180%" class="text-primary">rob-roo.com</font>
-                    </center>
-                </div>
-                <div class="col-md-12">
-                    <center>
-                        <br>
-                        <font size="7" class="text-primary">
-                            <img src="button\Join.png">
-                        </font>
-                    </center>
-                </div>
-            </div>
-        </div>
-    </div>
-    <font size="6">
-        <div class="section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="text-center text-primary">ผู้จัดทำ</h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
-                        <h4 class="text-center">จารุพงศ์ &nbsp; &nbsp;ประจักโก</h4>
-                        <h4 class="text-center">Backend &nbsp;Developer</h4>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
-                        <h4 class="text-center">ศิริลักษณ์ &nbsp; &nbsp;กิจวงศ์วัฒนะ</h4>
-                        <h4 class="text-center">Frontend &nbsp;Developer
-                <p></p>
-              </h4>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
-                        <h4 class="text-center">ณัฐนนท์ &nbsp; สุขชู</h4>
-                        <h4 class="text-center">Content Editor</h4>
+              <font size="6">
+      <div class="section">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-12">
+                      <h1 class="text-center text-primary">ผู้จัดทำ</h1>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-4">
+                      <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
+                      <h4 class="text-center">จารุพงศ์ &nbsp; &nbsp;ประจักโก</h4>
+                      <h4 class="text-center">Fullstack &nbsp;Developer</h4>
+                  </div>
+                  <div class="col-md-4">
+                      <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
+                      <h4 class="text-center">ศิริลักษณ์ &nbsp; &nbsp;กิจวงศ์วัฒนะ</h4>
+                      <h4 class="text-center">Frontend &nbsp;Developer
+              <p></p>
+            </h4>
+                  </div>
+                  <div class="col-md-4">
+                      <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
+                      <h4 class="text-center">ณัฐนนท์ &nbsp; สุขชู</h4>
+                      <h4 class="text-center">Content Editor</h4>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </font>
+                    <div class="row">
+                        <div class="col-md-12 hidden-xs text-right">
+                            <a href="https://twitter.com/lagmanzaza"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                            <a href="https://www.facebook.com/pspcomeback2school"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                            <a href="https://github.com/lagmanzaza/robruu"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </font>
+    </footer>
 
 
 </body>
