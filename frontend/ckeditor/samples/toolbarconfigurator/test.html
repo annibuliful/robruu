@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>MathJax TeX Test Page</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+</head>
+<body>
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+
+<p>The following equations are represented in the HTML source code as LaTeX expressions.</p>
+
+<h1>The Cauchy-Schwarz Inequality</h1>
+
+<p><span class="math-tex">\( \left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right) \)</span></p>
+
+<h1>The probability of getting <span class="math-tex">\(k\)</span> heads when flipping <span class="math-tex">\(n\)</span> coins is</h1>
+
+<p><span class="math-tex">\(P(E) = {n \choose k} p^k (1-p)^{ n-k} \)</span></p>
+
+<p>Finally, while displaying equations is useful for demonstration purposes, the ability to mix math and text in a paragraph is also important. This expression <span class="math-tex">\(\sqrt{3x-1}+(1+x)^2\)</span> is an example of an inline equation. As you see, MathJax equations can be used this way as well, without disturbing the spacing between the lines.</p>
+
+</body>
+</html>

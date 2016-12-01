@@ -5,6 +5,12 @@ class student_view
   function __construct()
   {
   }
+  public function ranking(array $detail)
+  {
+    for ($i=0; $i <count($detail) ; $i++) {
+      echo "<li type=\"1\">{$detail[$i]['username']}</li>";
+    }
+  }
   public function answer_true()
   {
     echo "คุณตอบได้ถูกต้อง ";
@@ -58,7 +64,7 @@ class student_view
   {
     for ($i=0; $i < count($question) ; $i++) {
     echo "<div class=\"col-md-12\">
-            <img src=\"../../frontend/store/pictures/{$question[$i]['name']}\" class=\"img-responsive\"/>
+            <div class=\"col-md-12\">{$question[$i]['name']}</div>
             <form class=\"\" action=\"\" method=\"post\">
               <div class=\"radio\">
                 <label><input type=\"radio\" name=\"id_answer\" value=\"0\">{$question[$i]['answer1']}</label>

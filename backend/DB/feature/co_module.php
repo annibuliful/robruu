@@ -227,7 +227,7 @@ class co_func
     public function search($detail)
     {
       $detail = "%$detail%";
-      $sql = $this->sql->prepare("SELECT id_playlist,course_name,description,price FROM video_playlist
+      $sql = $this->sql->prepare("SELECT id_playlist,course_name,description,price FROM course
                                  WHERE course_name LIKE :detail ;");
       $sql->bindParam(':detail',$detail,PDO::PARAM_STR);
       $sql->execute();

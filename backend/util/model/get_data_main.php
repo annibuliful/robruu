@@ -1,6 +1,6 @@
 <?php
 
-class get_data_main
+class main_data
 {
     private $sql;
     private $id_user;

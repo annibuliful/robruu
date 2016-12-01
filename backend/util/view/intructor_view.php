@@ -9,11 +9,17 @@ class intructor_view
   public function list_course(array $detail)
   {
     for ($i=0; $i <count($detail) ; $i++) {
-      echo "
-      <tr>
-        <td>{$detail[$i]['course_name']}</td>
-        <td>{$detail[$i]['price']}</td>
-        <td>{$detail[$i]['rating']}</td>
+      echo "<tr>
+          <td>{$detail[$i]['course_name']}</td>
+          <td>{$detail[$i]['price']}</td>
+          <td>
+              <a href=\"#\">แก้ไข/ลบ</a>
+          </td>
+          <td>
+              <span class=\"glyphicon glyphicon-star\"></span>
+              <span class=\"glyphicon glyphicon-star\"></span>
+              <span class=\"glyphicon glyphicon-star\"></span>
+          </td>
       </tr>";
     }
 
@@ -111,6 +117,24 @@ class intructor_view
   public function return_draft(array $draft)
   {
     echo $draft['data'];
+  }
+  public function check_session(array $detail)
+  {
+    echo "
+    <ul class=\"nav navbar-nav navbar-right\" >
+     <li ><a href=\"#\">{$detail['score']}
+     <img src=\"picture/Point.png\" style=\"width: 15px; height:15px;margin-bottom: 5px\" ><br>
+     </a></li>
+      <li class=\"dropdown\">
+        <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">
+          <img src=\"../../frontend/store/pictures/{$detail['image']}\" class=\"img-circle\"
+          style=\"width: 30px; height: 30px; !important\" />
+        <span class=\"caret\"></span></a>
+        <ul class=\"dropdown-menu\">
+          <li><a href=\"logout.php\">logout</a></li>
+        </ul>
+      </li>
+    </ul>";
   }
 }
  ?>

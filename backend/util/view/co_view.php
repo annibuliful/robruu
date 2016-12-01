@@ -38,34 +38,14 @@ class co_view
       echo "<h3>เกิดปัญหาการกดไลค์</h3>";
     }
     public function search(string $id_user,array $list){
-      echo "<div class=\"table-responsive\">
-              <table class=\"table\">
-              <thead>
-                <tr>
-                  <th>ชื่อคอสเรียน</th>
-                  <th>ราคา</th>
-                  <th>#</th>
-               </tr>
-              </thead>";
-      for ($i=0; $i <count($list) ; $i++) {
-        echo "
-                  <tbody>
-                       <th>
-                         {$list[$i]["course_name"]}
-                       </th>
-                       <th>
-                         {$list[$i]["price"]}
-                       </th>
-                       <th>
-                       <form action=\"\" method=\"post\" id=\"{$i}\">
-                       <input type=\"hidden\" value=\"{$id_user}\" name=\"id_user\">
-                         <button class=\"btn btn-danger\" type=\"submit\" form=\"{$i}\"name=\"id_playlist\" value=\"{$list[$i]['id_playlist']}\">ซื้อ</button>
 
-                          </form>
-                       </th>
-                  </tbody>
-                ";
+      for ($i=0; $i <count($list); $i++) {
+        echo "<div class=\"col-md-3\" align=\"center\">
+            <img src=\"http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png\" style=\"width:200;height:200\">
+            <h3>{$list[$i]['course_name']}</h3>
+            <div style=\"font-size:25\">ราคา {$list[$i]['price']} Point</div>
+            <a href =\"buy.php?id_course={$list[$i]['id_playlist']}\"class=\"btn btn-danger\" style=\"font-size:25;width:70%;margin-bottom:5%\">Buy</a>
+        </div>";
       }
-      echo " </table></div>";
     }
 }

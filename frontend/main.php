@@ -50,12 +50,12 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                 <div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active hidden-xs">
-                            <a href="#"><img src="icon/study.png" style="height:5%">
+                            <a href="main.php"><img src="icon/study.png" style="height:50%">
                                 <font size="5">บทเรียนของฉัน</font>
                             </a>
                         </li>
                         <li class="hidden-xs">
-                            <a href="course.html"><img src="icon/course.png" style="height:5%">
+                            <a href="main-t.php"><img src="icon/course.png" style="height:50%">
                                 <font size="5">บทเรียนที่ฉันสอน</font>
                             </a>
                         </li>
@@ -84,9 +84,9 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                         </div>
                         <ul class="nav navbar-nav">
                             <li>
-                                <form class="navbar-form">
+                                <form class="navbar-form" action="buy.php" method="post">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="ค้นหาบทเรียน">
+                                        <input type="text" name="course_name"class="form-control" placeholder="ค้นหาบทเรียน">
                                         <div class="input-group-btn">
                                             <button class="btn btn" type="button">
                         <span class="glyphicon glyphicon-search"></span>
@@ -99,14 +99,14 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                             <ul class="nav navbar-nav">
                                 <li class="hidden-lg hidden-md hidden-sm">
                                     <center>
-                                        <a href="#">
+                                        <a href="main.php">
                                             <font size="5" color="white">บทเรียนของฉัน<img src="icon/studyin.png" style="height:20%"></font>
                                         </a>
                                     </center>
                                 </li>
                                 <li class="hidden-lg hidden-md hidden-sm">
                                     <center>
-                                        <a href="#"><img src="icon/coursein.png" style="height:20%">
+                                        <a href="main-t.php"><img src="icon/coursein.png" style="height:20%">
                                             <font size="5" color="white">บทเรียนที่ฉันสอน</font>
                                         </a>
                                     </center>
@@ -164,20 +164,8 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                                     </a>
                                 </li>
                             </ul>
-                            <div class="col-md-3 hidden-sm hidden-xs" align="right" style="font-size:25;">
-                                <font color="#ffffff">User Name</font>
-                                <img src="pic/user.png" class="img-circle" style="width:20%;">
-                                <ul align="right" class="nav navbar-nav">
-                                    <li class="dropdown">
-                                        <button class="btn btn-link" type="button">
-                      <span class="glyphicon glyphicon-menu-down"></span>
-                    </button>
-                                    </li>
-                                    <ul class="dropdown-menu">
-                                        <!--; v ; มันไม่ขึ้นอ่ะ ตรงนี้ทำ แสดง Point/ Edit profile/History/Log
-                    out!-->
-                                    </ul>
-                                </ul>
+                            <div class="nav navbar-nav navbar-right" id="div1"align="right" style="font-size:25;">
+                                <?php $authen->check_session($_SESSION['id']); ?>
                             </div>
                         </ul>
                     </div>
@@ -208,11 +196,9 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                             <br>
                         </div>
                         <ur style="font-size:180%">
-                            <li type="1"></li>
-                            <li type="1"></li>
-                            <li type="1"></li>
-                            <li type="1"></li>
-                            <li type="1"></li>
+                          <?php
+                                 $list->ranking()?>
+
                         </ur>
                         <br>
                         <br>
@@ -224,34 +210,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                             <hr>
                         </font>
                         <ul class="media-list">
-                            <li class="media">
-                                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="150" width="150"></a>
-                                <div class="media-body">
-                                    <font size="5" style="font-weight:bold">ชื่อวิชา 1</font>
-                                    <pre style="font-size:18">รายละเอียด วิชาที่ 1</pre>
-                                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#c1">Do it!</button>
-                                    <div id="c1" class="collapse">
-                                        <img src="button/sheet.png" width="50">
-                                        <img src="button/video.png" width="50">
-                                        <img src="button/exercise.png" width="50">
-                                        <img src="button/quiz.png" width="50">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="media">
-                                <a class="pull-left" href="#"><img class="media-object" src="http://pingendo.github.io/pingendo-bootstrap/assets/placeholder.png" height="150" width="150"></a>
-                                <div class="media-body">
-                                    <font size="5" style="font-weight:bold">ชื่อวิชา 2</font>
-                                    <pre style="font-size:18">รายละเอียด วิชาที่ 2 อิอิ</pre>
-                                    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#c2">Do it!</button>
-                                    <div id="c2" class="collapse">
-                                        <img src="button/sheet.png" width="50">
-                                        <img src="button/video.png" width="50">
-                                        <img src="button/exercise.png" width="50">
-                                        <img src="button/quiz.png" width="50">
-                                    </div>
-                                </div>
-                            </li>
+                            <?php $list->list_course($_SESSION['id']); ?>
                         </ul>
                     </div>
                 </div>

@@ -100,5 +100,18 @@ class student
       }
       echo"<h2>คุณได้คะแนน ".$return_score."</h2>";
     }
+    public function show_question()
+    {
+      $sql = $this->sql->prepare('SELECT * FROM question WHERE id_playlist = :id_course ');
+      $sql->bindParam(':id_course');
+      $sql->execute();
+      return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function ranking()
+    {
+      $sql = $this->sql->prepare('SELECT username FROM user ORDER BY money DESC');
+      $sql->execute();
+      return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
     ?>

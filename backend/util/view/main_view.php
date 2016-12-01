@@ -8,10 +8,6 @@ class main_view
   function __construct()
   {
   }
-  public function view()
-  {
-
-  }
 }
 
  ?>

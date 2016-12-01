@@ -96,6 +96,15 @@ class intructor_controller
           $check = $this->intructor->save_draft($id_author,$id_course,$data,$flag);
         }
     }
+    public function check_session(string $user)
+    {
+        $check = $this->intructor->check_session($user);
+        if ($check != null && gettype($check) == 'array') {
+            $this->view->check_session($check);
+        } else{
+          echo "error";
+        }
+    }
 }
 
 ?>
