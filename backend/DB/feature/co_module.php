@@ -184,33 +184,34 @@ class co_func
       $sql->execute();
       $check = $sql->fetch(PDO::FETCH_ASSOC);
       if (!$check) {
-        $sql = $this->sql->prepare('SELECT price,id_author,course_name,id_video FROM video_playlist
+        $sql = $this->sql->prepare('SELECT price,id_author,course_name,id_video,cover FROM course
                                     WHERE id_playlist = :id_playlist ;');
         $sql->bindParam(':id_playlist',$id_course,PDO::PARAM_STR);
         $sql->execute();
         $price = $sql->fetch(PDO::FETCH_ASSOC);
         if ($price) {
-          $sql = $this->sql->prepare('SELECT money FROM user WHERE id = :id_user ;');
+          $sql = $this->sql->prepare('SELECT score FROM user WHERE id = :id_user ;');
           $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
           $sql->execute();
           $money = $sql->fetch(PDO::FETCH_ASSOC);
-          if ($money['money'] >= $price['price']) {
-               $sql = $this->sql->prepare('UPDATE user SET money = money - :money
+          if ($money['score'] >= $price['price']) {
+               $sql = $this->sql->prepare('UPDATE user SET score = score - :money
                                            WHERE id = :id_user ;');
                $sql->bindParam(':money',$price['price'],PDO::PARAM_INT);
                $sql->bindParam(':id_user',$id_user,PDO::PARAM_INT);
                $sql->execute();
-               $sql = $this->sql->prepare('UPDATE user SET money = money + :money
+               $sql = $this->sql->prepare('UPDATE user SET score = score + :money
                                            WHERE id = :id_author');
                $sql->bindParam(':money',$price['price']);
                $sql->bindParam(':id_author',$price['id_author']);
                $sql->execute();
-               $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id,course_name,id_video)
-                                           VALUES (:id_user ,:id_course ,:course_name ,:id_video )  ');
+               $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id,course_name,id_video,cover)
+                                           VALUES (:id_user ,:id_course ,:course_name ,:id_video ,:cover )  ');
                $sql->bindparam(':id_user',$id_user,PDO::PARAM_INT);
                $sql->bindparam(':id_course',$id_course,PDO::PARAM_STR);
                $sql->bindparam(':course_name',$price['course_name']);
                $sql->bindparam(':id_video',$price['id_video']);
+               $sql->bindparam(':cover',$price['cover']);
                $sql->execute();
                echo "<h2>ซื้อคอสสำเร็จ</h2>";
           }else {
@@ -227,8 +228,8 @@ class co_func
     public function search($detail)
     {
       $detail = "%$detail%";
-      $sql = $this->sql->prepare("SELECT id_playlist,course_name,description,price FROM course
-                                 WHERE course_name LIKE :detail ;");
+      $sql = $this->sql->prepare("SELECT id_playlist,course_name,description,price,cover FROM course
+                                 WHERE course_name LIKE :detail AND flag_num = 1;");
       $sql->bindParam(':detail',$detail,PDO::PARAM_STR);
       $sql->execute();
       return $sql->fetchAll(PDO::FETCH_ASSOC);

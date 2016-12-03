@@ -86,7 +86,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                             <li>
                                 <form class="navbar-form" action="buy.php" method="post">
                                     <div class="input-group">
-                                        <input type="text" name="course_name"class="form-control" placeholder="ค้นหาบทเรียน">
+                                        <input type="text" name="course_name" class="form-control" placeholder="ค้นหาบทเรียน">
                                         <div class="input-group-btn">
                                             <button class="btn btn" type="button">
                         <span class="glyphicon glyphicon-search"></span>
@@ -164,7 +164,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                                     </a>
                                 </li>
                             </ul>
-                            <div class="nav navbar-nav navbar-right" id="div1"align="right" style="font-size:25;">
+                            <div class="nav navbar-nav navbar-right" id="div1" align="right" style="font-size:25;">
                                 <?php $authen->check_session($_SESSION['id']); ?>
                             </div>
                         </ul>
@@ -196,7 +196,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                             <br>
                         </div>
                         <ur style="font-size:180%">
-                          <?php
+                            <?php
                                  $list->ranking()?>
 
                         </ur>

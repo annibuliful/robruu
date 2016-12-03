@@ -58,4 +58,9 @@ class student_controller
       $this->view->ranking($check);
 
     }
+    public function content(string $id_course)
+    {
+      $check = $this->student->content($id_course);
+      echo $check['data'];
+    }
 }

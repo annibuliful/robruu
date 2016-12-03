@@ -63,7 +63,7 @@ class student
     }
     public function showdetail_course(string $id_course)
     {
-        $sql = $this->sql->prepare('SELECT * FROM course WHERE id_playlist = :id_playlist ;');
+        $sql = $this->sql->prepare('SELECT * FROM course WHERE id_playlist = :id_playlist AND flag_num >1 ;');
         $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_INT);
         $sql->execute();
 
@@ -75,7 +75,7 @@ class student
       for ($i=0; $i <count($id_question) ; $i++) {
         $sql = $this->sql->prepare('SELECT * FROM check_user WHERE id_user = :id_user AND id_question = :id_question ;');
         $sql->bindparam(':id_user',$id_user,PDO::PARAM_INT);
-        $sql->bindparam(':id_question',$id_question,PDO::PARAM_STR);
+        $sql->bindparam(':id_question',$id_question[$i],PDO::PARAM_STR);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
       if (!$fetch) {
@@ -100,10 +100,10 @@ class student
       }
       echo"<h2>คุณได้คะแนน ".$return_score."</h2>";
     }
-    public function show_question()
+    public function show_question(string $id_course)
     {
       $sql = $this->sql->prepare('SELECT * FROM question WHERE id_playlist = :id_course ');
-      $sql->bindParam(':id_course');
+      $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
       $sql->execute();
       return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -112,6 +112,13 @@ class student
       $sql = $this->sql->prepare('SELECT username FROM user ORDER BY money DESC');
       $sql->execute();
       return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function content(string $id_course)
+    {
+      $sql = $this->sql->prepare('SELECT data FROM content WHERE id_course = :id_course; ');
+      $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+      $sql->execute();
+      return (array)$sql->fetch(PDO::FETCH_ASSOC);
     }
 }
     ?>

@@ -13,7 +13,7 @@ class intructor_view
           <td>{$detail[$i]['course_name']}</td>
           <td>{$detail[$i]['price']}</td>
           <td>
-              <a href=\"#\">แก้ไข/ลบ</a>
+              <a href=\"editor.php?id_course={$detail[$i]['id_playlist']}\">แก้ไข/ลบ</a>
           </td>
           <td>
               <span class=\"glyphicon glyphicon-star\"></span>
@@ -28,7 +28,7 @@ class intructor_view
   {
     $id_answer = (int)$detail['id_answer'] +1 ;
     echo "
-    <img src=\"../../frontend/store/pictures/{$detail['name']}\">
+    <h3>{$detail['name']}</h3>
     <input type=\"hidden\" name=\"id_author\" value=\"{$detail['id_author']}\">
     <div class\"form-grou\">
       <label for=\"\">คำตอบที่ถูก</label>

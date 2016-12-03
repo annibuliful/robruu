@@ -12,11 +12,10 @@ class intructor_controller
         $this->intructor = new intructor();
         $this->view = new intructor_view();
     }
-    public function make_course(string $id_user, array $video, string $description = null, string $course_name, string $price = null, string $major,array $cover)
+    public function make_course(string $id_user,$video = null, string $description = null, string $course_name, string $price = null, string $major = null,array $cover = null)
     {
         $check = $this->intructor->make_course($id_user, $video, $description, $course_name, $price, $major,$cover);
         if ($check[0] = true && gettype($check) == 'array') {
-            header("refresh: 3; url=../../edit_course.php?id_course={$check[1]}&id_user={$check[2]}");
         } else {
             echo '<h1>เกิดปัญหาการอัพโหลด</h1>';
         }
@@ -48,7 +47,7 @@ class intructor_controller
             echo 'error';
         }
     }
-    public function question(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
+    public function make_question(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
     {
         $check = $this->intructor->make_question($id_author, $question, $id_answer, $answer1, $answer2, $answer3, $answer4, $score);
         if ($check == true) {

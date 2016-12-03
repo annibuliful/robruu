@@ -38,16 +38,15 @@ class student_view
   {
     for ($i=0; $i < count($list) ; $i++) {
       echo "<li class=\"media\">
-                <a class=\"pull-left\" href=\"#\"><img class=\"media-object\" src=\"store/pictures/\" height=\"150\" width=\"150\"></a>
+                <a class=\"pull-left\" href=\"#\"><img class=\"media-object\" src=\"store/pictures/{$list[$i]['cover']}\" height=\"150\" width=\"150\"></a>
                 <div class=\"media-body\">
                   <font size=\"5\" style=\"font-weight:bold\">{$list[$i]['course_name']}</font>
                   <pre style=\"font-size:18\">{$list[$i]['description']}</pre>
                   <button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#c1{$i}\">Do it!</button>
                   <div id=\"c1{$i}\" class=\"collapse\">
-                    <img src=\"button/sheet.png\" width=\"50\">
+                    <a href=\"content.php?id_course={$list[$i]['course_id']}\"><img src=\"button/sheet.png\" width=\"50\"></a>
                     <a href=\"video.php?id_course={$list[$i]['course_id']}&id_user={$id_user}\"><img src=\"button/video.png\" width=\"50\"></a>
-                    <img src=\"button/exercise.png\" width=\"50\">
-                    <img src=\"button/quiz.png\" width=\"50\">
+                    <a href=\"exam.php?id_course={$list[$i]['course_id']}\"><img src=\"button/quiz.png\" width=\"50\"></a>
                   </div>
                 </div>
               </li>";
@@ -60,32 +59,81 @@ class student_view
       </video></center>";
 
   }
-  public function question( array $question,$id_user)
+  public function question(array $question)
   {
-    for ($i=0; $i < count($question) ; $i++) {
-    echo "<div class=\"col-md-12\">
-            <div class=\"col-md-12\">{$question[$i]['name']}</div>
-            <form class=\"\" action=\"\" method=\"post\">
-              <div class=\"radio\">
-                <label><input type=\"radio\" name=\"id_answer\" value=\"0\">{$question[$i]['answer1']}</label>
-              </div>
-              <div class=\"radio\">
-                <label><input type=\"radio\" name=\"id_answer\" value=\"1\">{$question[$i]['answer2']}</label>
-              </div>
-              <div class=\"radio\">
-                <label><input type=\"radio\" name=\"id_answer\" value=\"2\">{$question[$i]['answer3']}</label>
-              </div>
-              <div class=\"radio\">
-                <label><input type=\"radio\" name=\"id_answer\" value=\"3\">{$question[$i]['answer4']}</label>
-              </div>
-              <input type=\"hidden\" name=\"id_user\" value=\"{$id_user}\">
-              <input type=\"hidden\" name=\"id_question\" value=\"{$question[$i]['id']}\">
-              <input type=\"submit\" name=\"submit\" value=\"ส่งคำตอบ\">
-            </form>
+    echo "<form class=\"\" action=\"\" method=\"post\">";
+    echo "<div id=\"myCarousel\" class=\"carousel slide\" data-ride=\"carousel\" data-interval=\"false\">";
+    echo "<ol class=\"carousel-indicators\">";
+    for ($i=0; $i <count($question) ; $i++) {
+      if ($i == 0) {
+        echo "<li data-target=\"#myCarousel\" data-slide-to=\"{$i}\" class=\"active\" ></li>";
+      }else {
+        echo "<li data-target=\"#myCarousel\" data-slide-to=\"{$i}\" ></li>";
+      }
 
-
-          </div><br>";
     }
+    echo "</ol>";
+    echo "<div class=\"carousel-inner\" role=\"listbox\">";
+    for ($i=0; $i < count($question) ; $i++) {
+      if ($i == 0) {
+        echo "<div class=\"item active\">
+              <div class=\"col-md-12\">
+              <center>
+              <h2>
+                <div class=\"col-md-12\">{$question[$i]['name']}</div>
+
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"0\">{$question[$i]['answer1']}</label>
+                  </div>
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"1\">{$question[$i]['answer2']}</label>
+                  </div>
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"2\">{$question[$i]['answer3']}</label>
+                  </div>
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"3\">{$question[$i]['answer4']}</label>
+                  </div>
+                  <input type=\"hidden\" name=\"id_question[]\" value=\"{$question[$i]['id']}\">
+                    </h2>
+                  </center>
+              </div></div><br>";
+      }else {
+        echo "<div class=\"item \">
+
+              <div class=\"col-md-12\">
+              <center>
+              <h2>
+                <div class=\"col-md-12\">{$question[$i]['name']}</div>
+
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"0\">{$question[$i]['answer1']}</label>
+                  </div>
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"1\">{$question[$i]['answer2']}</label>
+                  </div>
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"2\">{$question[$i]['answer3']}</label>
+                  </div>
+                  <div class=\"checkbox\">
+                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"3\">{$question[$i]['answer4']}</label>
+                  </div>
+                  <input type=\"hidden\" name=\"id_question[]\" value=\"{$question[$i]['id']}\">
+                  <center>
+                  </h2>
+              </div></div><br>";
+      }
+
+    }
+    echo "<a class=\"left carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"prev\">
+      <span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span>
+      <span class=\"sr-only\">Previous</span>
+    </a>
+    <a class=\"right carousel-control\" href=\"#myCarousel\" role=\"button\" data-slide=\"next\">
+      <span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>
+      <span class=\"sr-only\">Next</span>
+    </a>";
+    echo "</div><input type=\"submit\" name=\"submit\" value=\"ส่งคำตอบ\"></form>";
   }
 }
  ?>

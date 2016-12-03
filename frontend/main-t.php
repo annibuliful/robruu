@@ -6,7 +6,11 @@ if (isset($_SESSION['id'])) {
 } else {
     header('location: ../../frontend/index.html');
     exit(0);
-}?>
+}
+if (isset($_POST['course_name'])) {
+    $list->make_course($_SESSION['id'], '', $_POST['description'], $_POST['course_name'], $_POST['price'], $major, $_FILES['cover']);
+}
+?>
     <html>
 
     <head>
@@ -30,6 +34,39 @@ if (isset($_SESSION['id'])) {
             }
         </style>
     </head>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog " style="width:41%">
+            <div class="modal-content">
+                <div class="modal-body">
+                  <form class="form-group" action="main-t.php" method="post" enctype="multipart/form-data">
+                    <div class="">
+                            <div class="form-group">
+                                <label for="">ชื่อคอสเรียน</label>
+                                <input type="text" name="course_name" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">รายละเอียด</label>
+                                <input type="text" name="description" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ราคา</label>
+                                <input type="text" name="price" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ภาพ cover</label>
+                                <input type="file" name="cover" class="form-control" id="" placeholder="">
+                            </div>
+                    </div>
+                        <input type="submit" class="btn btn-info" name="submit" value="สร้างคอสเรียน">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <body style="background-color:#058277">
         <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; height:15%">
@@ -66,10 +103,10 @@ if (isset($_SESSION['id'])) {
                 <div class="container">
 
                     <div class="col-md-12">
-                        <form class="navbar-form">
+                        <form class="navbar-form" action="buy.php" method="post">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="ค้นหาบทเรียน">
-                                  <div class="input-group-btn">
+                                <div class="input-group-btn">
                                     <button class="btn btn" type="button">
                                       <span class="glyphicon glyphicon-search"></span>
                                       <i class="icon-search"></i>
@@ -89,7 +126,7 @@ if (isset($_SESSION['id'])) {
                         <font size="7">บทเรียนที่ฉันสอน</font>
                         <div align="center">
                             <button style="width:230; opacity:0.9;" type="button" class="btn btn-default">
-                <span style="font-size:19;font-weight:bold;">
+                <span data-toggle="modal" data-target="#myModal"style="font-size:19;font-weight:bold;">
                   <img src="icon/plus2.png">เพิ่มบทเรียน</span>
               </button>
                         </div>
