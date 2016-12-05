@@ -149,7 +149,7 @@ class intructor
         $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_STR);
         $sql->execute();
 
-        return $sql->fetchAll(PDO::FETCH_ASSOC);
+        return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
     }
     public function del_video(string $id_video)
     {
@@ -196,7 +196,7 @@ class intructor
 
         return (array) $sql->fetch(PDO::FETCH_ASSOC);
     }
-    public function edit_question(string $id_author, string $id_question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, int $score)
+    public function edit_question(string $id_author, string $id_question, string $data,string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
     {
         $id_answer1 = (int) $id_answer - 1;
         $sql = $this->sql->prepare('SELECT id FROM question WHERE id = :id_question AND id_author = :id_author ;');
@@ -205,11 +205,12 @@ class intructor
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
-            $sql = $this->sql->prepare('UPDATE question SET id_answer = :id_answer ,
-                                   score = :score ,answer1 = :answer1 ,answer2 = :answer2
-                                   answer3 = :answer3 ,answer4 = :answer4 WHERE id = :id_question
-                                  AND id_author = :id_author ;');
+            $sql = $this->sql->prepare('UPDATE question SET name = :name ,id_answer = :id_answer ,
+                                        score = :score ,answer1 = :answer1 ,answer2 = :answer2,
+                                        answer3 = :answer3 ,answer4 = :answer4 WHERE id = :id_question
+                                        AND id_author = :id_author ;');
             $sql->bindParam(':id_answer', $id_answer, PDO::PARAM_INT);
+            $sql->bindParam(':name',$data,PDO::PARAM_STR);
             $sql->bindParam(':score', $score, PDO::PARAM_INT);
             $sql->bindParam(':answer1', $answer1, PDO::PARAM_STR);
             $sql->bindParam(':answer2', $answer2, PDO::PARAM_STR);
@@ -345,4 +346,13 @@ class intructor
             return false;
         }
     }
+  public function list_question(string $id_user,string $id_course)
+  {
+    $sql = $this->sql->prepare('SELECT id,name FROM question WHERE id_author = :id_author
+                                AND id_playlist = :id_playlist ;');
+    $sql->bindParam(':id_author',$id_user,PDO::PARAM_STR);
+    $sql->bindParam(':id_playlist',$id_course,PDO::PARAM_STR);
+    $sql->execute();
+    return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
+  }
 }

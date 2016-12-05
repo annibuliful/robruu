@@ -12,9 +12,9 @@ class intructor_controller
         $this->intructor = new intructor();
         $this->view = new intructor_view();
     }
-    public function make_course(string $id_user,$video = null, string $description = null, string $course_name, string $price = null, string $major = null,array $cover = null)
+    public function make_course(string $id_user, $video, string $description = null, string $course_name, string $price = null, string $major = null, array $cover = null)
     {
-        $check = $this->intructor->make_course($id_user, $video, $description, $course_name, $price, $major,$cover);
+        $check = $this->intructor->make_course($id_user, $video, $description, $course_name, $price, $major, $cover);
         if ($check[0] = true && gettype($check) == 'array') {
         } else {
             echo '<h1>เกิดปัญหาการอัพโหลด</h1>';
@@ -68,11 +68,12 @@ class intructor_controller
     public function del_question(string $id_author, string $id_question)
     {
         $check = $this->intructor->del_question($id_author, $id_question);
-        if ($check == true) {
-            $this->view->del_question_true();
-        } else {
-            $this->view->del_question_false();
+        if ($chcek == true) {
+          header('location: editor.php');
+        }else {
+          header('location: editor.php');
         }
+
     }
     public function make_exam(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $id_course, string $score)
     {
@@ -89,10 +90,10 @@ class intructor_controller
             $check = $this->intructor->return_draft($id_author, $id_course);
             if ($check != null && gettype($check) == 'array') {
                 $this->view->return_draft($check);
-            }else {
+            } else {
             }
-        }elseif ($data != null && $flag == 'public') {
-          $check = $this->intructor->save_draft($id_author,$id_course,$data,$flag);
+        } elseif ($data != null && $flag == 'public') {
+            $check = $this->intructor->save_draft($id_author, $id_course, $data, $flag);
         }
     }
     public function check_session(string $user)
@@ -100,10 +101,34 @@ class intructor_controller
         $check = $this->intructor->check_session($user);
         if ($check != null && gettype($check) == 'array') {
             $this->view->check_session($check);
-        } else{
+        } else {
+            echo 'error';
+        }
+    }
+    public function question_detail(string $id_author, string $id_question)
+    {
+        $check = $this->intructor->question_detail($id_author, $id_question);
+        if ($check != null && gettype($check) == 'array') {
+            $this->view->question_detail($check);
+        }else {
           echo "error";
         }
     }
+    public function list_question(string $id_user,string $id_course)
+    {
+      $check = $this->intructor->list_question($id_user,$id_course);
+      if ($check != null && gettype($check) == 'array') {
+        $this->view->list_question($check);
+      }
+    }
+    public function edit_question(string $id_author, string $id_question,string $data, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
+    {
+      $check = $this->intructor->edit_question($id_author,$id_question,$data,$id_answer,$answer1,$answer2,$answer3,$answer4,$score);
+      if ($check = true) {
+        echo "แก้ไขเรียบร้อย";
+      }else {
+        echo "เกิดปัญหากับการแก้ไข";
+      }
+    }
 }
-
 ?>

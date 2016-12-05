@@ -6,6 +6,51 @@ class intructor_view
   {
 
   }
+  public function list_question(array $detail)
+  {
+    echo "<div id=\"list_question\"class=\"collapse\"";
+      for ($i=0; $i < count($detail) ; $i++) {
+        echo "<h3>{$detail[$i]['name']}</h3>
+              <a href=\"question_editor.php?id_question={$detail[$i]['id']}\">
+                <button type=\"submit\" class=\"btn btn-info btn-lg\">แก้ไข</button></a>";
+        echo "";
+        echo "<a href=\"del_question.php?id_question={$detail[$i]['id']}\">
+                <button type=\"submit\" class=\"btn btn-info btn-lg\">ลบ</button></a><br>";
+      }
+      echo "</div>";
+
+  }
+  public function question_detail(array $detail)
+  {
+    echo "<form class=\"form-inline\" action=\"\" method=\"post\">";
+    echo "<textarea id=\"question_data\" name=\"question_data\">{$detail['name']}</textarea>";
+    echo "<div class=\"form-group\">
+      <label for=\"\">ข้อที่ถูก</label>
+      <input type=\"text\" name=\"id_answer\"class=\"form-control\" value=\"{$detail['id_answer']}\" placeholder=\"\">
+    </div>";
+    echo "<div class=\"form-group\">
+      <label for=\"\">ข้อที่ 1</label>
+      <input type=\"text\" name=\"answer1\"class=\"form-control\" value=\"{$detail['answer1']}\" placeholder=\"\">
+    </div>";
+    echo "<div class=\"form-group\">
+      <label for=\"\">ข้อที่ 2</label>
+      <input type=\"text\" name=\"answer2\"class=\"form-control\" value=\"{$detail['answer2']}\" placeholder=\"\">
+    </div>";
+    echo "<div class=\"form-group\">
+      <label for=\"\">ข้อที่ 3</label>
+      <input type=\"text\" name=\"answer3\"class=\"form-control\" value=\"{$detail['answer3']}\" placeholder=\"\">
+    </div>";
+    echo "<div class=\"form-group\">
+      <label for=\"\">ข้อที่ 4</label>
+      <input type=\"text\" name=\"answer4\"class=\"form-control\" value=\"{$detail['answer4']}\" placeholder=\"\">
+    </div>";
+    echo "<div class=\"form-group\">
+      <label for=\"\">คะแนน</label>
+      <input type=\"text\" name=\"score\"class=\"form-control\" value=\"{$detail['score']}\" placeholder=\"\">
+    </div>";
+    echo "<input type=\"hidden\" name=\"id_question\" value=\"{$detail['id']}\"><br>";
+    echo "<input type=\"submit\" class=\"btn btn-info btn-lg\"name=\"submit\" value=\"แก้ไข\"></form>";
+  }
   public function list_course(array $detail)
   {
     for ($i=0; $i <count($detail) ; $i++) {

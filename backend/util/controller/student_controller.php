@@ -61,6 +61,15 @@ class student_controller
     public function content(string $id_course)
     {
       $check = $this->student->content($id_course);
-      echo $check['data'];
+      if ($check != null) {
+        echo $check['data'];
+      }
+    }
+    public function history(string $id_user)
+    {
+      $check = $this->student->history($id_user);
+      if ($check != null && gettype($check) == 'array') {
+
+      }
     }
 }

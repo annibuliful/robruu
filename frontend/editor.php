@@ -6,14 +6,17 @@ if (isset($_SESSION['id'])) {
     header('location: ../../frontend/index.html');
     exit(0);
 }
+if (isset($_GET['id_course'])) {
+    $_SESSION['id_course'] = $_GET['id_course'];
+}
 if (isset($_POST['course_name'])) {
     $list->make_course($_SESSION['id'], '', $_POST['description'], $_POST['course_name'], $_POST['price'], $major, $_FILES['cover']);
 }
 if (isset($_POST['id_course'])) {
-  $list->update_course($_SESSION['id'],$_POST['id_course'],$_FILES['video'], $_POST['description']);
+    $list->update_course($_SESSION['id'], $_POST['id_course'], $_FILES['video'], $_POST['description']);
 }
 if (isset($_POST['question']) && isset($_POST['id_answer'])) {
-  $list->make_exam($_SESSION['id'],$_POST['question'],$_POST['id_answer'],$_POST['answer1'],$_POST['answer2'],$_POST['answer3'],$_POST['answer4'],$_POST['id_course2'],$_POST['score']);
+    $list->make_exam($_SESSION['id'], $_POST['question'], $_POST['id_answer'], $_POST['answer1'], $_POST['answer2'], $_POST['answer3'], $_POST['answer4'], $_POST['id_course2'], $_POST['score']);
 }
 
  ?>
@@ -27,6 +30,11 @@ if (isset($_POST['question']) && isset($_POST['id_answer'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://cdn.ckeditor.com/4.6.0/standard-all/ckeditor.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
     <style>
@@ -115,107 +123,104 @@ if (isset($_POST['question']) && isset($_POST['id_answer'])) {
             </ul>
         </div>
     </div>
-    <div class="section" style="margin-top:2.3%">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="background-color:#ffffff;opacity:0.97">
-                    <img src="button/upload_sheet.png" data-toggle="collapse" data-target="#content">
-                    <img src="button/upload_video.png" data-toggle="collapse" data-target="#video">
-                    <img src="button/upload_quiz.png" data-toggle="collapse" data-target="#exercise">
-                    <div class="collapse" id="exercise">
-                        <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
-                            <textarea cols="10" id="editor1" name="question" rows="1">
+    <div class="section" style="margin-top:5px;margin-left:30px;">
+        <div class="row">
+            <div class="col-md-6" style="background-color:#ffffff;">
+                <center>
+                    <img src="button/upload_sheet.png" style="width:20%;height:20%;margin-top:20px" data-toggle="collapse" data-target="#content">
+                    <img src="button/upload_video.png" style="width:20%;height:20%;margin-top:20px" data-toggle="collapse" data-target="#video">
+                    <img src="button/upload_quiz.png" style="width:20%;height:20%;margin-top:20px" data-toggle="collapse" data-target="#exercise">
+                </center>
+                <div class="collapse" id="exercise">
+                    <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
+                        <textarea rows="4" cols="8" id="editor1" name="question">
                             </textarea>
-                            <input type="hidden" name="id_course2" value="<?php echo$_GET['id_course'];?>">
-                            <div class="form-group">
-                              <label for="">ตัวเลือกที่ถูก</label>
-                              <input type="text" name="id_answer" class="form-control" id="" placeholder="">
-                            </div>
-                            <div class="form-group">
-                              <label for="">ตัวเลือกที่ 1</label>
-                              <input type="text" name="answer1"class="form-control" id="" placeholder="">
-                            </div>
-                            <div class="form-group">
-                              <label for="">ตัวเลือกที่ 2</label>
-                              <input type="text" name="answer2"class="form-control" id="" placeholder="">
-                            </div>
-                            <div class="form-group">
-                              <label for="">ตัวเลือกที่ 3</label>
-                              <input type="text" name="answer3"class="form-control" id="" placeholder="">
-                            </div>
-                            <div class="form-group">
-                              <label for="">ตัวเลือกที่ 4</label>
-                              <input type="text" name="answer4"class="form-control" id="" placeholder="">
-                            </div>
-                            <div class="form-group">
-                              <label for="">คะแนน</label>
-                              <input type="text" name="score"class="form-control" id="" placeholder="">
-                            </div>
-                            <input type="submit" name="submit" value="สร้าง">
-                        </form>
-                    </div>
-                    <div id="video" class="collapse">
-                        <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
-                            <br><br>
-                            <input type="hidden" name="id_course" value="<?php echo$_GET['id_course'];?>">
-                            <div class="col-md-6" align="right">
-                                <div class="form-group">
-                                    <label for="">ไฟล์วิดีโอ</label>
-                                    <input type="file" name="video" class="form-control" style="margin-left:10px">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">คำอธิบาย</label>
-                                <input type="text" class="form-group" name="description" value="">
-                            </div>
-                            <button type="submit" class="btn btn-info btn-lg" name="button">อัพโหลด</button>
-                        </form><br><br>
-                    </div>
-                    <?php if (isset($_GET['id_course'])) {
-     ?>
-                    <form action="" method="get">
-                        <input type="hidden" name="id_course" value="<?php echo$_GET['id_course'];?>">
-                        <input type="hidden" name="flag" value="public">
-                        <div id="content" class="collapse">
-                            <textarea cols="10" id="editor2" name="data" rows="10">
-                   <?php $list->draft($_SESSION['id'], $_GET['id_course'],$_GET['data'],$_GET['flag']);
-                          echo "asdasd"; ?>
-                 </textarea>
-                            <input type="submit" name="submit" value="สร้าง">
+                        <input type="hidden" name="id_course2" value="<?php echo$_SESSION['id_course']; ?>">
+                        <div class="form-group">
+                            <label for="">ตัวเลือกที่ถูก</label>
+                            <input type="text" name="id_answer" class="form-control" id="" placeholder="">
                         </div>
-                        <?php } ?>
+                        <div class="form-group">
+                            <label for="">ตัวเลือกที่ 1</label>
+                            <input type="text" name="answer1" class="form-control" id="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">ตัวเลือกที่ 2</label>
+                            <input type="text" name="answer2" class="form-control" id="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">ตัวเลือกที่ 3</label>
+                            <input type="text" name="answer3" class="form-control" id="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">ตัวเลือกที่ 4</label>
+                            <input type="text" name="answer4" class="form-control" id="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="">คะแนน</label>
+                            <input type="text" name="score" class="form-control" id="" placeholder="">
+                        </div>
+                        <input type="submit" name="submit" value="สร้าง">
                     </form>
+                </div>
+                <div id="video" class="collapse">
+                    <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
+                        <br><br>
+                        <input type="hidden" name="id_course" value="<?php echo$_GET['id_course']; ?>">
+                        <div class="col-md-6" align="right">
+                            <div class="form-group">
+                                <label for="">ไฟล์วิดีโอ</label>
+                                <input type="file" name="video" class="form-control" style="margin-left:10px">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">คำอธิบาย</label>
+                            <input type="text" class="form-group" name="description" value="">
+                        </div>
+                        <button type="submit" class="btn btn-info btn-lg" name="button">อัพโหลด</button>
+                    </form><br><br>
+                </div>
+                <?php if (isset($_GET['id_course'])) {
+     ?>
+                <form action="" method="get">
+                    <input type="hidden" name="id_course" value="<?php echo$_GET['id_course']; ?>">
+                    <input type="hidden" name="flag" value="public">
+                    <div id="content" class="collapse">
+                        <textarea cols="10" id="editor2" name="data" rows="10">
+                   <?php $list->draft($_SESSION['id'], $_GET['id_course'], $_GET['data'], $_GET['flag']); ?>
+                 </textarea>
+                        <input type="submit" name="submit" value="สร้าง">
+                    </div>
+                    <?php
+ } ?>
+                </form>
+            </div>
+
+            <div class="col-md-6" style="background-color:#ffffff;">
+              <button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_question">ดูรายละเอียดโจทย์</button>
+                <br><br>
+               <?php $list->list_question($_SESSION['id'],$_SESSION['id_course']) ?>
+            </div>
+        </div>
+    </div>
 
 
-
-                    <script>
-                        var editor = CKEDITOR.replace('editor1', {
-                            extraPlugins: 'mathjax',
-                            mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
-                            height: 320
-                        });
-                        editor.on('change', function(evt) {
-                            console.log('Total bytes: ' + evt.editor.getData());
-                        });
-
-                        if (CKEDITOR.env.ie && CKEDITOR.env.version == 8) {
-                            document.getElementById('ie8-warning').className = 'tip alert';
-                        }
-                    </script>
-                    <script>
-                        var editor1 = CKEDITOR.replace('editor2', {
-                            extraPlugins: 'mathjax',
-                            mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
-                            height: 320
-                        });
-                        editor1.on('change', function(evt) {
-                            console.log('Total bytes: ' + evt.editor.getData());
-                        });
-
-                        if (CKEDITOR.env.ie && CKEDITOR.env.version == 8) {
-                            document.getElementById('ie8-warning').className = 'tip alert';
-                        }
-                    </script>
+    <script>
+        var editor = CKEDITOR.replace('editor1', {
+            extraPlugins: 'mathjax',
+            mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
+            height: 100,
+            width: 635
+        });
+    </script>
+    <script>
+        var editor1 = CKEDITOR.replace('editor2', {
+            extraPlugins: 'mathjax',
+            mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
+            height: 280,
+            width: 635
+        });
+    </script>
 
 </body>
 

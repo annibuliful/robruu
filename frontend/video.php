@@ -19,6 +19,7 @@ if (isset($_GET['id_course']) && isset($_GET['id_user'])) {
   <body>
 <div class="container">
 <?php   $detail->showdetail_course($_GET['id_course'],$_GET['id_user']); ?>
+<a href="main.php"><br><br><button type="button" name="button" class="btn btn-danger btn-lg">ย้อนกลับ</button></a>
 </div>
   </body>
 </html>

@@ -2,9 +2,7 @@
 require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/student_controller.php';
 $list = new student_controller();
 if (isset($_POST['id_answer'])) {
-  //$list->exam($_POST['id_answer'],$_POST['id_question'],$_SESSION['id']);
-  print_r($_POST['id_answer']);
-  print_r($_POST['id_question']);
+  $list->exam($_POST['id_answer'],$_POST['id_question'],$_SESSION['id']);
 }
 
  ?>
@@ -55,6 +53,7 @@ $list->show_question($_GET['id_course']);
 }else {
   header('location: index.html');
 } ?>
+<a href="main.php"><button type="button" name="button" class="btn btn-info btn-lg">กลับ</button></a>
     </div>
 </body>
 

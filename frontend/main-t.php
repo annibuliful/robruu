@@ -105,7 +105,7 @@ if (isset($_POST['course_name'])) {
                     <div class="col-md-12">
                         <form class="navbar-form" action="buy.php" method="post">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="ค้นหาบทเรียน">
+                                <input type="text" name="course_name" class="form-control" placeholder="ค้นหาบทเรียน">
                                 <div class="input-group-btn">
                                     <button class="btn btn" type="button">
                                       <span class="glyphicon glyphicon-search"></span>

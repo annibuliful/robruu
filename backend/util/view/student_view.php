@@ -23,15 +23,18 @@ class student_view
   }
   public function showdetail_course(array $detail)
   {
+    echo "<div class=\"container\">";
     for ($i=0; $i <count($detail) ; $i++) {
-      echo "<h3>{$detail[$i]['description']}</h3>
+      echo "<h2>{$detail[$i]['description']}</h2><br>
       <button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#demo{$i}\">กดดูวิดีโอ</button>
        <div id=\"demo{$i}\" class=\"collapse\">
-        <center><video width=\"100%\" height=\"50%\" controls >
+        <center><video width=\"600px\" height=\"500px\" controls >
          <source src=\"../../frontend/store/videos/{$detail[$i]['id_video']}\" type=\"video/mp4\"/>
       </video></center>
-    </div>";
+    </div>
+    ";
     }
+    echo "</div>";
 
   }
   public function list_course(array $list,$id_user)
@@ -134,6 +137,10 @@ class student_view
       <span class=\"sr-only\">Next</span>
     </a>";
     echo "</div><input type=\"submit\" name=\"submit\" value=\"ส่งคำตอบ\"></form>";
+  }
+  public function history(array $detail)
+  {
+
   }
 }
  ?>
