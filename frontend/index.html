@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-    <script type="text/javascript" src="lib/jquery.js"></script>
-    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
     <style>
         @font-face {
             font-family: thaisan;
@@ -25,11 +26,12 @@
     </style>
 </head>
 <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm"style="width:350px,margin:auto;">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body">
                 <center>
-                    <form class="form-inline" style="font-size: 15" action="controller/register.php" method="post" enctype="multipart/form-data">
+                    <h2>register</h2>
+                    <form class="form-inline" action="controller/register.php" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>ชื่อผู้ใช้งาน</label>
                             <input type="text" name="name" class="form-control" style="margin-left:12px;width:200px" placeholder="ชื่อผู้ใช้งาน">
@@ -51,11 +53,10 @@
                             <label>รูปโปรไฟล์</label>
                             <input type="file" name="image" class="form-control" style="margin-left:10px;width:200px" placeholder="รหัสผ่าน">
                         </div><br><br>
-                        <input type="submit" class="btn btn-default btn-info btn-lg"name="submit" value="สมัคร">
-
+                        <input type="submit" name="submit" class="btn btn-info btn-" value="สมัคร">
                     </form>
-                </center>
             </div>
+            </center>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -73,39 +74,29 @@
         </div>
     </div>
     <div class="cover">
-        <div class="cover-image" style="background-image: url(pic/bg.jpg);">
+        <div class="cover-image" style="background-image: url(pic/bg.jpg);"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center" style="margin-top:2%">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6 text-center" style="background-color:368d7c;opacity:0.96;">
-                        <font style="background-color:368d7c;font-size:45;" color="white">เรียนไป สอนไป</font>
-                        <font style="background-color:368d7c;font-size:55;" color="white">
-                            <i>เก่งไปด้วยกัน</i>
-                        </font>
-                    </div>
-                    <br><br>
-                    <div class="col-md-12">
-                      <div class="col-md-3"></div>
-                      <div class="col-md-6 text-center">
-                          <font style="background-color:774538;font-size:27;opacity:0.9;" color="white">Web APP ที่ทุกคนสามารถใช้แลกเปลี่ยนความรู้ด้วยกันได้</font>
-                      </div>
-                    </div>
-
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <a class="btn btn-danger" data-toggle="collapse" data-target="#login" style="font-size:200%;width:300;height:60">Join</a>
-                    <br>
-                    <br>
+                <div class="col-md-5 text-center" style="background-color:368d7c;opacity:0.96;margin-left: 30%">
+                    <font style="background-color:368d7c;font-size:45;" color="white">เรียนไป สอนไป</font>
+                    <font style="background-color:368d7c;font-size:55;" color="white">
+                        <i>เก่งไปด้วยกัน</i>
+                    </font>
                 </div>
+                <br><br>
+                <div class="col-md-4"></div>
+                <div class="col-md-5 text-center" style="background-color:774538;font-size:27;opacity:0.9;margin-left: 30%">
+                    <font color="white">Web APP ที่ทุกคนสามารถใช้แลกเปลี่ยนความรู้ด้วยกันได้</font>
+                </div>
+                <div class="col-md-12 text-center"><a class="btn btn-danger" data-toggle="collapse" data-target="#login" style="font-size:200%;width:300;height:60">Join</a></div>
+                <br>
+                <br>
             </div>
             <div class="row">
                 <div class="col-md-4"></div>
-                <div class="col-md-4 collapse img-thumbnail" style="margin:auto;background-color:#ffffff;" id="login">
+                <div class="col-md-4 collapse" style="margin:auto;background-color:#ffffff;" id="login">
                     <br>
-                    <form class="form-horizontal" action="main.php" method="post"style="margin-left: 50px" role="form">
+                    <form class="form-horizontal" action="main.php" method="post" style="margin-left: 50px" role="form">
                         <div class="form-group">
                             <div class="col-sm-3">
                                 <label for="inputEmail3" class="control-label">ชื่อผู้ใช้งาน</label>
@@ -119,7 +110,7 @@
                                 <label for="inputPassword3" class="control-label">รหัสผ่าน</label>
                             </div>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" name="pass"id="inputPassword3" placeholder="Password">
+                                <input type="password" class="form-control" name="pass" id="inputPassword3" placeholder="Password">
                             </div>
                         </div>
                         <div class="form-group">
@@ -143,7 +134,61 @@
                     </form>
                 </div>
             </div>
-        </div></div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h2>register</h2>
+                                <form action="controller/register.php" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="user" placeholder="username">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" name="pass" placeholder="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="email" placeholder="E-mail">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="name" placeholder="ชื่อจริง">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="surname" placeholder="นามสกุล">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" class="form-control" name="image">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                                            <input type="radio" name="flag" value="1">นักเรียน</label>
+                                        <label class="radio-inline">
+                                                            <input type="radio" name="flag" value="2" data-toggle="collapse" data-target="#payment">คุณครู</label>
+                                        <div id="payment" class="collapse">
+                                            <div class="container">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" name="payment_number" placeholder="หมายเลขบัญชี">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-default" name="submit" value="สมัครสมาชิก">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="section" style="background-color:f2f2f2;margin-top:10">
         <div class="container">
@@ -216,49 +261,49 @@
         </div>
     </div>
     <footer class="section section-primary">
-        <div class="container">
-            <div class="row">
-              <font size="6">
-      <div class="section">
-          <div class="container">
-              <div class="row">
-                  <div class="col-md-12">
-                      <h1 class="text-center text-primary">ผู้จัดทำ</h1>
+            <div class="container">
+                <div class="row">
+                  <font size="6">
+          <div class="section">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-md-12">
+                          <h1 class="text-center text-primary">ผู้จัดทำ</h1>
+                      </div>
                   </div>
-              </div>
-              <div class="row">
-                  <div class="col-md-4">
-                      <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
-                      <h4 class="text-center">จารุพงศ์ &nbsp; &nbsp;ประจักโก</h4>
-                      <h4 class="text-center">Fullstack &nbsp;Developer</h4>
-                  </div>
-                  <div class="col-md-4">
-                      <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
-                      <h4 class="text-center">ศิริลักษณ์ &nbsp; &nbsp;กิจวงศ์วัฒนะ</h4>
-                      <h4 class="text-center">Frontend &nbsp;Developer
-              <p></p>
-            </h4>
-                  </div>
-                  <div class="col-md-4">
-                      <img src="user.png" class="center-block img-circle img-responsive" style="height: 150px">
-                      <h4 class="text-center">ณัฐนนท์ &nbsp; สุขชู</h4>
-                      <h4 class="text-center">Content Editor</h4>
+                  <div class="row">
+                      <div class="col-md-4">
+                          <img src="pic/fullstack.jpg" class="center-block img-circle img-responsive" style="height: 150px">
+                          <h4 class="text-center">จารุพงศ์ &nbsp; &nbsp;ประจักโก</h4>
+                          <h4 class="text-center">Fullstack &nbsp;Developer</h4>
+                      </div>
+                      <div class="col-md-4">
+                          <img src="pic/fontend.jpg" class="center-block img-circle img-responsive" style="height: 150px">
+                          <h4 class="text-center">ศิริลักษณ์ &nbsp; &nbsp;กิจวงศ์วัฒนะ</h4>
+                          <h4 class="text-center">Frontend &nbsp;Developer
+                  <p></p>
+                </h4>
+                      </div>
+                      <div class="col-md-4">
+                          <img src="pic/editor.jpg" class="center-block img-circle img-responsive" style="height: 150px">
+                          <h4 class="text-center">ณัฐนนท์ &nbsp; สุขชู</h4>
+                          <h4 class="text-center">Content Editor</h4>
+                      </div>
                   </div>
               </div>
           </div>
-      </div>
-  </font>
-                    <div class="row">
-                        <div class="col-md-12 hidden-xs text-right">
-                            <a href="https://twitter.com/lagmanzaza"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                            <a href="https://www.facebook.com/pspcomeback2school"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                            <a href="https://github.com/lagmanzaza/robruu"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+      </font>
+                        <div class="row">
+                            <div class="col-md-12 hidden-xs text-right">
+                                <a href="https://twitter.com/lagmanzaza"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                                <a href="https://www.facebook.com/pspcomeback2school"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                                <a href="https://github.com/lagmanzaza/robruu"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
 
 </body>

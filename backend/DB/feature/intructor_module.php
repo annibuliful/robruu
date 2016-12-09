@@ -13,7 +13,7 @@ class intructor
     private $uuid_course;
     public function __construct()
     {
-        $this->sql = new pdo('mysql:host=localhost;dbname=robruu_online', 'root', '@PeNtesterMYSQL');
+        $this->sql = new PDO('mysql:host=localhost;dbname=robruu_online', 'root', '@PeNtesterMYSQL');
         $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->uuid = uniqid('question_');
         $this->uuid_exam = uniqid('exam_');
@@ -145,8 +145,19 @@ class intructor
     }
     public function get_list_video_course(string $id_course)
     {
-        $sql = $this->sql->prepare('SELECT course_name,id_playlist FROM course WHERE id_playlist = :id_playlist AND flag_num = 1;');
+        $sql = $this->sql->prepare('SELECT description,id_video FROM course WHERE id_playlist = :id_playlist AND flag_num = 1;');
         $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_STR);
+        $sql->execute();
+
+        return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function list_video(string $id_author,string $id_course)
+    {
+        $sql = $this->sql->prepare('SELECT description,id_playlist FROM course
+                                    WHERE id_playlist = :id_playlist
+                                    AND flag_num = 1 AND id_author = :id_author ;');
+        $sql->bindParam(':id_playlist', $id_course, PDO::PARAM_STR);
+        $sql->bindParam(':id_author',$id_author,PDO::PARAM_STR);
         $sql->execute();
 
         return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
@@ -354,5 +365,12 @@ class intructor
     $sql->bindParam(':id_playlist',$id_course,PDO::PARAM_STR);
     $sql->execute();
     return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
+  }
+  public function edit_video(string $id_author,string $id_video,string $description)
+  {
+    $sql = $this->sql->prepare('UPDATE course SET description= :description WHERE id_video= :id_video ;');
+    $sql->bindParam(':id_video',$id_video,PDO::PARAM_STR);
+    $sql->bindParam(':description',$description,PDO::PARAM_STR);
+    $sql->execute();
   }
 }

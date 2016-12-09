@@ -198,8 +198,10 @@ if (isset($_POST['question']) && isset($_POST['id_answer'])) {
 
             <div class="col-md-6" style="background-color:#ffffff;">
               <button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_question">ดูรายละเอียดโจทย์</button>
+              <button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_video">ดูรายละเอียดวิดีโอ</button>
                 <br><br>
                <?php $list->list_question($_SESSION['id'],$_SESSION['id_course']) ?>
+               <?php $list->list_video($_SESSION['id'],$_SESSION['id_course']); ?>
             </div>
         </div>
     </div>

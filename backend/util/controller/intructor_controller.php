@@ -69,11 +69,10 @@ class intructor_controller
     {
         $check = $this->intructor->del_question($id_author, $id_question);
         if ($chcek == true) {
-          header('location: editor.php');
-        }else {
-          header('location: editor.php');
+            header('location: editor.php');
+        } else {
+            header('location: editor.php');
         }
-
     }
     public function make_exam(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $id_course, string $score)
     {
@@ -110,25 +109,39 @@ class intructor_controller
         $check = $this->intructor->question_detail($id_author, $id_question);
         if ($check != null && gettype($check) == 'array') {
             $this->view->question_detail($check);
-        }else {
-          echo "error";
+        } else {
+            echo 'error';
         }
     }
-    public function list_question(string $id_user,string $id_course)
+    public function list_question(string $id_user, string $id_course)
     {
-      $check = $this->intructor->list_question($id_user,$id_course);
-      if ($check != null && gettype($check) == 'array') {
-        $this->view->list_question($check);
-      }
+        $check = $this->intructor->list_question($id_user, $id_course);
+        if ($check != null && gettype($check) == 'array') {
+            $this->view->list_question($check);
+        }
     }
-    public function edit_question(string $id_author, string $id_question,string $data, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
+    public function edit_question(string $id_author, string $id_question, string $data, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
     {
-      $check = $this->intructor->edit_question($id_author,$id_question,$data,$id_answer,$answer1,$answer2,$answer3,$answer4,$score);
-      if ($check = true) {
-        echo "แก้ไขเรียบร้อย";
+        $check = $this->intructor->edit_question($id_author, $id_question, $data, $id_answer, $answer1, $answer2, $answer3, $answer4, $score);
+        if ($check = true) {
+            echo 'แก้ไขเรียบร้อย';
+        } else {
+            echo 'เกิดปัญหากับการแก้ไข';
+        }
+    }
+    public function del_video(string $id_video)
+    {
+      $this->intructor->del_video($id_video);
+      header('location: main-t.php');
+    }
+    public function list_video(string $id_author,string $id_course)
+    {
+      $check = $this->intructor->list_video($id_author,$id_course);
+      if ($check != null && gettype($check) == 'array') {
+        $this->view->list_video($check);
       }else {
-        echo "เกิดปัญหากับการแก้ไข";
+        header('location: editor.php');
       }
+
     }
 }
-?>
