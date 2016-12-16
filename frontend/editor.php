@@ -18,6 +18,12 @@ if (isset($_POST['id_course'])) {
 if (isset($_POST['question']) && isset($_POST['id_answer'])) {
     $list->make_exam($_SESSION['id'], $_POST['question'], $_POST['id_answer'], $_POST['answer1'], $_POST['answer2'], $_POST['answer3'], $_POST['answer4'], $_POST['id_course2'], $_POST['score']);
 }
+if (isset($_POST['question1']) && isset($_POST['id_answer1'])) {
+    $list->make_question($_SESSION['id'], $_POST['question1'], $_POST['id_answer1'], $_POST['answer11'], $_POST['answer21'], $_POST['answer31'], $_POST['answer41'], $_POST['id_course21'], $_POST['score1']);
+}
+if (isset($_POST['flag']) && isset($_POST['id_course33']) && isset($_POST['data'])) {
+  $list->draft($_SESSION['id'],$_POST['id_course33'],$_POST['data'],'public');
+}
 
  ?>
 <html>
@@ -125,83 +131,110 @@ if (isset($_POST['question']) && isset($_POST['id_answer'])) {
     </div>
     <div class="section" style="margin-top:5px;margin-left:30px;">
         <div class="row">
-            <div class="col-md-6" style="background-color:#ffffff;">
+            <div class="col-md-12" style="background-color:#ffffff;">
                 <center>
-                    <img src="button/upload_sheet.png" style="width:20%;height:20%;margin-top:20px" data-toggle="collapse" data-target="#content">
-                    <img src="button/upload_video.png" style="width:20%;height:20%;margin-top:20px" data-toggle="collapse" data-target="#video">
-                    <img src="button/upload_quiz.png" style="width:20%;height:20%;margin-top:20px" data-toggle="collapse" data-target="#exercise">
-                </center>
-                <div class="collapse" id="exercise">
-                    <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
-                        <textarea rows="4" cols="8" id="editor1" name="question">
-                            </textarea>
-                        <input type="hidden" name="id_course2" value="<?php echo$_SESSION['id_course']; ?>">
-                        <div class="form-group">
-                            <label for="">ตัวเลือกที่ถูก</label>
-                            <input type="text" name="id_answer" class="form-control" id="" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">ตัวเลือกที่ 1</label>
-                            <input type="text" name="answer1" class="form-control" id="" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">ตัวเลือกที่ 2</label>
-                            <input type="text" name="answer2" class="form-control" id="" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">ตัวเลือกที่ 3</label>
-                            <input type="text" name="answer3" class="form-control" id="" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">ตัวเลือกที่ 4</label>
-                            <input type="text" name="answer4" class="form-control" id="" placeholder="">
-                        </div>
-                        <div class="form-group">
-                            <label for="">คะแนน</label>
-                            <input type="text" name="score" class="form-control" id="" placeholder="">
-                        </div>
-                        <input type="submit" name="submit" value="สร้าง">
-                    </form>
-                </div>
-                <div id="video" class="collapse">
-                    <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
-                        <br><br>
-                        <input type="hidden" name="id_course" value="<?php echo$_GET['id_course']; ?>">
-                        <div class="col-md-6" align="right">
-                            <div class="form-group">
-                                <label for="">ไฟล์วิดีโอ</label>
-                                <input type="file" name="video" class="form-control" style="margin-left:10px">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="">คำอธิบาย</label>
-                            <input type="text" class="form-group" name="description" value="">
-                        </div>
-                        <button type="submit" class="btn btn-info btn-lg" name="button">อัพโหลด</button>
-                    </form><br><br>
-                </div>
-                <?php if (isset($_GET['id_course'])) {
-     ?>
-                <form action="" method="get">
-                    <input type="hidden" name="id_course" value="<?php echo$_GET['id_course']; ?>">
-                    <input type="hidden" name="flag" value="public">
-                    <div id="content" class="collapse">
-                        <textarea cols="10" id="editor2" name="data" rows="10">
-                   <?php $list->draft($_SESSION['id'], $_GET['id_course'], $_GET['data'], $_GET['flag']); ?>
-                 </textarea>
-                        <input type="submit" name="submit" value="สร้าง">
+                    <img src="button/upload_sheet.png" data-toggle="collapse" data-target="#content">
+                    <img src="button/upload_video.png" data-toggle="collapse" data-target="#video">
+                    <img src="button/upload_quiz.png" data-toggle="collapse" data-target="#exercise">
+                    <img src="button/upload_exercise.png" data-toggle="collapse" data-target="#exercise1">
+                    <div class="collapse" id="content">
+                        <form action="editor.php" method="post">
+                            <input type="hidden" name="id_course33" value="<?php echo$_SESSION['id_course']; ?>">
+                            <input type="hidden" name="flag" value="public">
+                                <textarea cols="10" id="editor2" name="data" rows="10"></textarea>
+                                <input type="submit" name="submit" value="สร้าง">
+                        </form>
                     </div>
-                    <?php
- } ?>
-                </form>
+                    <div class="collapse" id="exercise">
+                        <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
+                            <textarea rows="4" cols="8" id="editor1" name="question">
+                            </textarea>
+                            <input type="hidden" name="id_course2" value="<?php echo$_SESSION['id_course']; ?>">
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ถูก</label>
+                                <input type="text" name="id_answer" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 1</label>
+                                <input type="text" name="answer1" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 2</label>
+                                <input type="text" name="answer2" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 3</label>
+                                <input type="text" name="answer3" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 4</label>
+                                <input type="text" name="answer4" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">คะแนน</label>
+                                <input type="text" name="score" class="form-control" id="" placeholder="">
+                            </div>
+                            <input type="submit" name="submit" value="สร้าง">
+                        </form>
+                    </div>
+                    <div class="collapse" id="exercise1">
+                        <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
+                            <textarea rows="4" cols="8" id="editor3" name="question1">
+                            </textarea>
+                            <input type="hidden" name="id_course21" value="<?php echo$_SESSION['id_course']; ?>">
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ถูก</label>
+                                <input type="text" name="id_answer1" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 1</label>
+                                <input type="text" name="answer11" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 2</label>
+                                <input type="text" name="answer21" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 3</label>
+                                <input type="text" name="answer31" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">ตัวเลือกที่ 4</label>
+                                <input type="text" name="answer41" class="form-control" id="" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="">คะแนน</label>
+                                <input type="text" name="score1" class="form-control" id="" placeholder="">
+                            </div>
+                            <input type="submit" name="submit" value="สร้าง">
+                        </form>
+                    </div>
+                    <div id="video" class="collapse">
+                        <form class="form-inline" action="editor.php" method="post" enctype="multipart/form-data">
+                            <br><br>
+                            <input type="hidden" name="id_course" value="<?php echo$_GET['id_course']; ?>">
+                            <div class="col-md-6" align="right">
+                                <div class="form-group">
+                                    <label for="">ไฟล์วิดีโอ</label>
+                                    <input type="file" name="video" class="form-control" style="margin-left:10px">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">คำอธิบาย</label>
+                                <input type="text" class="form-group" name="description" value="">
+                            </div>
+                            <button type="submit" class="btn btn-info btn-lg" name="button">อัพโหลด</button>
+                        </form><br><br>
+                    </div>
+                </center>
             </div>
-
-            <div class="col-md-6" style="background-color:#ffffff;">
-              <button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_question">ดูรายละเอียดโจทย์</button>
-              <button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_video">ดูรายละเอียดวิดีโอ</button>
+            <div class="col-md-6" style="background-color:#ffffff;margin-top: 30px">
+                <center><button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_question">ดูรายละเอียดโจทย์</button>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_video">ดูรายละเอียดวิดีโอ</button>
+                </center>
                 <br><br>
-               <?php $list->list_question($_SESSION['id'],$_SESSION['id_course']) ?>
-               <?php $list->list_video($_SESSION['id'],$_SESSION['id_course']); ?>
+                <?php $list->list_question($_SESSION['id'], $_SESSION['id_course']) ?>
+                <?php $list->list_video($_SESSION['id'], $_SESSION['id_course']); ?>
             </div>
         </div>
     </div>
@@ -212,7 +245,7 @@ if (isset($_POST['question']) && isset($_POST['id_answer'])) {
             extraPlugins: 'mathjax',
             mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
             height: 100,
-            width: 635
+            width: 1000
         });
     </script>
     <script>
@@ -220,7 +253,15 @@ if (isset($_POST['question']) && isset($_POST['id_answer'])) {
             extraPlugins: 'mathjax',
             mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
             height: 280,
-            width: 635
+            width: 1000
+        });
+    </script>
+    <script>
+        var editor1 = CKEDITOR.replace('editor3', {
+            extraPlugins: 'mathjax',
+            mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
+            height: 100,
+            width: 1000
         });
     </script>
 

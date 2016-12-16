@@ -184,7 +184,7 @@ class co_func
       $sql->execute();
       $check = $sql->fetch(PDO::FETCH_ASSOC);
       if (!$check) {
-        $sql = $this->sql->prepare('SELECT price,id_author,course_name,id_video,cover FROM course
+        $sql = $this->sql->prepare('SELECT * FROM course
                                     WHERE id_playlist = :id_playlist ;');
         $sql->bindParam(':id_playlist',$id_course,PDO::PARAM_STR);
         $sql->execute();
@@ -205,13 +205,15 @@ class co_func
                $sql->bindParam(':money',$price['price']);
                $sql->bindParam(':id_author',$price['id_author']);
                $sql->execute();
-               $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id,course_name,id_video,cover)
-                                           VALUES (:id_user ,:id_course ,:course_name ,:id_video ,:cover )  ');
+               $sql = $this->sql->prepare('INSERT INTO course_user(user_id,course_id,course_name,description,id_video,cover,major)
+                                           VALUES (:id_user ,:id_course ,:course_name ,:description ,:id_video ,:cover,:major )  ');
                $sql->bindparam(':id_user',$id_user,PDO::PARAM_INT);
                $sql->bindparam(':id_course',$id_course,PDO::PARAM_STR);
                $sql->bindparam(':course_name',$price['course_name']);
                $sql->bindparam(':id_video',$price['id_video']);
                $sql->bindparam(':cover',$price['cover']);
+               $sql->bindparam(':description',$price['description']);
+               $sql->bindParam(':major',$price['major']);
                $sql->execute();
                echo "<h2>ซื้อคอสสำเร็จ</h2>";
           }else {
@@ -225,15 +227,14 @@ class co_func
       }
 
     }
-    public function search($detail)
+    public function search(string $detail)
     {
-      $detail = "%$detail%";
-      $sql = $this->sql->prepare("SELECT id_playlist,course_name,description,price,cover FROM course
-                                 WHERE course_name LIKE :detail AND flag_num = 1;");
-      $sql->bindParam(':detail',$detail,PDO::PARAM_STR);
-      $sql->execute();
-      return $sql->fetchAll(PDO::FETCH_ASSOC);
-
+        $detail = "%$detail%";
+        $sql = $this->sql->prepare("SELECT id_playlist,course_name,description,price,cover FROM course
+                                   WHERE course_name LIKE :detail AND flag_num = 1 ;");
+        $sql->bindParam(':detail',$detail,PDO::PARAM_STR);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
     public function point_to_money(string $id_user)
     {

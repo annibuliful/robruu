@@ -35,7 +35,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
         </style>
     </head>
 
-    <body style="background-color:#28c4f7">
+    <body style="background-color:#09b99a">
         <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; height:15%">
             <div class="container" style="; width:90%">
                 <div class="navbar-header">
@@ -113,57 +113,31 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                                 </li>
                             </ul>
                             <li style="background-color:#008489; margin-left:50">
-                                <a href="#">
+                                <a href="main.php">
                                     <font color="white" size="4">หน้าหลัก</font>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="main.php?major=math">
                                     <font color="white" size="4">คณิตศาสตร์</font>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="main.php?major=sci">
                                     <font color="white" size="4"> วิทยาศาสตร์</font>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="main.php?major=thai">
                                     <font color="white" size="4">ภาษาไทย</font>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="main.php?major=eng">
                                     <font color="white" size="4"> ภาษาอังกฤษ</font>
                                 </a>
                             </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">อื่นๆ
-        <span class="caret"></span></a>
-                                <!-- ;; v ;; ดรอปดาวไม่ขึ้นอ่ะ น้ำตาจะไหล!-->
-                            </li>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#">
-                                        <font color="white" size="4">สังคมศึกษา</font>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <font color="white" size="4">การงานอาชีพ</font>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <font color="white" size="4">สุขศึกษา</font>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <font color="white" size="4">ศิลปะ</font>
-                                    </a>
-                                </li>
-                            </ul>
+                            <li><a href="main.php?major=etc"><font color="white" size="4">อื่นๆ</font></a></li>
                             <div class="nav navbar-nav navbar-right" id="div1" align="right" style="font-size:25;">
                                 <?php $authen->check_session($_SESSION['id']); ?>
                             </div>
@@ -210,13 +184,35 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                             <hr>
                         </font>
                         <ul class="media-list">
-                            <?php $list->list_course($_SESSION['id']); ?>
+                            <?php
+                            if (isset($_GET['major'])) {
+                              $list->list_course($_SESSION['id'],$_GET['major']);
+                            }else {
+                                $list->list_course($_SESSION['id'],'');
+                            }
+                           ?>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-
+        <!--<script type="text/javascript">
+            $(window).load(function(){
+                $('#myModal').modal('show');
+            });
+        </script>
+        <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <center><h1>คุณได้รับ </h1><br><p style="font-size: 90px">100 <img src="icon/point.png" style="width:65px;height:65px"></p></center>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>-->
 
     </body>
 

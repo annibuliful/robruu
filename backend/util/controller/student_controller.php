@@ -12,24 +12,17 @@ class student_controller
         $this->student = new student();
         $this->view = new student_view();
     }
-    public function answer(string $id_question, string $id_answer, string $id_user)
+    public function exercise(array $id_answer, array $id_question, string $id_user)
     {
-        $this->student->answer($id_question, $id_answer, $id_user);
-      /*if ($check == 'true') {
-        $this->view->answer_true();
-      }elseif ($check == 'false') {
-        $this->view->answer_false();
-      }elseif ($check == 'answered') {
-        $this->view->answer_answered();
-      }*/
+        $check = $this->student->answer($id_answer, $id_question, $id_user);
     }
-    public function list_course(string $id_user)
+    public function list_course(string $id_user,string $major)
     {
-        $check = $this->student->list_course($id_user);
+        $check = $this->student->list_course($id_user,$major);
         if ($check != null && gettype($check) == 'array') {
             $this->view->list_course($check, $id_user);
         } else {
-            echo 'error';
+            echo '<h1>ยังไม่พบคอร์สเรียนนี้</h1>';
         }
     }
     public function showdetail_course(string $id_course)
@@ -48,9 +41,19 @@ class student_controller
             $this->view->question($check);
         }
     }
-    public function exam(array $id_answer, array $id_question, string $id_user)
+    public function show_exercise(string $id_course)
+    {
+        $check = $this->student->show_exercise($id_course);
+        if ($check != null && gettype($check) == 'array') {
+            $this->view->exercise($check);
+        }
+    }
+    public function exam($id_answer,$id_question, string $id_user)
     {
         $check = $this->student->answer_exam($id_answer, $id_question, $id_user);
+        if ($check != null) {
+          echo "<br><h2>คุณได้คะแนน ".$check." คะแนน</h2>";
+        }
     }
     public function ranking()
     {

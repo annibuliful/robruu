@@ -236,28 +236,37 @@ class intructor
             return false;
         }
     }
-    public function make_question(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
+    public function make_question(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $id_course, string $score)
     {
         $sql = $this->sql->prepare('SELECT id FROM user WHERE id = :id_author');
         $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
         $sql->execute();
         $fetch = $sql->fetch(PDO::FETCH_COLUMN);
         if ($fetch == true) {
-            $sql = $this->sql->prepare('INSERT INTO question VALUES
-                                      (:id ,:id_author,:question ,:answer1 ,:answer2 ,:answer3 ,:answer4,
-                                       :score ,:id_answer,0)');
-            $sql->bindParam(':id', $this->uuid, PDO::PARAM_STR);
-            $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
-            $sql->bindParam(':question', $question, PDO::PARAM_STR);
-            $sql->bindParam(':answer1', $answer1, PDO::PARAM_STR);
-            $sql->bindParam(':answer2', $answer2, PDO::PARAM_STR);
-            $sql->bindParam(':answer3', $answer3, PDO::PARAM_STR);
-            $sql->bindParam(':answer4', $answer4, PDO::PARAM_STR);
-            $sql->bindParam(':score', $score, PDO::PARAM_INT);
-            $sql->bindParam(':id_answer', $id_answer, PDO::PARAM_INT);
+            $sql = $this->sql->prepare('SELECT id_playlist FROM course WHERE id_playlist = :id_course ;');
+            $sql->bindParam(':id_course', $id_course, PDO::PARAM_STR);
             $sql->execute();
+            $fetch = $sql->fetch(PDO::FETCH_COLUMN);
+            if ($fetch != null) {
+                $sql = $this->sql->prepare('INSERT INTO question VALUES
+                                      (:id ,:id_author,:question ,:answer1 ,:answer2 ,
+                                        :answer3 ,:answer4 ,:score ,:id_answer,:id_course ,0)');
+                $sql->bindParam(':id', $this->uuid, PDO::PARAM_STR);
+                $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
+                $sql->bindParam(':question', $question, PDO::PARAM_STR);
+                $sql->bindParam(':answer1', $answer1, PDO::PARAM_STR);
+                $sql->bindParam(':answer2', $answer2, PDO::PARAM_STR);
+                $sql->bindParam(':answer3', $answer3, PDO::PARAM_STR);
+                $sql->bindParam(':answer4', $answer4, PDO::PARAM_STR);
+                $sql->bindParam(':id_answer', $id_answer, PDO::PARAM_INT);
+                $sql->bindParam(':id_course', $id_course, PDO::PARAM_STR);
+                $sql->bindParam(':score', $score, PDO::PARAM_INT);
+                $sql->execute();
 
-            return true;
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -322,7 +331,7 @@ class intructor
     public function save_draft(string $id_author, string $id_course, string $data = null, string $flag = null)
     {
         if ($flag == 'public') {
-            $draft = 'false';
+            $draft = 'true';
             $sql = $this->sql->prepare('UPDATE content SET draft = :flag ,data =:data WHERE id_author = :id_author
                                       AND id_course = :id_course ;');
             $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
@@ -330,7 +339,7 @@ class intructor
             $sql->bindValue(':flag', $draft, PDO::PARAM_STR);
             $sql->bindParam(':data', $data, PDO::PARAM_STR);
             $sql->execute();
-            echo $data;
+            echo 'บันทึกเรียบร้อย';
         }elseif ($data != null && $flag == 'save') {
             $sql = $this->sql->prepare('UPDATE content SET data = :data WHERE
                                         id_author = :id_author AND id_course = :id_course ;');
@@ -338,7 +347,7 @@ class intructor
             $sql->bindParam(':id_author',$id_author,PDO::PARAM_INT);
             $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
             $sql->execute();
-            echo "บันทึกเรียบร้อย";
+            echo "บันทึกเรียบร้อย1";
         }
     }
     public function check_session(string $id_user)

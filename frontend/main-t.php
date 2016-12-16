@@ -8,13 +8,13 @@ if (isset($_SESSION['id'])) {
     exit(0);
 }
 if (isset($_POST['course_name'])) {
-    $list->make_course($_SESSION['id'], '', $_POST['description'], $_POST['course_name'], $_POST['price'], $major, $_FILES['cover']);
+    $list->make_course($_SESSION['id'], '', $_POST['description'], $_POST['course_name'], $_POST['price'], $_POST['major'], $_FILES['cover']);
 }
 ?>
     <html>
 
     <head>
-        <title>Rob-Roo l รอบรู้ทุกการศึกษาของวัยเรียน วัยTEEN</title>
+        <title>Rob-Roo | รอบรู้ทุกการศึกษาของวัยเรียน วัยTEEN</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -38,8 +38,8 @@ if (isset($_POST['course_name'])) {
         <div class="modal-dialog " style="width:41%">
             <div class="modal-content">
                 <div class="modal-body">
-                  <form class="form-group" action="main-t.php" method="post" enctype="multipart/form-data">
-                    <div class="">
+                    <form class="form-group" action="main-t.php" method="post" enctype="multipart/form-data">
+                        <div class="">
                             <div class="form-group">
                                 <label for="">ชื่อคอสเรียน</label>
                                 <input type="text" name="course_name" class="form-control" id="" placeholder="">
@@ -56,7 +56,16 @@ if (isset($_POST['course_name'])) {
                                 <label for="">ภาพ cover</label>
                                 <input type="file" name="cover" class="form-control" id="" placeholder="">
                             </div>
-                    </div>
+                            <div class="form-group">
+                                <label for="sel1">Select list (select one):</label>
+                                <select class="form-control" name="major"id="sel1">
+                                  <option value="math">คณิตศาสตร์</option>
+                                  <option value="sci">วิทยาศาสตร์</option>
+                                  <option value="thai">ภาษาไทย</option>
+                                  <option value="eng">ภาษาอังกฤษ</option>
+                                  <option value="etc">อื่นๆ</option>
+                                </select></div>
+                        </div>
                         <input type="submit" class="btn btn-info" name="submit" value="สร้างคอสเรียน">
                     </form>
                 </div>

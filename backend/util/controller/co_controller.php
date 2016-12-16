@@ -35,9 +35,9 @@ class co_controller
             echo'OK';
         }
     }
-    public function search(string $detail,string $id_user)
+    public function search(string $detail,string $id_user,string $major=null)
     {
-        $check = $this->co->search($detail);
+        $check = $this->co->search($detail,$major);
         if ($check != null) {
             $this->view->search($id_user,$check);
         } else {

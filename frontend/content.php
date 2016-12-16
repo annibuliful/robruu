@@ -42,15 +42,43 @@
 <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 </script>
 
-<body>
-    <div class="container">
+<body><body style="background-image:url(pic/1847066831.jpg);">
+    <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; height:15%">
+      <div class="container" style=" width:90%">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="main.php"><span></span><img src="pic/brand.png" style="height: 80%"></a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="hidden-xs">
+              <a href="main.php"><img src="icon/study.png" style="height:50%"><font size="5">บทเรียนของฉัน</font></a>
+            </li>
+            <li active="" class="hidden-xs">
+              <a href="main-t.php"><img src="icon/course.png" style="height:50%"><font size="5">บทเรียนที่ฉันสอน</font></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="navbar navbar-default navbar-static-top" style="background-color:#fd2686">
+
+    </div>
+    <div class="section" style="background-color:#ffffff">
       <br><br><br><h2>
-        <?php require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/student_controller.php';
-        $list = new student_controller();
-        if (isset($_GET['id_course'])) {
-          $list->content($_GET['id_course']);
-        } ?></h2>
-        <a href="main.php"><button type="button"class="btn btn-info" name="button">กลับ</button></a>
+        <div class="container">
+          <?php require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/student_controller.php';
+          $list = new student_controller();
+          if (isset($_GET['id_course'])) {
+            $list->content($_GET['id_course']);
+          } ?></h2>
+        </div>
+
     </div>
 </body>
 

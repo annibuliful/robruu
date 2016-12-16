@@ -47,9 +47,9 @@ class intructor_controller
             echo 'error';
         }
     }
-    public function make_question(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $score)
+    public function make_question(string $id_author, string $question, string $id_answer, string $answer1, string $answer2, string $answer3, string $answer4, string $id_course, string $score)
     {
-        $check = $this->intructor->make_question($id_author, $question, $id_answer, $answer1, $answer2, $answer3, $answer4, $score);
+        $check = $this->intructor->make_question($id_author,$question,$id_answer,$answer1,$answer2,$answer3,$answer4,$id_course, $score);
         if ($check == true) {
             $this->view->question_true();
         } else {
