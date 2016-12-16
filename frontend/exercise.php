@@ -75,16 +75,16 @@ $list = new student_controller();
       </div>
   </div>
     <div class="container">
-      <a href="main.php"><button type="button" name="button" class="btn btn-danger btn-lg">กลับ</button></a>
+      <a href="main.php"><button type="button" name="button" class="btn btn-danger btn-lg">กลับ</button><?php if (isset($_POST['id_answer'])) {
+     $list->exam($_POST['id_answer'], $_POST['id_question'], $_SESSION['id']);
+ }
+?></a>
         <?php if (isset($_SESSION['id'])) {
-                  $list->show_exercise($_SESSION['id_course']);
-                  }else {
-                   header('location: index.html');
-                  } ?>
-                  <?php if (isset($_POST['id_answer'])) {
-                    $list->exam($_POST['id_answer'],$_POST['id_question'],$_SESSION['id']);
-                  }
- ?>
+    $list->show_exercise($_SESSION['id_course']);
+} else {
+    header('location: index.html');
+} ?>
+
     </div>
 </body>
 

@@ -59,10 +59,10 @@ class authen_DB
                 if (password_verify($password, $fetch['password'])) {
                     return (int)$fetch['id'];
                 } else {
-                    return 'failed';
+                    header('location: index.html');
                 }
             } else {
-                return 'please_register';
+                header('location: index.html');
             }
         } catch (PDOException $e) {
             echo 'error : '.$e->getMessage();
