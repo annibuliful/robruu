@@ -181,4 +181,22 @@ class student
         if ($fetch != null) {
         }
     }
+    public function note(string $id_author ,string $id_course,string $data= null)
+    {
+      if ($data = null) {
+        $sql = $this->sql->prepare('SELECT data FROM note WHERE id_course = :id_course
+                                    AND id_author = :id_author ;');
+        $sql->bindparam(':id_course',$id_course,PDO::PARAM_STR);
+        $sql->bindparam(':id_author',$id_author,PDO::PARAM_STR);
+        $sql->execute();
+        return (array)$sql->fetch(PDO::FETCH_ASSOC);
+      }else {
+        $sql = $this->sql->prepare('INSERT INTO note VALUES (:id_course ,:data ,:id_author );');
+        $sql->bindparam(':id_course',$id_course,PDO::PARAM_STR);
+        $sql->bindparam(':data',$data,PDO::PARAM_STR);
+        $sql->bindparam(':id_author',$id_author,PDO::PARAM_STR);
+        $sql->execute();
+      }
+
+    }
 }
