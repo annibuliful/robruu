@@ -6,4 +6,4 @@ php:
   - '7.0'
   - hhvm
   - nightly
-script: php backend\DB\feature\co_module.php
+script: php backend/DB/feature/co_module.php
