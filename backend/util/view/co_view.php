@@ -25,13 +25,11 @@ class co_view
     {
         echo '<h3>ยังไม่ได้เข้าสู่ระบบ</h3>';
     }
-    public function comment_complete()
+    public function list_comment(array $data)
     {
-        echo '<h3>แสดงความคิดเห็นสำเร็จ </h3>';
-    }
-    public function comment_error()
-    {
-        echo '<h3>ไม่สามารถแสดงความคิดเห็นได้ </h3>';
+        for ($i=0; $i <count($data) ; $i++) {
+          echo "string";
+        }
     }
     public function rating_error()
     {

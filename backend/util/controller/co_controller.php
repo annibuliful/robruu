@@ -19,11 +19,15 @@ class co_controller
     }
     public function comment(int $id_user, string $comment, string $id_video)
     {
-        $check = $this->co->comment($id_user, $comment, $id_video);
-        if ($check == 'complete') {
-            $this->view->comment_complete();
-        } elseif ($check == 'error') {
-            $this->view->comment_error();
+        if ($comment == null) {
+          $this->view->list_comment_video($this->co->list_comment($id_post));
+        }elseif ($comment != null) {
+          $check = $this->co->comment_video();
+          if ($check == false) {
+            echo "เกิดปัญหาการแสดงความคิดเห็น";
+          }elseif ($check == true) {
+            $this->view->list_comment_video($this->co->list_comment($id_post));
+          }
         }
     }
     public function rating(int $id_user, string $id_question = null, string $id_playlist = null)
