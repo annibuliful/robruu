@@ -39,7 +39,7 @@ class student
                                           VALUES (:id_user ,:id_question.:score )');
                         $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                         $sql->bindParam(':id_question', $id_question[$i], PDO::PARAM_STR);
-                        $sql->bindparam(':score',$fetch1[$i]['score']);
+                        $sql->bindparam(':score', $fetch1[$i]['score']);
                         $sql->execute();
                         $return_score = (int) $return_score + $fetch['score'];
                     }
@@ -107,8 +107,8 @@ class student
                                                     VALUES (:id_user ,:id_question,:id_course ,:score )');
                         $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                         $sql->bindParam(':id_question', $id_question[$i], PDO::PARAM_STR);
-                        $sql->bindParam(':id_course',$fetch['id_playlist'],PDO::PARAM_STR);
-                        $sql->bindParam(':score',$fetch['score'],PDO::PARAM_STR);
+                        $sql->bindParam(':id_course', $fetch['id_playlist'], PDO::PARAM_STR);
+                        $sql->bindParam(':score', $fetch['score'], PDO::PARAM_STR);
                         $sql->execute();
                         $return_score = (int) $return_score + $fetch['score'];
                     }
@@ -130,14 +130,15 @@ class student
         return (array) $fetch;
     }
     public function show_exercise(string $id_course)
-    {   $score = 0 ;
+    {
+        $score = 0;
         $sql = $this->sql->prepare("SELECT score FROM check_user WHERE id_course = :id_course AND
                                   id_question LIKE '%question_%'");
         $sql->bindParam(':id_course', $id_course, PDO::PARAM_STR);
         $sql->execute();
         $fetch = $sql->fetchAll(PDO::FETCH_ASSOC);
-        for ($i=0; $i <count($fetch) ; $i++) {
-          $score += $fetch[$i]['score'];
+        for ($i = 0; $i < count($fetch); ++$i) {
+            $score += $fetch[$i]['score'];
         }
         $sql = $this->sql->prepare("SELECT * FROM question WHERE id_playlist = :id_course AND
                                   id LIKE '%question_%' ORDER BY RAND() LIMIT 1 ;");
@@ -181,22 +182,43 @@ class student
         if ($fetch != null) {
         }
     }
-    public function note(string $id_author ,string $id_course,string $data= null)
+    public function note(string $id_author, string $id_course, string $data = null)
     {
-      if ($data = null) {
-        $sql = $this->sql->prepare('SELECT data FROM note WHERE id_course = :id_course
-                                    AND id_author = :id_author ;');
-        $sql->bindparam(':id_course',$id_course,PDO::PARAM_STR);
-        $sql->bindparam(':id_author',$id_author,PDO::PARAM_STR);
+        if ($data != null) {
+            $sql = $this->sql->prepare('SELECT data FROM note WHERE id_author = :id_author
+                                        AND id_course = :id_course ;');
+            $sql->bindParam(':id_author', $id_author, PDO::PARAM_INT);
+            $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+            $sql->execute();
+            $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+            if (!$fetch) {
+              $sql = $this->sql->prepare('INSERT INTO note VALUES (:id_course ,:data ,:id_author);');
+              $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+              $sql->bindParam(':data',$data,PDO::PARAM_STR);
+              $sql->bindParam(':id_author',$id_author,PDO::PARAM_STR);
+              $sql->execute();
+            }else {
+              $sql = $this->sql->prepare('UPDATE note SET data = :data WHERE id_author = :id_author
+                                          AND id_course = :id_course');
+              $sql->bindParam(':data',$data,PDO::PARAM_STR);
+              $sql->bindParam(':id_author',$id_author,PDO::PARAM_STR);
+              $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+              $sql->execute();
+            }
+        }elseif ($data == null) {
+          $sql = $this->sql->prepare('SELECT data FROM note WHERE id_course =:id_course
+                                      AND id_author = :id_author ;');
+          $sql->bindParam(':id_course',$id_course,PDO::PARAM_STR);
+          $sql->bindparam(':id_author',$id_author,PDO::PARAM_STR);
+          $sql->execute();
+          $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+          return $fetch['data'];
+        }
+    }
+    public function reward(string $id_user)
+    {
+        $sql = $this->sql->prepare('UPDATE user SET score = score + 100 WHERE id = :id_user ;');
+        $sql->bindparam(':id_user', $id_user, PDO::PARAM_STR);
         $sql->execute();
-        return (array)$sql->fetch(PDO::FETCH_ASSOC);
-      }else {
-        $sql = $this->sql->prepare('INSERT INTO note VALUES (:id_course ,:data ,:id_author );');
-        $sql->bindparam(':id_course',$id_course,PDO::PARAM_STR);
-        $sql->bindparam(':data',$data,PDO::PARAM_STR);
-        $sql->bindparam(':id_author',$id_author,PDO::PARAM_STR);
-        $sql->execute();
-      }
-
     }
 }
