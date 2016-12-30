@@ -28,7 +28,13 @@ class co_view
     public function list_comment(array $data)
     {
         for ($i=0; $i <count($data) ; $i++) {
-          echo "string";
+          echo "<li class=\"media\">
+              <a class=\"pull-left\" href=\"#\"><img class=\"img-circle\" src=\"store/pictures/{$data[$i]['image']}\" style=\"width:\"></a>
+              <div class=\"media-body\">
+                <font size=\"5\" style=\"font-weight:bold\">{$data[$i]['name']}</font>
+                <pre style=\"font-size:18\">{$data[$i]['comment']}</pre>
+              </div>
+            </li>";
         }
     }
     public function rating_error()
