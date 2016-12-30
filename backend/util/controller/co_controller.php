@@ -17,7 +17,7 @@ class co_controller
     {
         $check = $this->co->buy($id_course, $id_user);
     }
-    public function comment(int $id_user, string $comment, string $id_video)
+    public function comment_video(int $id_user, string $comment, string $id_video)
     {
         if ($comment == null) {
           $this->view->list_comment_video($this->co->list_comment($id_post));
@@ -53,3 +53,5 @@ class co_controller
       $check = $this->co->point_to_money($id_user);
     }
 }
+$s = new co_controller();
+$s->comment_video('1','testcomment','');
