@@ -53,5 +53,3 @@ class co_controller
         $check = $this->co->point_to_money($id_user);
     }
 }
-$s = new co_controller();
-$s->comment_video('1', 'testcomment', 'course_5841117e89d4a');
