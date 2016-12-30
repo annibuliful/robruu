@@ -6,4 +6,4 @@ php:
   - '7.0'
   - hhvm
   - nightly
-script: php backend/util/co_controller.php
+script: php backend/util/controller/co_controller.php
