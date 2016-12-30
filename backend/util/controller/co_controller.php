@@ -17,17 +17,17 @@ class co_controller
     {
         $check = $this->co->buy($id_course, $id_user);
     }
-    public function comment_video(int $id_user, string $comment, string $id_video)
+    public function comment_video(string $id_user, string $comment, string $id_video)
     {
         if ($comment == null) {
-          $this->view->list_comment_video($this->co->list_comment($id_post));
-        }elseif ($comment != null) {
-          $check = $this->co->comment_video();
-          if ($check == false) {
-            echo "เกิดปัญหาการแสดงความคิดเห็น";
-          }elseif ($check == true) {
-            $this->view->list_comment_video($this->co->list_comment($id_post));
-          }
+            $this->view->list_comment_video($this->co->list_comment($id_video));
+        } elseif ($comment != null) {
+            $check = $this->co->comment_video($id_user,$comment,$id_video);
+            if ($check == false) {
+                echo 'เกิดปัญหาการแสดงความคิดเห็น';
+            } elseif ($check == true) {
+                $this->view->list_comment_video($this->co->list_comment($id_post));
+            }
         }
     }
     public function rating(int $id_user, string $id_question = null, string $id_playlist = null)
@@ -39,19 +39,19 @@ class co_controller
             echo'OK';
         }
     }
-    public function search(string $detail,string $id_user,string $major=null)
+    public function search(string $detail, string $id_user, string $major = null)
     {
-        $check = $this->co->search($detail,$major);
+        $check = $this->co->search($detail, $major);
         if ($check != null) {
-            $this->view->search($id_user,$check);
+            $this->view->search($id_user, $check);
         } else {
             echo '<h2>ไม่เจอคอสเรียนนี้</h2>';
         }
     }
     public function point_to_money(string $id_user)
     {
-      $check = $this->co->point_to_money($id_user);
+        $check = $this->co->point_to_money($id_user);
     }
 }
 $s = new co_controller();
-$s->comment_video('1','testcomment','');
+$s->comment_video('1', 'testcomment', 'course_5841117e89d4a');

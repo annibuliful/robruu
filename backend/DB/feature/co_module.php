@@ -22,15 +22,15 @@ class co_func
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function comment_video(int $id_user, string $comment, string $id_post)
+    public function comment_video(string $id_user, string $comment, string $id_post)
     {
         $sql = $this->sql->prepare('SELECT image,name FROM user WHERE id = :id_user');
         $sql->bindParam(':id_user', $id_user, PDO::PARAM_STR);
         $sql->execute();
-        $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+        $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
             $sql = $this->sql->prepare('SELECT id_post,id_N,flag FROM comment WHERE id_post = :id_post ;');
-            $sql->bindParam(':id_playlist', $id_post, PDO::PARAM_STR);
+            $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
             $sql->execute();
             $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
@@ -41,8 +41,8 @@ class co_func
                 $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
                 $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
                 $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                $sql->bindParam(':name', $fetch['name'], PDO::PARAM_STR);
-                $sql->bindParam(':image', $fetch['image'], PDO::PARAM_STR);
+                $sql->bindParam(':name', $fetch1['name'], PDO::PARAM_STR);
+                $sql->bindParam(':image', $fetch1['image'], PDO::PARAM_STR);
                 $sql->execute();
 
                 return true;
@@ -52,8 +52,8 @@ class co_func
                 $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
                 $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
                 $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-                $sql->bindParam(':name', $fetch['name'], PDO::PARAM_STR);
-                $sql->bindParam(':image', $fetch['image'], PDO::PARAM_STR);
+                $sql->bindParam(':name', $fetch1['name'], PDO::PARAM_STR);
+                $sql->bindParam(':image', $fetch1['image'], PDO::PARAM_STR);
                 $sql->execute();
 
                 return true;
