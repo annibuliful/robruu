@@ -5,4 +5,4 @@ php:
   - '5.6'
   - '7.0'
   - hhvm
-script: php backend/util/controller/co_controller.php
+script: php backend/DB/feature/co_module.php
