@@ -33,8 +33,8 @@ class student_view
         echo '</div>';
         for ($i = 0; $i < count($detail); ++$i) {
             echo "<br>
-       <div id=\"demo{$i}\" class=\"collapse\"><video width=\"600px\" height=\"500px\" controls >
-         <source src=\"../../frontend/store/videos/{$detail[$i]['id_video']}\" type=\"video/mp4\"/>
+       <div id=\"demo{$i}\" class=\"collapse\"><video style=\"width:50%;height:50%\" controls >
+         <source src=\"../../frontend/store/videos/{$detail[$i]['id_video']}\" />
       </video>
     </div>
     ";

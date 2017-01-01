@@ -29,7 +29,7 @@ class co_view
     {
         for ($i=0; $i <count($data) ; $i++) {
           echo "<div class=\"media\">
-              <a class=\"pull-left\" href=\"#\"><img class=\"img-circle\" src=\"store/pictures/{$data[$i]['image']}\" style=\"width:80px;\"></a>
+              <a class=\"pull-left\" href=\"#\"><img class=\"img-circle\" src=\"store/pictures/{$data[$i]['image']}\" style=\"width:80px;height:80px\"></a>
               <div class=\"media-body\">
                 <font size=\"5\" style=\"font-weight:bold\">{$data[$i]['name']}</font>
                 <pre style=\"font-size:18\">{$data[$i]['comment']}</pre>
