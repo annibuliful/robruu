@@ -13,9 +13,9 @@ if (isset($_POST['user']) && isset($_POST['pass']) && isset($_POST['email'])) {
     $payment_number = $_POST['payment_number'];
     if ($payment_number == null) {
         $payment_number = '1';
-        $login->register($user, $password, $email, 1, '444', '1', $image, $payment_number);
+        $login->register($user, $password, $email, 1, $name, '1', $image, $payment_number);
     } else {
-        $login->register($user, $password, $email, $flag, '444', $surname, $image, $payment_number);
+        $login->register($user, $password, $email, $flag, $name, $surname, $image, $payment_number);
     }
 } else {
     echo 'error';
