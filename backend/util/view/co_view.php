@@ -25,16 +25,16 @@ class co_view
     {
         echo '<h3>ยังไม่ได้เข้าสู่ระบบ</h3>';
     }
-    public function list_comment(array $data)
+    public function list_comment_course(array $data)
     {
         for ($i=0; $i <count($data) ; $i++) {
-          echo "<li class=\"media\">
-              <a class=\"pull-left\" href=\"#\"><img class=\"img-circle\" src=\"store/pictures/{$data[$i]['image']}\" style=\"width:\"></a>
+          echo "<div class=\"media\">
+              <a class=\"pull-left\" href=\"#\"><img class=\"img-circle\" src=\"store/pictures/{$data[$i]['image']}\" style=\"width:80px;\"></a>
               <div class=\"media-body\">
                 <font size=\"5\" style=\"font-weight:bold\">{$data[$i]['name']}</font>
                 <pre style=\"font-size:18\">{$data[$i]['comment']}</pre>
               </div>
-            </li>";
+            </div>";
         }
     }
     public function rating_error()

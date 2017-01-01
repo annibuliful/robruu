@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 class co_func
 {
@@ -22,19 +21,19 @@ class co_func
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function comment_video(string $id_user, string $comment, string $id_post)
+    public function comment_course(string $id_user, string $comment = null, string $id_post)
     {
         $sql = $this->sql->prepare('SELECT image,name FROM user WHERE id = :id_user');
         $sql->bindParam(':id_user', $id_user, PDO::PARAM_STR);
         $sql->execute();
         $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
-        if ($fetch) {
-            $sql = $this->sql->prepare('SELECT id_post,id_N,flag FROM comment WHERE id_post = :id_post ;');
+        if ($fetch1) {
+            $sql = $this->sql->prepare('SELECT COUNT(id_N) FROM comment WHERE id_post = :id_post ;');
             $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
             $sql->execute();
             $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-            if ($fetch) {
-                $id_N = (int) $fetch['id_N'] + 1;
+            if ($fetch != null) {
+                $id_N = (int) $fetch['COUNT(id_N)'] + 1;
                 $sql = $this->sql->prepare('INSERT INTO comment VALUES (:id_post ,:id_N ,:comment ,
                                         :id_user,:name,:image ,1 ) ;');
                 $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);

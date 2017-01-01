@@ -1,9 +1,7 @@
 <?php
-
 declare(strict_types=1);
 require 'C:/Users/Dell/Documents/GitHub/robruu/backend/DB/feature/co_module.php';
 require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/view/co_view.php';
-
 class co_controller
 {
     private $co;
@@ -17,16 +15,16 @@ class co_controller
     {
         $check = $this->co->buy($id_course, $id_user);
     }
-    public function comment_video(string $id_user, string $comment, string $id_video)
+    public function comment_course(string $id_user, string $comment = null, string $id_video)
     {
         if ($comment == null) {
-            $this->view->list_comment_video($this->co->list_comment($id_video));
+            $this->view->list_comment_course($this->co->list_comment($id_video));
         } elseif ($comment != null) {
-            $check = $this->co->comment_video($id_user,$comment,$id_video);
+            $check = $this->co->comment_course($id_user,$comment,$id_video);
             if ($check == false) {
                 echo 'เกิดปัญหาการแสดงความคิดเห็น';
             } elseif ($check == true) {
-                $this->view->list_comment_video($this->co->list_comment($id_post));
+                $this->view->list_comment_course($this->co->list_comment($id_video));
             }
         }
     }
