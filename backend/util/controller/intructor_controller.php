@@ -142,6 +142,9 @@ class intructor_controller
       }else {
         header('location: editor.php');
       }
-
+    }
+    public function add_preview(array $id_video,string $id_playlist)
+    {
+      $check = $this->intructor->preview($id_video,$id_playlist);
     }
 }

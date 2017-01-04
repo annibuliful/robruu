@@ -27,8 +27,8 @@ class co_view
     }
     public function list_comment_course(array $data)
     {
-        for ($i=0; $i <count($data) ; $i++) {
-          echo "<div class=\"media\">
+        for ($i = 0; $i < count($data); ++$i) {
+            echo "<div class=\"media\">
               <a class=\"pull-left\" href=\"#\"><img class=\"img-circle\" src=\"store/pictures/{$data[$i]['image']}\" style=\"width:80px;height:80px\"></a>
               <div class=\"media-body\">
                 <font size=\"5\" style=\"font-weight:bold\">{$data[$i]['name']}</font>
@@ -39,17 +39,35 @@ class co_view
     }
     public function rating_error()
     {
-      echo "<h3>เกิดปัญหาการกดไลค์</h3>";
+        echo '<h3>เกิดปัญหาการกดไลค์</h3>';
     }
-    public function search(string $id_user,array $list){
-
-      for ($i=0; $i <count($list); $i++) {
-        echo "<div class=\"col-md-3\" align=\"center\">
+    public function search(string $id_user, array $list)
+    {
+        for ($i = 0; $i < count($list); ++$i) {
+            echo "<div class=\"col-md-3\" align=\"center\">
             <img src=\"store/pictures/{$list[$i]['cover']}\" style=\"width:200;height:200\">
             <h3>{$list[$i]['course_name']}</h3>
             <div style=\"font-size:25\">ราคา {$list[$i]['price']} Point</div>
             <a href =\"buy.php?id_course={$list[$i]['id_playlist']}\"class=\"btn btn-danger\" style=\"font-size:25;width:70%;margin-bottom:5%\">Buy</a>
         </div>";
-      }
+        }
+    }
+    public function list_preview(array $detail)
+    {
+        echo '<div class="btn-group">';
+        for ($i = 0; $i < count($detail); ++$i) {
+            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#demo{$i}\">กดดูวิดีโอ</button>";
+        }
+        echo '</div>';
+        for ($i = 0; $i < count($detail); ++$i) {
+            echo "<br>
+                <div id=\"demo{$i}\" class=\"collapse\">
+                  <pre>{$detail[$i]}</pre>
+                    <video style=\"width:50%;height:50%\" controls >
+                      <source src=\"../../frontend/store/videos/{$detail[$i]['id_video']}\" />
+                    </video>
+                </div>
+  ";
+        }
     }
 }

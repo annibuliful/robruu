@@ -11,6 +11,13 @@ class co_controller
         $this->co = new co_func();
         $this->view = new co_view();
     }
+    public function list_preview(string $id_playlist)
+    {
+      $check = $this->co->list_preview($id_playlist);
+      if ($chcek != null && gettype($check) == 'array') {
+        $this->view->list_preview($check);
+      }
+    }
     public function buy(string $id_course, int $id_user)
     {
         $check = $this->co->buy($id_course, $id_user);

@@ -13,9 +13,18 @@ class co_func
         $this->sql = new PDO('mysql:dbname=robruu_online;host=127.0.0.1', 'root', '@PeNtesterMYSQL');
         $this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
+    public function list_preview(string $id_playlist)
+    {
+      $sql = $this->sql->prepare('SELECT id_video,description FROM course
+                                  WHERE id_playlist = :id_playlist ;');
+      $sql->bindParam(':id_playlist',$id_playlist,PDO::PARAM_STR);
+      $sql->execute();
+      return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function list_comment(string $id_post)
     {
-        $sql = $this->sql->prepare('SELECT comment,name,image FROM comment WHERE id_post = :id_post ;');
+        $sql = $this->sql->prepare('SELECT comment,name,image FROM comment WHERE id_post = :id_post
+                                    AND flag = 1 ORDER BY id_N DESC;');
         $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
         $sql->execute();
 
@@ -75,7 +84,7 @@ class co_func
             if ($fetch) {
                 $id_N = (int) $fetch['id_N'] + 1;
                 $sql = $this->sql->prepare('INSERT INTO comment VALUES (:id_post ,:id_N ,:comment ,
-                                        :id_user,:name,:image ,1 ) ;');
+                                        :id_user,:name,:image ,2 ) ;');
                 $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
                 $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
                 $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
@@ -87,7 +96,7 @@ class co_func
                 return true;
             } else {
                 $sql = $this->sql->prepare('INSERT INTO comment VALUES (:id_post ,1,:comment ,
-                                        :id_user ,:name,:image ,1 ) ;');
+                                        :id_user ,:name,:image ,2 ) ;');
                 $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
                 $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
                 $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
