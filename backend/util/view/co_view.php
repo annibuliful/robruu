@@ -49,24 +49,18 @@ class co_view
             <h3>{$list[$i]['course_name']}</h3>
             <div style=\"font-size:25\">ราคา {$list[$i]['price']} Point</div>
             <a href =\"buy.php?id_course={$list[$i]['id_playlist']}\"class=\"btn btn-danger\" style=\"font-size:25;width:70%;margin-bottom:5%\">Buy</a>
+            <button id=\"id_playlist\"class=\"btn btn-info preview\" value=\"{$list[$i]['id_playlist']}\"style=\"font-size:25;width:70%;margin-bottom:5%\" data-toggle=\"modal\" data-target=\"#myModal\">detail</button>
         </div>";
         }
     }
     public function list_preview(array $detail)
     {
-        echo '<div class="btn-group">';
-        for ($i = 0; $i < count($detail); ++$i) {
-            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#demo{$i}\">กดดูวิดีโอ</button>";
-        }
-        echo '</div>';
         for ($i = 0; $i < count($detail); ++$i) {
             echo "<br>
-                <div id=\"demo{$i}\" class=\"collapse\">
                   <pre>{$detail[$i]}</pre>
                     <video style=\"width:50%;height:50%\" controls >
-                      <source src=\"../../frontend/store/videos/{$detail[$i]['id_video']}\" />
+                      <source src=\"/frontend/store/videos/{$detail[$i]['id_video']}\" />
                     </video>
-                </div>
   ";
         }
     }

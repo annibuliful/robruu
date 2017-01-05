@@ -385,7 +385,7 @@ class intructor
         $sql->bindParam(':description', $description, PDO::PARAM_STR);
         $sql->execute();
     }
-    
+
     public function preview(array $id_video, string $id_playlist)
     {
         $sql = $this->sql->prepare('SELECT preview FROM course WHERE id_playlist = :id_playlist ;');
@@ -394,7 +394,7 @@ class intructor
         $fetch = $sql->fetch(PDO::FETCH_ASSOC);
         if ($fetch) {
             $sql = '';
-            for ($i = 0; $i < count($id_video); ++$i) {
+            for ($i = 0; $i < count($id_video); $i++) {
                 $sql = (string) $sql."UPDATE course SET preview = 1 WHERE id_video = '{$id_video[$i]}' AND id_playlist{$id_playlist} ;";
             }
             $exec = $this->sql->prepare($sql);

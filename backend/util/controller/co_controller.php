@@ -14,7 +14,7 @@ class co_controller
     public function list_preview(string $id_playlist)
     {
       $check = $this->co->list_preview($id_playlist);
-      if ($chcek != null && gettype($check) == 'array') {
+      if ($check != null && gettype($check) == 'array') {
         $this->view->list_preview($check);
       }
     }
