@@ -16,7 +16,7 @@ class co_func
     public function list_preview(string $id_playlist)
     {
       $sql = $this->sql->prepare('SELECT id_video,description FROM course
-                                  WHERE id_playlist = :id_playlist AND flag_num > 1 ;');
+                                  WHERE id_playlist = :id_playlist AND flag_num =2 ;');
       $sql->bindParam(':id_playlist',$id_playlist,PDO::PARAM_STR);
       $sql->execute();
       return (array)$sql->fetchAll(PDO::FETCH_ASSOC);

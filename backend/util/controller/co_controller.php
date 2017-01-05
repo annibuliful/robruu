@@ -16,6 +16,8 @@ class co_controller
       $check = $this->co->list_preview($id_playlist);
       if ($check != null && gettype($check) == 'array') {
         $this->view->list_preview($check);
+      }else {
+        echo "<h1 style=\"color: red\">คอร์สเรียนนี้ยังไม่มี preview หรืออาจจะยังไม่เสร็จสมบูรณ์</h1>";
       }
     }
     public function buy(string $id_course, int $id_user)
