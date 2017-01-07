@@ -64,4 +64,18 @@ class co_view
   ";
         }
     }
+    public function list_comment_board(array $data)
+    {
+      for ($i=0; $i <count($data) ; $i++) {
+        echo "<div class=\"media\">
+          <a class=\"pull-left\" href=\"#\"><img class=\"img-circle\" src=\"store/pictures/{$data[$i]['image']}\" style=\"width:80px;height:80px\"></a>
+          <div class=\"media-body\">
+            <font size=\"5\" style=\"font-weight:bold\">{$data[$i]['name']}</font>
+            <font size=\"8\" style=\"font-weight:bold;margin-left:50px\">{$data[$i]['head']}</font>
+            <font style=\"font-size:18;background-color:#25c0d0\">{$data[$i]['comment']}</font>
+          </div>
+          <button class=\"btn btn-info btn-lg\" style=\"maring-left: 70%\">ตอบข้อสงสัย</button>
+        </div><br><br>";
+      }
+    }
 }

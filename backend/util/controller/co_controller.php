@@ -11,6 +11,24 @@ class co_controller
         $this->co = new co_func();
         $this->view = new co_view();
     }
+    public function comment_board(int $id_user, string $head ,string $comment, string $id_post)
+    {
+        $check = $this->co->comment_board($id_user,$head,$comment,$id_post);
+      if ($check == true) {
+        echo "สร้างข้อสงสัยเรียบร้อย";
+      }elseif ($check == false) {
+        echo "<h1 style=\"color:red;\">เกิดปัญหาการสร้างข้อสงสัยโปรดลองใหม่ภายหลัง</h1>";
+      }
+    }
+    public function list_comment_board(string $id_playlist)
+    {
+      $check = $this->co->list_comment_board($id_playlist);
+      if ($check != null && gettype($check) == 'array') {
+        $this->view->list_comment_board($check);
+      }else {
+        echo "";
+      }
+    }
     public function list_preview(string $id_playlist)
     {
       $check = $this->co->list_preview($id_playlist);

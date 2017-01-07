@@ -54,6 +54,7 @@ class student_view
                     <a href=\"video.php?id_course={$list[$i]['course_id']}&id_user={$id_user}\"><img src=\"button/video.png\" width=\"50\"></a>
                     <a href=\"exercise.php?id_course={$list[$i]['course_id']}\"><img src=\"button/exercise.png\" width=\"50\"></a>
                     <a href=\"exam.php?id_course={$list[$i]['course_id']}\"><img src=\"button/quiz.png\" width=\"50\"></a>
+                    <a href=\"board.php?id_course={$list[$i]['course_id']}\"><img src=\"button/board.png\" width=\"50\"></a>
                   </div>
                 </div>
               </li>";
