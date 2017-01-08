@@ -15,7 +15,6 @@ class co_controller
     {
         $check = $this->co->comment_board($id_user,$head,$comment,$id_post);
       if ($check == true) {
-        echo "สร้างข้อสงสัยเรียบร้อย";
       }elseif ($check == false) {
         echo "<h1 style=\"color:red;\">เกิดปัญหาการสร้างข้อสงสัยโปรดลองใหม่ภายหลัง</h1>";
       }

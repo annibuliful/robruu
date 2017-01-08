@@ -67,7 +67,7 @@ if (isset($_GET['id_playlist']) && isset($_GET['id_N'])) {
          <input type="hidden" name="id_N" value="<?php echo $_GET['id_N']; ?>">
          <textarea rows="4" cols="8" id="editor1" name="comment">
 </textarea>
-         <input type="submit" class="btn btn-primary btn-default" name="submit" value="ส่ง">
+         <input type="submit" class="btn btn-primary btn-default" name="submit" value="ตอบข้อสงสัย">
  </div><br><br><br>
 
  <script>

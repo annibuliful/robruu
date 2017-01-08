@@ -85,7 +85,7 @@ class co_func
             $fetch = $sql->fetch(PDO::FETCH_ASSOC);
             if ($fetch) {
                 $id_N = (int) $fetch['COUNT(id_N)'] + 1;
-                $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,:id_N ,:id_user ,:head
+                $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,:id_N,0 ,:id_user ,:head
                                             ,:comment,:name,:image ) ;');
                 $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
                 $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
@@ -98,7 +98,7 @@ class co_func
 
                 return true;
             } else {
-                $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,1 ,:id_user ,:head
+                $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,1,0 ,:id_user ,:head
                                           ,:comment ,:name,:image ) ;');
                 $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
                 $sql->bindParam(':head', $head, PDO::PARAM_STR);
