@@ -120,7 +120,7 @@ if (isset($_GET['id_course']) && isset($_GET['id_user'])) {
                                 $("#notes").click(function() {
                                     $.post("save_note.php", {
                                             id_user: '<?php echo $_SESSION['id'] ;?>',
-                                            id_playlist: '<?php echo $_GET['id_course '];?>',
+                                            id_playlist: '<?php echo $_GET['id_course'];?>',
                                             note: editor.getData()
                                         },
                                         function(result) {
