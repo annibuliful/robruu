@@ -20,6 +20,19 @@ class co_controller
         echo "<h1 style=\"color:red;\">เกิดปัญหาการสร้างข้อสงสัยโปรดลองใหม่ภายหลัง</h1>";
       }
     }
+    public function answer_board(string $id_user, string $comment, string $id_post,string $id_N)
+    {
+        $check = $this->co->answer_board($id_user,$comment,$id_post,$id_N);
+    }
+    public function list_answer_board(string $id_playlist,string $id_N)
+    {
+      $check = $this->co->list_answer_board($id_playlist,$id_N);
+      if ($check != null && gettype($check) == 'array') {
+         $this->view->list_answer_board($check);
+      }else {
+        echo "<h3 style=\"color: red\">ยังไม่มีคนมาตอบข้อสงสัย</h3>";
+      }
+    }
     public function list_comment_board(string $id_playlist)
     {
       $check = $this->co->list_comment_board($id_playlist);

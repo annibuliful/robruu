@@ -2,7 +2,7 @@
   require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/co_controller.php';
   $comment = new co_controller();
   if (isset($_POST['head'])) {
-    $comment->comment_board($_SESSION['id'], $_POST['head'] ,$_POST['comment'], $_POST['id_playlist']);
+      $comment->comment_board($_SESSION['id'], $_POST['head'], $_POST['comment'], $_POST['id_playlist']);
   }
   ?>
     <!DOCTYPE html>
@@ -36,28 +36,13 @@
     </head>
 
     <body>
-      <script src="http://cdn.ckeditor.com/4.6.0/standard-all/ckeditor.js"></script>
-      <script type="text/x-mathjax-config">
-          MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-      </script>
         <div class="navbar navbar-default navbar-static-top" style="background-color:#ff630a">
             <div class="navbar-header"></div>
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                 <div class="container">
 
                     <div class="col-md-12">
-                        <form class="navbar-form" action="buy.php" method="post">
-                            <div class="input-group">
-                                <input type="text" name="course_name" class="form-control" placeholder="ค้นหาบทเรียน">
-                                <div class="input-group-btn">
-                                    <button class="btn btn" type="button">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                    <i class="icon-search"></i>
-                                  </button>
-                                </div>
-                            </div>
-                        </form>
-
+                        <a href="main.php"><button type="button" class="btn btn-lg btn-danger" name="button">กลับ</button></a>
                     </div>
                 </div>
             </div>
@@ -66,13 +51,13 @@
             <form class="" action="" method="post">
                 <div class="form-group">
                     <label for=""><h3>หัวข้อ</h3></label>
-                    <input type="text" class="form-control" name="head" value="">
+                    <input type="text" class="form-control" style="width:1000px"name="head" value="">
                 </div>
-                <input type="hidden" name="id_playlist" value="<?php echo $_GET['id_course'];?>">
+                <input type="hidden" name="id_playlist" value="<?php echo $_GET['id_course']; ?>">
                 <textarea rows="4" cols="8" id="editor1" name="comment">
       </textarea>
                 <input type="submit" class="btn btn-primary btn-default" name="submit" value="สร้าง">
-        </div>
+        </div><br><br><br>
 
         <script>
             var editor = CKEDITOR.replace('editor1', {
@@ -85,10 +70,10 @@
         </form>
         <?php
 if (isset($_GET['id_course'])) {
-  $comment->list_comment_board($_GET['id_course']);
-}else {
-  header('location: main.php');
-}
+      $comment->list_comment_board($_GET['id_course']);
+  } else {
+      header('location: main.php');
+  }
  ?>
     </body>
 
