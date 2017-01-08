@@ -16,6 +16,8 @@ if (isset($_GET['id_course']) && isset($_GET['id_user'])) {
         <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
         <script type="text/javascript" src="lib/jquery.js"></script>
         <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="lib/notify.js"></script>
+        <script src="http://cdn.ckeditor.com/4.6.0/standard-all/ckeditor.js"></script>
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <title></title>
         <style>
@@ -33,13 +35,16 @@ if (isset($_GET['id_course']) && isset($_GET['id_user'])) {
             $(document).ready(function() {
                 $("#comment_click").click(function() {
                     $("#comment").load("comment.php", {
-                        id_user: '<?php echo $_SESSION['id']; ?>',
+                        id_user: '<?php echo $_SESSION['id ']; ?>',
                         comment: $("input").val(),
-                        id_course: '<?php echo $_GET['id_course']; ?>'
+                        id_course: '<?php echo $_GET['id_course ']; ?>'
                     });
                 });
             });
         </script>
+        <script type="text/javascript">
+        </script>
+
     </head>
 
     <body>
@@ -75,24 +80,79 @@ if (isset($_GET['id_course']) && isset($_GET['id_user'])) {
         <div class="section" style="background-color:ffffff;opacity:0.97;margin-top:2.3%">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12" style="background-color:#ffffff;opacity:0.97">
+                    <div class="col-md-6" style="background-color:#ffffff;opacity:0.97">
                         <?php   $detail->showdetail_course($_GET['id_course'], $_GET['id_user']); ?>
                         <a href="main.php"><br><br>
                             <button type="button" name="button" class="btn btn-danger btn-lg">ย้อนกลับ</button></a>
                     </div>
+                    <div class="col-md-1">
+                        <input type="hidden" name="id_playlist" value="<?php echo $_GET['id_course']; ?>">
+                        <textarea rows="4" cols="8" id="note" name="note">
+                            <?php if (isset($_GET['id_course'])) {
+                            $detail->note($_SESSION['id'],$_GET['id_course'],'');
+                          } ?>
+                </textarea>
+                        <button id="notes" type="button" class="btn btn-primary btn-lg" name="button">บันทึก</button>
+                        <br><br><br>
+
+                        <script>
+                            var editor = CKEDITOR.replace('note', {
+                                extraPlugins: 'mathjax',
+                                mathJaxLib: 'http://cdn.mathjax.org/mathjax/2.6-latest/MathJax.js?config=TeX-AMS_HTML',
+                                height: 270,
+                                width: 600
+                            });
+                            $(document).ready(function() {
+                                $.notify.addStyle('happyblue', {
+                                    html: "<div><h1>☺<span data-notify-text/>☺</h1></div>",
+                                    classes: {
+                                        base: {
+                                            "white-space": "nowrap",
+                                            "background-color": "lightblue",
+                                            "padding": "5px"
+                                        },
+                                        superblue: {
+                                            "color": "white",
+                                            "background-color": "blue"
+                                        }
+                                    }
+                                });
+                                $("#notes").click(function() {
+                                    $.post("save_note.php", {
+                                            id_user: '<?php echo $_SESSION['id'] ;?>',
+                                            id_playlist: '<?php echo $_GET['id_course '];?>',
+                                            note: editor.getData()
+                                        },
+                                        function(result) {
+                                            $.notify("บันทึกเรียบร้อย", {
+                                                style: 'happyblue'
+                                            });
+                                        }
+                                    );
+
+                                });
+                            });
+                        </script>
+                    </div>
                 </div>
                 <br><br><br>
                 <div class="container">
-                <button type="button" id="comment_click"name="button" class="btn btn-info ">แสดงความคิดเห็น</button>
-                <input type="text">
+                    <button type="button" id="comment_click" name="button" class="btn btn-info ">แสดงความคิดเห็น</button>
+                    <input type="text">
                 </div>
                 <div>
-                <div class="container"id="comment" style="margin-top: 80px">
-                    <?php if (isset($_POST['comment'])) {
-                           $comment->comment_course($_SESSION['id'], $_POST['comment'], $_GET['id_course']);
-                          } else {
-                           $comment->comment_course($_SESSION['id'], '', $_GET['id_course']);
-                          } ?>
+                    <div class="container" id="comment" style="margin-top: 80px">
+                        <div class="row">
+                            <?php if (isset($_POST['comment'])) {
+                             $comment->comment_course($_SESSION['id'], $_POST['comment'], $_GET['id_course']);
+                            } else {
+                             $comment->comment_course($_SESSION['id'], '', $_GET['id_course']);
+                            } ?>
+
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -28,12 +28,12 @@ class student_view
     {
         echo '<div class="btn-group">';
         for ($i = 0; $i < count($detail); ++$i) {
-            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#demo{$i}\">กดดูวิดีโอ</button>";
+            echo "<button type=\"button\" class=\"btn btn-info\" data-toggle=\"collapse\" data-target=\"#demo{$i}\">กดดูวิดีโอ</button><br><br>";
         }
         echo '</div>';
         for ($i = 0; $i < count($detail); ++$i) {
             echo "<br>
-       <div id=\"demo{$i}\" class=\"collapse\"><video style=\"width:50%;height:50%\" controls >
+       <div id=\"demo{$i}\" class=\"collapse\"><video style=\"width:100%;height:100%\" controls >
          <source src=\"../../frontend/store/videos/{$detail[$i]['id_video']}\" />
       </video>
     </div>

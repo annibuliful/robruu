@@ -177,7 +177,7 @@ class co_func
     public function list_comment_board(string $id_playlist)
     {
         $sql = $this->sql->prepare('SELECT id_N,id_playlist,name,image,comment,head FROM qanda WHERE
-                                    id_playlist = :id_playlist ORDER BY id_N DESC;');
+                                    id_playlist = :id_playlist AND comment_N = 0 ORDER BY id_N DESC;');
         $sql->bindParam(':id_playlist', $id_playlist, PDO::PARAM_STR);
         $sql->execute();
 

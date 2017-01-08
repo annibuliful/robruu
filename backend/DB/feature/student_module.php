@@ -212,7 +212,7 @@ class student
           $sql->bindparam(':id_author',$id_author,PDO::PARAM_STR);
           $sql->execute();
           $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-          return $fetch['data'];
+          echo $fetch['data'];
         }
     }
     public function reward(string $id_user)

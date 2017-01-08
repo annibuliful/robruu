@@ -12,6 +12,16 @@ class student_controller
         $this->student = new student();
         $this->view = new student_view();
     }
+    public function note(string $id_author, string $id_course, string $data = null)
+    {
+      $check = $this->student->note($id_author,$id_course,$data);
+      if ($check != null && gettype($check) == ' array') {
+        
+        echo $check['data'];
+      }else {
+        echo "";
+      }
+    }
     public function exercise(array $id_answer, array $id_question, string $id_user)
     {
         $check = $this->student->answer($id_answer, $id_question, $id_user);

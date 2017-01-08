@@ -138,10 +138,12 @@ if (isset($_POST['flag']) && isset($_POST['id_course33']) && isset($_POST['data'
                     <img src="button/upload_quiz.png" data-toggle="collapse" data-target="#exercise">
                     <img src="button/upload_exercise.png" data-toggle="collapse" data-target="#exercise1">
                     <div class="collapse" id="content">
-                        <form action="editor.php" method="post">
+                        <form action="" method="post">
                             <input type="hidden" name="id_course33" value="<?php echo$_SESSION['id_course']; ?>">
                             <input type="hidden" name="flag" value="public">
-                                <textarea cols="10" id="editor2" name="data" rows="10"></textarea>
+                                <textarea cols="10" id="editor2" name="data" rows="10">
+                                  <?php $list->draft($_SESSION['id'], $_SESSION['id_course'], $_POST['data'], $_POST['flag']); ?>
+                                </textarea>
                                 <input type="submit" name="submit" value="สร้าง">
                         </form>
                     </div>
