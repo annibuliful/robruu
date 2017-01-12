@@ -215,6 +215,14 @@ class student
           echo $fetch['data'];
         }
     }
+    public function list_playlist(string $id_playlist)
+    {
+      $sql = $this->sql->prepare('SELECT id_video,description,cover,course_name FROM course WHERE
+                                  id_playlist = :id_playlist;');
+      $sql->bindparam(':id_playlist',$id_playlist,PDO::PARAM_STR);
+      $sql->execute();
+      return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function reward(string $id_user)
     {
         $sql = $this->sql->prepare('UPDATE user SET score = score + 100 WHERE id = :id_user ;');

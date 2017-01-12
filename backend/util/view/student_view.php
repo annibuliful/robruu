@@ -167,5 +167,26 @@ class student_view
               </div><br></div><center><input type=\"submit\" name=\"submit\" class=\"btn btn-info btn-lg\"value=\"ส่งคำตอบ\"></center></form>";
         }
     }
+public function list_playlist(array $data)
+{
+  $last = (int)count($data) - 1 ;
+  for ($i=1; $i <count($data) ; ++$i) {
+    if ($i == $last) {
+      echo "{
+        \"src\" : \"store/videos/{$data[$i]['id_video']}\",
+        \"type\": \"video/mp4\",
+        \"title\": \"{$data[$i]['description']}\",
+        \"thumbnail\": \"store/pictures/{$data['cover'][0]}\"
+      }";
+    }else {
+      echo "{
+        \"src\" : \"store/videos/{$data[$i]['id_video']}\",
+        \"type\": \"video/mp4\",
+        \"title\": \"{$data[$i]['description']}\",
+        \"thumbnail\": \"store/pictures/{$data['cover'][0]} \"
+      },";
+    }
 
+  }
+}
 }
