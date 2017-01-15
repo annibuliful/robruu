@@ -167,26 +167,36 @@ class student_view
               </div><br></div><center><input type=\"submit\" name=\"submit\" class=\"btn btn-info btn-lg\"value=\"ส่งคำตอบ\"></center></form>";
         }
     }
-public function list_playlist(array $data)
-{
-  $last = (int)count($data) - 1 ;
-  for ($i=1; $i <count($data) ; ++$i) {
-    if ($i == $last) {
-      echo "{
+    public function list_playlist(array $data)
+    {
+        $last = (int) count($data) - 1;
+        for ($i = 1; $i < count($data); ++$i) {
+            if ($i == $last) {
+                echo "{
         \"src\" : \"store/videos/{$data[$i]['id_video']}\",
         \"type\": \"video/mp4\",
         \"title\": \"{$data[$i]['description']}\",
         \"thumbnail\": \"store/pictures/{$data['cover'][0]}\"
       }";
-    }else {
-      echo "{
+            } else {
+                echo "{
         \"src\" : \"store/videos/{$data[$i]['id_video']}\",
         \"type\": \"video/mp4\",
         \"title\": \"{$data[$i]['description']}\",
         \"thumbnail\": \"store/pictures/{$data['cover'][0]} \"
       },";
+            }
+        }
     }
-
-  }
+    public function list_note(array $data)
+    {
+      for ($i=0; $i <count($data) ; $i++) {
+        $detail_substr = substr(strip_tags($data[$i]['data'],'<p><a><span>'),0,100);
+        echo "<div class=\"col-md-6\">
+            <h2>{$detail_substr}</h2>
+            <button id=\"detail\"class=\"btn btn-info\" value=\"{$data[$i]['id_course']}\">กดดูเพิ่มเติม</button>
+          </div>";
+      }
+    }
 }
-}
+?>

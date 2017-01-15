@@ -223,6 +223,20 @@ class student
       $sql->execute();
       return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function detail_note(string $id_course)
+    {
+      $sql = $this->sql->prepare('SELECT data FROM note WHERE id_course = :id_course ;');
+      $sql->bindparam(':id_course',$id_course,PDO::PARAM_INT);
+      $sql->execute();
+      return (array)$sql->fetch(PDO::FETCH_ASSOC);
+    }
+    public function list_note(string $id_user)
+    {
+      $sql = $this->sql->prepare('SELECT data,id_course FROM note WHERE id_author = :id_author ;');
+      $sql->bindparam(':id_author',$id_user,PDO::PARAM_INT);
+      $sql->execute();
+      return (array)$sql->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function reward(string $id_user)
     {
         $sql = $this->sql->prepare('UPDATE user SET score = score + 100 WHERE id = :id_user ;');

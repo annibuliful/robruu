@@ -9,15 +9,15 @@ class intructor_view
     {
         echo '<div id="list_video"class="collapse"';
         for ($i = 0; $i < count($detail); ++$i) {
-          echo "<form class=\"form-inline\" action=\"question_editor.php\">";
-          echo "<h3>{$detail[$i]['name']}</h3>
+            echo '<form class="form-inline" action="question_editor.php">';
+            echo "<h3>{$detail[$i]['name']}</h3>
                    <div class=\"form-group\">
             <input type=\"text\" class=\"form-control\" name=\"description\" value=\"{$detail[$i]['description']}\">
             <input type=\"hidden\" class=\"form-control\" name=\"id_video\"value=\"{$detail[$i]['id_video']}\">
             <input type=\"submit\" class=\"btn btn-info btn-lg\"name=\"submit\" value=\"แก้ไข\">
           </div>
           ";
-          echo "</form>";
+            echo '</form>';
         }
         echo '</div>';
     }

@@ -12,6 +12,20 @@ class student_controller
         $this->student = new student();
         $this->view = new student_view();
     }
+    public function list_note(string $id_user)
+    {
+      $check = $this->student->list_note($id_user);
+      if ($check != null && gettype($check) == 'array') {
+        $this->view->list_note($check);
+      }
+    }
+    public function detail_note(string $id_course)
+    {
+      $check = $this->student->detail_note($id_course);
+      if ($check != null && gettype($check) == 'array') {
+           echo $check['data'];
+      }
+    }
     public function list_playlist(string $id_playlist)
     {
       $check = $this->student->list_playlist($id_playlist);
