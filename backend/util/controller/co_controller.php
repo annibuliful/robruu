@@ -11,6 +11,13 @@ class co_controller
         $this->co = new co_func();
         $this->view = new co_view();
     }
+    public function list_course_rank(string $id_user)
+    {
+      $check = $this->co->list_course_rank();
+      if ($check != null && gettype($check) == 'array') {
+        $this->view->list_course_rank($id_user,$check);
+      }
+    }
     public function comment_board(int $id_user, string $head ,string $comment, string $id_post)
     {
         $check = $this->co->comment_board($id_user,$head,$comment,$id_post);

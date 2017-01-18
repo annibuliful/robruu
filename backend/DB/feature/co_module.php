@@ -342,6 +342,13 @@ class co_func
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function list_course_rank()
+    {
+      $sql = $this->sql->prepare('SELECT id_playlist,course_name,description,price,cover FROM course
+                                 WHERE flag_num = 1 LIMIT 4;');
+      $sql->execute();
+      return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function point_to_money(string $id_user)
     {
         $sql = $this->sql->prepare('SELECT score FROM user WHERE id = :id_user ;');

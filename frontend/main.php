@@ -2,8 +2,10 @@
 session_start();
 require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/authen_controller.php';
 require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/student_controller.php';
+require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/co_controller.php';
 $list = new student_controller();
 $authen = new authen_controller();
+$course = new co_controller();
 if (isset($_POST['user']) && isset($_POST['pass'])) {
     $authen->login($_POST['user'], $_POST['pass'], $_POST['user']);
 } elseif (isset($_SESSION['id'])) {
@@ -24,7 +26,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
                   src: url(thaisanslite_r1.ttf);}
       * {font-family: thaisan; !important;}}
     </style>
-    <title>ง่วง</title>
+    <title>Robruu | </title>
   </head><body style="background-color:ffe776">
     <nav class="navbar navbar-default navbar-static-top" style="background-color:white">
       <div class="navbar-header">
@@ -87,46 +89,29 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     </div>
     <div class="container" style="background-color:white">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
           <center>
             <a href="mycourse.php"><img src="button/01study.png" class="img-responsive"></a>
           </center>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <center>
             <a href="main-t.php"><img src="button/02teach.png " class="img-responsive"></a>
           </center>
         </div>
-        <div class="col-md-3">
-          <center>
-            <img src="button/03board.png" class="img-responsive">
-          </center>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <center>
             <a href="chat.php"><img src="button/04chat.png" class="img-responsive"></a>
           </center>
         </div>
       </div>
     </div>
-    <div class="container" style="background-color:white">
-      <div class="row"></div>
-    </div>
-    <div class="container" style="background-color:white">
+    <!--<div class="container" style="background-color:white">
+          <br><br>
       <div class="row">
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-6"></div>
-            </div>
-            <div class="row">
-              <div class="col-md-6"></div>
-            </div>
-          </div>
-        </div>
+        <?php  //$course->list_course_rank($_SESSION['id']);?>
       </div>
-    </div>
+    </div>-->
 
 
 </body></html>
