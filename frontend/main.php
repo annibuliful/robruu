@@ -46,16 +46,16 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
           <div class="navbar-header">
             <ul class="nav navbar-nav">
               <li>
-                 <form class="navbar-form" style="margin-top:27px">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="ค้นหาบทเรียน">
-                    <div class="input-group-btn">
-                      <button class="btn btn" type="button">
-                        <span class="glyphicon glyphicon-search"></span>
-                        <i class="icon-search"></i>
-                      </button>
+                <form class="navbar-form" action="buy.php" method="post">
+                    <div class="input-group">
+                        <input type="text" name="course_name" class="form-control" placeholder="ค้นหาบทเรียน">
+                        <div class="input-group-btn">
+                            <button class="btn btn" type="button">
+                           <span class="glyphicon glyphicon-search"></span>
+                           <i class="icon-search"></i>
+                           </button>
+                        </div>
                     </div>
-                  </div>
                 </form>
               </li>
             </ul>
