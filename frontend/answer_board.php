@@ -53,7 +53,7 @@ if (isset($_GET['id_playlist']) && isset($_GET['id_N'])) {
              <div class="container">
 
                  <div class="col-md-12">
-                     <a href="main.php"><button type="button" class="btn btn-lg btn-danger" name="button">กลับ</button></a>
+                     <a href="mycourse.php"><button type="button" class="btn btn-lg btn-danger" name="button">กลับ</button></a>
                  </div>
              </div>
          </div>

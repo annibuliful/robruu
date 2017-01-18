@@ -80,7 +80,7 @@ if (isset($_SESSION['id'])) {
          <div>
            <ul class="nav navbar-nav navbar-right">
              <li class="hidden-xs">
-               <a href="main.php"><img src="icon/study.png" style="height:50%"><font size="5">บทเรียนของฉัน</font></a>
+               <a href="mycourse.php"><img src="icon/study.png" style="height:50%"><font size="5">บทเรียนของฉัน</font></a>
              </li>
              <li active="" class="hidden-xs">
                <a href="main-t.php"><img src="icon/course.png" style="height:50%"><font size="5">บทเรียนที่ฉันสอน</font></a>

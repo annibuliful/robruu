@@ -31,20 +31,36 @@ class authen_view
     public function check_session(array $detail)
     {
         echo "
-    <ul class=\"nav navbar-nav navbar-right\" >
-     <li ><a href=\"#\"><font color=\"white\" size=\"5\">{$detail['score']} </font>
-     <img src=\"picture/Point.png\" style=\"width: 15px; height:15px;margin-bottom: 5px\" ><br>
-     </a></li>
-      <li class=\"dropdown\">
-        <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">
-          <img src=\"../../frontend/store/pictures/{$detail['image']}\" class=\"img-circle\"
-          style=\"width: 30px; height: 30px; !important\" />
-        <span class=\"caret\"></span></a>
-        <ul class=\"dropdown-menu\">
-          <li><a href=\"note.php\">my note</a></li>
-          <li><a href=\"logout.php\">logout</a></li>
-        </ul>
-      </li>
-    </ul>";
+        <ul class=\"nav navbar-nav navbar-right\" align=\"center\">
+                <li>
+                  <a href=\"#\"><font size=\"5\"> {$detail['score']} </font> <img src=\"icon/point2.png\" style=\"height:60;width:41;margin-left:2\"></a>
+                </li>
+                <li>
+                  <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">
+                  <img src=\"../../frontend/store/pictures/{$detail['image']}\" class=\"img-circle\"
+                  style=\"width: 30px; height: 30px; !important\" />
+                                <span class=\"caret\"></span>
+                            </a>
+                  <ul class=\"dropdown-menu\">
+                    <li>
+                      <a href=\"#\"><h4>Profile</h4></a>
+                    </li>
+                    <li>
+                      <a href=\"note.php\"><h4>My note</h4></a>
+                    </li>
+                    <li>
+                      <a href=\"#\"><h4>Donate</h4></a>
+                    </li>
+                    <li>
+                      <a href=\"logout.php\"><h4>Logout</h4></a>
+                    </li>
+                  </ul>
+                </li>
+                <li class=\"hidden-sm hidden-xs\">
+                  <span class=\"icon-bar\"></span>
+                  <span class=\"icon-bar\"></span>
+                  <span class=\"icon-bar\"></span>
+                </li>
+              </ul>";
     }
 }

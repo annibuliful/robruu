@@ -78,7 +78,7 @@ $(".preview").click(function(){
             <div>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden-xs">
-                        <a href="main.php"><img src="icon/study.png" style="height:50%">
+                        <a href="mycourse.php"><img src="icon/study.png" style="height:50%">
                             <font size="5">บทเรียนของฉัน</font>
                         </a>
                     </li>

@@ -59,7 +59,7 @@ $_SESSION['id_course'] = $_GET['id_course'];
 
     </div>
     <div class="container">
-        <a href="main.php"><button type="button" name="button" class="btn btn-danger btn-lg">กลับ</button></a><br>
+        <a href="mycourse.php"><button type="button" name="button" class="btn btn-danger btn-lg">กลับ</button></a><br>
         <?php
       $list = new student_controller();
       if (isset($_POST['id_answer'])) {

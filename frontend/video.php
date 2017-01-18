@@ -71,7 +71,7 @@ if (isset($_GET['id_course']) && isset($_GET['id_user'])) {
                 <div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="hidden-xs">
-                            <a href="main.php"><img src="icon/study.png" style="height:50px">
+                            <a href="mycourse.php"><img src="icon/study.png" style="height:50px">
                                 <font size="5">บทเรียนของฉัน</font>
                             </a>
                         </li>
