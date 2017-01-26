@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 class co_func
 {
@@ -107,6 +108,52 @@ class co_func
                 $sql->bindParam(':image', $fetch1['image'], PDO::PARAM_STR);
                 $sql->execute();
 
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public function answer_board(string $id_user, string $comment, string $id_post, string $id_N)
+    {
+        $sql = $this->sql->prepare('SELECT image,name FROM user WHERE id = :id_user');
+        $sql->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+        $sql->execute();
+        $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
+        if ($fetch1) {
+            $sql = $this->sql->prepare('SELECT id_playlist,COUNT(comment_N),head FROM qanda WHERE
+                                      id_playlist = :id_playlist AND id_N = :id_N ;');
+            $sql->bindParam(':id_playlist', $id_post, PDO::PARAM_STR);
+            $sql->bindParam(':id_N', $id_N, PDO::PARAM_STR);
+            $sql->execute();
+            $fetch = $sql->fetch(PDO::FETCH_ASSOC);
+            if ($fetch) {
+                $comment_N = (int) $fetch['COUNT(comment_N)'] + 1;
+                $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,:id_N ,:comment_N,:id_user
+                                          ,:head,:comment,:name,:image ) ;');
+                $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
+                $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
+                $sql->bindParam(':comment_N', $comment_N, PDO::PARAM_INT);
+                $sql->bindParam(':head', $fetch['head'], PDO::PARAM_STR);
+                $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
+                $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                $sql->bindParam(':name', $fetch1['name'], PDO::PARAM_STR);
+                $sql->bindParam(':image', $fetch1['image'], PDO::PARAM_STR);
+                $sql->execute();
+
+                return true;
+            } else {
+                $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,:id_N ,1,:id_user
+                                        ,:head,:comment,:name,:image ) ;');
+                $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
+                $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
+                $sql->bindParam(':comment_N', $comment_N, PDO::PARAM_INT);
+                $sql->bindParam(':head', $fetch['head'], PDO::PARAM_STR);
+                $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
+                $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                $sql->bindParam(':name', $fetch1['name'], PDO::PARAM_STR);
+                $sql->bindParam(':image', $fetch1['image'], PDO::PARAM_STR);
+                $sql->execute();
 
                 return true;
             }
@@ -114,64 +161,15 @@ class co_func
 
         return false;
     }
-    public function answer_board(string $id_user, string $comment, string $id_post,string $id_N)
+    public function list_answer_board(string $id_playlist, string $id_N)
     {
-      $sql = $this->sql->prepare('SELECT image,name FROM user WHERE id = :id_user');
-      $sql->bindParam(':id_user', $id_user, PDO::PARAM_STR);
-      $sql->execute();
-      $fetch1 = $sql->fetch(PDO::FETCH_ASSOC);
-      if ($fetch1) {
-          $sql = $this->sql->prepare('SELECT id_playlist,COUNT(comment_N),head FROM qanda WHERE
-                                      id_playlist = :id_playlist AND id_N = :id_N ;');
-          $sql->bindParam(':id_playlist', $id_post, PDO::PARAM_STR);
-          $sql->bindParam(':id_N',$id_N,PDO::PARAM_STR);
-          $sql->execute();
-          $fetch = $sql->fetch(PDO::FETCH_ASSOC);
-          if ($fetch) {
-              $comment_N = (int) $fetch['COUNT(comment_N)'] + 1;
-              $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,:id_N ,:comment_N,:id_user
-                                          ,:head,:comment,:name,:image ) ;');
-              $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
-              $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
-              $sql->bindParam(':comment_N',$comment_N,PDO::PARAM_INT);
-              $sql->bindParam(':head', $fetch['head'], PDO::PARAM_STR);
-              $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
-              $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-              $sql->bindParam(':name', $fetch1['name'], PDO::PARAM_STR);
-              $sql->bindParam(':image', $fetch1['image'], PDO::PARAM_STR);
-              $sql->execute();
-
-              return true;
-          } else {
-            $sql = $this->sql->prepare('INSERT INTO qanda VALUES (:id_post ,:id_N ,1,:id_user
-                                        ,:head,:comment,:name,:image ) ;');
-            $sql->bindParam(':id_post', $id_post, PDO::PARAM_STR);
-            $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
-            $sql->bindParam(':comment_N',$comment_N,PDO::PARAM_INT);
-            $sql->bindParam(':head', $fetch['head'], PDO::PARAM_STR);
-            $sql->bindParam(':comment', $comment, PDO::PARAM_STR);
-            $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-            $sql->bindParam(':name', $fetch1['name'], PDO::PARAM_STR);
-            $sql->bindParam(':image', $fetch1['image'], PDO::PARAM_STR);
-            $sql->execute();
-
-
-
-              return true;
-          }
-      }
-
-      return false;
-    }
-    public function list_answer_board(string $id_playlist,string $id_N)
-    {
-      $sql = $this->sql->prepare('SELECT id_N,id_playlist,name,image,comment,head FROM qanda WHERE
+        $sql = $this->sql->prepare('SELECT id_N,id_playlist,name,image,comment,head FROM qanda WHERE
                                   id_playlist = :id_playlist AND id_N = :id_N ORDER BY comment_N ASC;');
-      $sql->bindParam(':id_playlist', $id_playlist, PDO::PARAM_STR);
-      $sql->bindParam(':id_N',$id_N,PDO::PARAM_INT);
-      $sql->execute();
+        $sql->bindParam(':id_playlist', $id_playlist, PDO::PARAM_STR);
+        $sql->bindParam(':id_N', $id_N, PDO::PARAM_INT);
+        $sql->execute();
 
-      return $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
     public function list_comment_board(string $id_playlist)
     {
@@ -332,22 +330,35 @@ class co_func
             echo '<h2>คุณมีคอสเรียนนี้แล้ว</h2>';
         }
     }
-    public function search(string $detail)
+    public function search(string $detail = null, string $major = null)
     {
         $detail = "%$detail%";
-        $sql = $this->sql->prepare('SELECT id_playlist,course_name,description,price,cover FROM course
-                                   WHERE course_name LIKE :detail AND flag_num = 1 ;');
-        $sql->bindParam(':detail', $detail, PDO::PARAM_STR);
-        $sql->execute();
+        if ($major != null) {
+            $sql = $this->sql->prepare('SELECT id_playlist,course_name,description,price,cover FROM course
+                                     WHERE course_name LIKE :detail AND flag_num = 1 AND major = :major ;');
+            $sql->bindParam(':detail', $detail, PDO::PARAM_STR);
+            $sql->bindParam(':major', $major, PDO::PARAM_STR);
+            $sql->execute();
+        } elseif ($detail == null) {
+            $sql = $this->sql->prepare('SELECT id_playlist,course_name,description,price,cover FROM course
+                                     WHERE flag_num = 1;');
+            $sql->execute();
+        } else {
+            $sql = $this->sql->prepare('SELECT id_playlist,course_name,description,price,cover FROM course
+                                     WHERE course_name LIKE :detail AND flag_num = 1;');
+            $sql->bindParam(':detail', $detail, PDO::PARAM_STR);
+            $sql->execute();
+        }
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
     public function list_course_rank()
     {
-      $sql = $this->sql->prepare('SELECT id_playlist,course_name,description,price,cover FROM course
+        $sql = $this->sql->prepare('SELECT id_playlist,course_name,description,price,cover FROM course
                                  WHERE flag_num = 1 LIMIT 4;');
-      $sql->execute();
-      return $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql->execute();
+
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
     public function point_to_money(string $id_user)
     {

@@ -83,7 +83,7 @@ class co_controller
             echo'OK';
         }
     }
-    public function search(string $detail, string $id_user, string $major = null)
+    public function search(string $detail=null, string $id_user, string $major = null)
     {
         $check = $this->co->search($detail, $major);
         if ($check != null) {

@@ -22,16 +22,83 @@ $search = new co_controller();
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <style>
-    @font-face {
-        font-family: thaisan;
-        src: url(thaisanslite_r1.ttf);
-    }
+      @font-face {font-family: thaisan;
+                                                                                                                                                                       src: url(thaisanslite_r1.ttf);}
+                                                                                                                                                                     * {font-family: thaisan; !important;}
 
-    * {
-        font-family: thaisan;
-        !important;
-    }
-</style>
+                                                            .button {
+                                                            background-color: #4CAF50; /* Green */
+                                                            border: none;
+                                                            color: white;
+                                                            padding: 6px 1px;
+                                                            text-align: center;
+                                                            text-decoration: none;
+                                                            display: inline-block;
+                                                            font-size: 16px;
+                                                            margin: 4px 2px;
+                                                            -webkit-transition-duration: 0.4s; /* Safari */
+                                                            transition-duration: 0.4s;
+                                                            cursor: pointer;
+                                                        }
+
+                                                        .button2 {
+                                                            background-color: #f9f7ef;
+                                                            color: black;
+                                                          	 border-radius: 4px;
+                                                          border: 1px solid #c9c9c9;
+                                                          box-shadow:0px 0px 15px 0px #d3d3d3 inset;
+                                                        }
+
+                                                        .button2:hover {
+                                                            background-color: #008CBA;
+                                                            color: white;
+                                                           border-radius: 4px;
+                                                        }
+
+                                                      .button3 {
+                                                            background-color: #f9f7ef;
+                                                            color: black;
+                                                          	 border-radius: 4px;
+                                                          border: 1px solid #c9c9c9;
+                                                          box-shadow:0px 0px 15px 0px #d3d3d3 inset;
+                                                        }
+
+                                                        .button3:hover {
+                                                            background-color: 00baab;
+                                                            color: white;
+                                                           border-radius: 4px;
+                                                        }
+
+                                                      .button4 {
+                                                            background-color: #f9f7ef;
+                                                            color: black;
+                                                          	 border-radius: 4px;
+                                                          border: 1px solid #c9c9c9;
+                                                          box-shadow:0px 0px 15px 0px #d3d3d3 inset;
+                                                        }
+
+                                                        .button4:hover {
+                                                            background-color: #00ba46;
+                                                            color: white;
+                                                           border-radius: 4px;
+                                                        }
+
+                                                      .button1 {
+                                                            background-color: #f9f7ef;
+                                                            color: black;
+                                                          	 border-radius: 4px;
+                                                          border: 1px solid #c9c9c9;
+                                                          box-shadow:0px 0px 15px 0px #d3d3d3 inset;
+                                                        }
+
+                                                        .button1:hover {
+                                                            background-color: #818181;
+                                                            color: white;
+                                                           border-radius: 4px;
+                                                        }
+
+                                                        }
+    </style>
 <script type="text/javascript">
 $(document).ready(function(){
 
@@ -91,33 +158,44 @@ $(".preview").click(function(){
             </div>
         </div>
     </div>
-    <div class="navbar navbar-default navbar-static-top" style="background-color:#ff630a">
-        <div class="navbar-header"></div>
-        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-            <div class="container">
-                <ul class="nav navbar-nav">
-                    <li class="hidden-lg hidden-md hidden-sm" style="background-color:#ffffff">
-                        <center>
-                            <a href="#">
-                                <font size="5">บทเรียนของฉัน</font>
-                            </a>
-                        </center>
-                    </li>
-                    <hr class="hidden-lg hidden-md hidden-sm">
-                    <li class="hidden-lg hidden-md hidden-sm" style="background-color:#ffffff">
-                        <center>
-                            <a href="#">
-                                <font size="5">บทเรียนที่ฉันสอน</font>
-                            </a>
-                        </center>
-                    </li>
-                    <li></li>
-                </ul>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"></li>
-                </ul>
+    <div style="background-color:#ff630a">
+        <div class="container">
+            <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#demo">
+          <font size="6" color="white">หมวดหมู่</font>
+        </button>
+        </div>
+    </div>
+    <div class="collapse" style="background-color:feeec5;box-shadow:0px 0px 15px 0px #ac8e40 inset;" id="demo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6" align="center">
+                                    <a href="buy.php?major=sci"><img src="icon/subject/sci.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=math"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=thai"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=eng"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" align="center">
+                                    <a href="buy.php?major=social"><img src="icon/subject/social.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=it"><img src="icon/subject/it.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=art"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=health"><img src="icon/subject/health.png" style="height:60;margin-bottom:20"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" align="center" style="margin-top:25px">
+                    <button class="button button2" style="font-size:25;width:250;;margin-bottom:20">Gat-Pat</button>
+                    <button class="button button3" style="font-size:25;width:250;;margin-bottom:20">9วิชาสามัญ</button>
+                    <button class="button button4" style="font-size:25;width:250;;margin-bottom:20">O-net</button>
+                    <button class="button button1" style="font-size:25;width:250;;margin-bottom:20">อื่นๆ</button>
+                </div>
             </div>
         </div>
     </div>
@@ -128,8 +206,8 @@ $(".preview").click(function(){
      $search->buy($_GET['id_course'], $_SESSION['id']);
  } ?>
                     <div class="col-md-12">
-                        <?php if (isset($_POST['course_name']) && isset($_SESSION['id'])) {
-     $search->search($_POST['course_name'], $_SESSION['id']);
+                        <?php if ( isset($_SESSION['id'])) {
+     $search->search($_POST['course_name'], $_SESSION['id'],$_GET['major']);
  } else {
  } ?>
                     </div>
