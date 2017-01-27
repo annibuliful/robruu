@@ -115,7 +115,9 @@ class co_view
             <font size=\"6\" style=\"font-weight:bold;margin-left:50px\">{$data[$i]['head']}</font>
             <font size=\"4\"style=\"font-weight:bold\">{$data[$i]['comment']}</font>
             </div>
-            <div class=\"col-md-2 col-xs-2\"><a href=\"answer_board.php?id_playlist={$data[$i]['id_playlist']}&id_N={$data[$i]['id_N']}\"><button class=\"btn btn-info\"><h3>ตอบข้อสงสัย</h3></button></a></div>
+            <div class=\"col-md-2 col-xs-2\"><a href=\"answer_board.php?id_playlist={$data[$i]['id_playlist']}&id_N={$data[$i]['id_N']}\">
+            <button class=\"ans\"><h3>ตอบข้อสงสัย</h3></button></a>
+            </div>
           </div>
         </div><br><br><br><br>";
         }

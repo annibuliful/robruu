@@ -20,11 +20,11 @@
     <script type="text/javascript">
 
         // ask user for name with popup prompt
-        var name = prompt("Enter your chat name:", "Guest");
+        var name = prompt("Enter your chat name:", "");
 
         // default name is 'Guest'
-    	if (!name || name !== ' ') {
-    	   name = "Guest";
+    	if (!name || name == '') {
+    	   name = ''+Math.floor((Math.random() * 10000) + 1);+'';
     	}
 
     	// strip tags

@@ -68,7 +68,7 @@ class student_view
     }
     public function question(array $question)
     {
-        echo '<form class="" action="" method="post">';
+        echo '<br><br><form class="" action="" method="post" style="background-color: white">';
         echo '<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">';
         echo '<ol class="carousel-indicators">';
         for ($i = 0; $i < count($question); ++$i) {
@@ -89,16 +89,16 @@ class student_view
                 <div class=\"col-md-12\">{$question[$i]['name']}</div>
 
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"0\">{$question[$i]['answer1']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"0\">{$question[$i]['answer1']}</label>
                   </div>
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"1\">{$question[$i]['answer2']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"1\">{$question[$i]['answer2']}</label>
                   </div>
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"2\">{$question[$i]['answer3']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"2\">{$question[$i]['answer3']}</label>
                   </div>
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"3\">{$question[$i]['answer4']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"3\">{$question[$i]['answer4']}</label>
                   </div>
                   <input type=\"hidden\" name=\"id_question[]\" value=\"{$question[$i]['id']}\">
                     </h2>
@@ -113,16 +113,16 @@ class student_view
                 <div class=\"col-md-12\">{$question[$i]['name']}</div>
 
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"0\">{$question[$i]['answer1']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"0\">{$question[$i]['answer1']}</label>
                   </div>
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"1\">{$question[$i]['answer2']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"1\">{$question[$i]['answer2']}</label>
                   </div>
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"2\">{$question[$i]['answer3']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"2\">{$question[$i]['answer3']}</label>
                   </div>
                   <div class=\"checkbox\">
-                    <label><input type=\"checkbox\" name=\"id_answer[]\" value=\"3\">{$question[$i]['answer4']}</label>
+                    <label><input class=\"choice\" type=\"checkbox\" name=\"id_answer[]\" value=\"3\">{$question[$i]['answer4']}</label>
                   </div>
                   <input type=\"hidden\" name=\"id_question[]\" value=\"{$question[$i]['id']}\">
                   <center>
@@ -138,14 +138,13 @@ class student_view
       <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
       <span class="sr-only">Next</span>
     </a>';
-        echo '</div><center><input type="submit" class="btn btn-info btn-lg"name="submit" value="ส่งคำตอบ"></center></form>';
+        echo '</div><div><br><center><input type="submit" class="btn btn-info btn-lg"name="submit" value="ส่งคำตอบ"></center></div></form>';
     }
     public function exercise(array $question)
     {
-        echo '<form class="" action="" method="POST">';
+        echo '<form class="" action="" method="POST"style="margin-left: 20%">';
         for ($i = 0; $i < count($question); ++$i) {
             echo "<div class=\"col-md-12\">
-              <center>
               <h2>
                 <div class=\"col-md-12\">{$question[$i]['name']}</div>
 
@@ -163,7 +162,6 @@ class student_view
                   </div>
                   <input type=\"hidden\" name=\"id_question[]\" value=\"{$question[$i]['id']}\">
                     </h2>
-                  </center>
               </div><br></div><center><input type=\"submit\" name=\"submit\" class=\"btn btn-info btn-lg\"value=\"ส่งคำตอบ\"></center></form>";
         }
     }

@@ -172,6 +172,7 @@ $(".preview").click(function(){
                     <div class="section">
                         <div class="container">
                             <div class="row">
+                              <br>
                                 <div class="col-md-6" align="center">
                                     <a href="buy.php?major=sci"><img src="icon/subject/sci.png" style="height:60;margin-bottom:20"></a>
                                     <a href="buy.php?major=math"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
@@ -191,16 +192,17 @@ $(".preview").click(function(){
                     </div>
                 </div>
                 <div class="col-md-6" align="center" style="margin-top:25px">
-                    <button class="button button2" style="font-size:25;width:250;;margin-bottom:20">Gat-Pat</button>
-                    <button class="button button3" style="font-size:25;width:250;;margin-bottom:20">9วิชาสามัญ</button>
-                    <button class="button button4" style="font-size:25;width:250;;margin-bottom:20">O-net</button>
-                    <button class="button button1" style="font-size:25;width:250;;margin-bottom:20">อื่นๆ</button>
+                    <a href="buy.php?major=GTPT"><button class="button button2" style="font-size:25;width:250;;margin-bottom:20">Gat-Pat</button></a>
+                    <a href="buy.php?major=nine"><button class="button button3" style="font-size:25;width:250;;margin-bottom:20">9วิชาสามัญ</button></a>
+                    <a href="buy.php?major=onet"><button class="button button4" style="font-size:25;width:250;;margin-bottom:20">O-net</button></a>
+                    <a href="buy.php?major=etc"><button class="button button1" style="font-size:25;width:250;;margin-bottom:20">อื่นๆ</button></a>
                 </div>
             </div>
         </div>
     </div>
     <div class="section" style="background-color:#ffd754;box-shadow: 0px 10px 10px #d1d1d1;">
         <div class="container" align="center">
+          <br>
             <div class="row">
                 <?php if (isset($_GET['id_course'])) {
      $search->buy($_GET['id_course'], $_SESSION['id']);

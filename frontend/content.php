@@ -43,7 +43,7 @@
 <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
 </script>
 
-<body><body style="background-image:url(pic/1847066831.jpg);">
+<body><body style="background-color:#f6d7e2">
     <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; height:15%">
       <div class="container" style=" width:90%">
         <div class="navbar-header">
@@ -67,19 +67,28 @@
         </div>
       </div>
     </div>
-    <div class="navbar navbar-default navbar-static-top" style="background-color:#fd2686">
-
-    </div>
-    <div class="section" style="background-color:#ffffff">
-      <br><br><br><h2>
-        <div class="container">
-          <?php require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/student_controller.php';
-          $list = new student_controller();
-          if (isset($_GET['id_course'])) {
-            $list->content($_GET['id_course']);
-          } ?></h2>
+    <div class="row" style="background-color: fff8bf;border:1px solid #d8bac9 ;box-shadow: 0px 10px 10px #d8bac9;">
+     <div class="col-md-2" style="background-color:fff498;">
+       <center>
+         <a href="main.php"><i class="fa fa-2x fa-chevron-left fa-fw text-danger" style="margin-top:9px"></i>
+             <font style="font-weight: bold;color:fa4b4b;font-size:150%">ย้อนกลับ</font></a>
+       </center>
+     </div>
+   </div>
+   <div class="section">
+      <div class="container" style="background-color:ffffff">
+        <div class="row">
+          <div class="col-md-12" style="border:1px solid #d8bac9 ;box-shadow: 0px 0px 15px #d8bac9;">
+            <div class="col-md-10" style="margin-top:2%;font-size:22px;">
+              <h2>
+              <?php require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/student_controller.php';
+              $list = new student_controller();
+              if (isset($_GET['id_course'])) {
+                $list->content($_GET['id_course']);
+              } ?></h2></div>
+          </div>
         </div>
-
+      </div>
     </div>
 </body>
 

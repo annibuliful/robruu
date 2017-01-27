@@ -27,13 +27,14 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
       * {font-family: thaisan; !important;}}
     </style>
     <title>Robruu | </title>
-  </head><body style="background-color:ffe776">
+  </head>
+  <body style="background-color:ffe776">
     <nav class="navbar navbar-default navbar-static-top" style="background-color:white">
       <div class="navbar-header">
         <ul class="nav navbar-nav">
           <li>
             <a class="navbar-brand" href="#"><img src="pic/brand.png" style="height: 60">
-                        </a>
+            </a>
           </li>
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
             <span class="sr-only">Toggle navigation</span>

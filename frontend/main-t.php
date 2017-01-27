@@ -57,13 +57,20 @@ if (isset($_POST['course_name'])) {
                                 <input type="file" name="cover" class="form-control" id="" placeholder="">
                             </div>
                             <div class="form-group">
-                                <label for="sel1">Select list (select one):</label>
+                                <label for="sel1">เลือกหมวดหมู่</label>
                                 <select class="form-control" name="major"id="sel1">
                                   <option value="math">คณิตศาสตร์</option>
                                   <option value="sci">วิทยาศาสตร์</option>
                                   <option value="thai">ภาษาไทย</option>
                                   <option value="eng">ภาษาอังกฤษ</option>
                                   <option value="etc">อื่นๆ</option>
+                                  <option value="social">สังคม</option>
+                                  <option value="it">เทคโนโลยีสารสนเทศ</option>
+                                  <option value="art">ศิลปะ</option>
+                                  <option value="health">สุขศึกษา</option>
+                                  <option value="nine">9 วิชาสามัญ</option>
+                                  <option value="GTPT">GAT PAT</option>
+                                  <option value="onet">O-net</option>
                                 </select></div>
                         </div>
                         <input type="submit" class="btn btn-info" name="submit" value="สร้างคอสเรียน">
@@ -77,7 +84,7 @@ if (isset($_POST['course_name'])) {
         </div>
     </div>
 
-    <body style="background-color:#058277">
+    <body style="background-color:#ffe9a7">
         <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; height:15%">
             <div class="container" style="; width:90%">
                 <div class="navbar-header">
@@ -106,7 +113,7 @@ if (isset($_POST['course_name'])) {
                 </div>
             </div>
         </div>
-        <div class="navbar navbar-default navbar-static-top" style="background-color:#ff630a">
+        <div class="navbar navbar-default navbar-static-top" style="background-color:#ffbc1a">
             <div class="navbar-header"></div>
             <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                 <div class="container">
@@ -166,7 +173,37 @@ if (isset($_POST['course_name'])) {
                 </div>
             </div>
         </div>
-
+        <footer class="section section-warning">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <img src="">
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="text-info text-right">
+                      <br>
+                      <br>
+                    </p>
+                    <div class="row">
+                      <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
+                        <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
+                        <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                        <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                        <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 hidden-xs text-right">
+                        <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
+                        <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                        <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                        <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </footer>
 
 
     </body>

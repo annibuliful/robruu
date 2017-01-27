@@ -33,7 +33,8 @@ class authen_view
         echo "
         <ul class=\"nav navbar-nav navbar-right\" align=\"center\">
                 <li>
-                  <a href=\"#\"><font size=\"5\"> {$detail['score']} </font> <img src=\"icon/point2.png\" style=\"height:60;width:41;margin-left:2\"></a>
+                  <a href=\"#\"><font size=\"5\"> {$detail['score']} </font>
+                   <img src=\"icon/point2.png\" style=\"height:60px;width:41px;margin-left:2\"></a>
                 </li>
                 <li>
                   <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">

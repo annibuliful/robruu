@@ -56,7 +56,7 @@ if (isset($_POST['flag']) && isset($_POST['id_course33']) && isset($_POST['data'
     </style>
 </head>
 
-<body style="background-image:url(pic/1847066832.jpg);">
+<body style="background-color:#f2f2f2;">
     <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; height:15%">
         <div class="container" style="; width:90%">
             <div class="navbar-header">
@@ -131,7 +131,7 @@ if (isset($_POST['flag']) && isset($_POST['id_course33']) && isset($_POST['data'
     </div>
     <div class="section" style="margin-top:5px;margin-left:30px;">
         <div class="row">
-            <div class="col-md-12" style="background-color:#ffffff;">
+            <div class="col-md-12" >
                 <center>
                     <img src="button/upload_sheet.png" data-toggle="collapse" data-target="#content">
                     <img src="button/upload_video.png" data-toggle="collapse" data-target="#video">
@@ -230,7 +230,7 @@ if (isset($_POST['flag']) && isset($_POST['id_course33']) && isset($_POST['data'
                     </div>
                 </center>
             </div>
-            <div class="col-md-6" style="background-color:#ffffff;margin-top: 30px">
+            <div class="col-md-12" style="margin-top: 30px">
                 <center><button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_question">ดูรายละเอียดโจทย์</button>
                     <button type="button" class="btn btn-info btn-lg" data-toggle="collapse" data-target="#list_video">ดูรายละเอียดวิดีโอ</button>
                 </center>

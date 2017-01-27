@@ -2,6 +2,10 @@
 $list = new student_controller();
 $_SESSION['id_course'] = $_GET['id_course'];
 ?>
+<?php
+require 'C:/Users/Dell/Documents/GitHub/robruu/backend/util/controller/authen_controller.php';
+$authen = new authen_controller();
+?>
 <html>
 
 <head>
@@ -41,25 +45,56 @@ $_SESSION['id_course'] = $_GET['id_course'];
     </style>
 </head>
 
-<body>
-    <div class="navbar navbar-default navbar-static-top" style="background-color:#ffffff; height:15%">
-        <div class="container" style="; width:90%">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-                <a href="#"><span></span><img src="pic/brand.png" style="height: 80%"></a>
-            </div>
+<body style="background-color:#ff5a5a">
+  <body style="background-color:ffe776">
+    <nav class="navbar navbar-default navbar-static-top" style="background-color:white">
+      <div class="navbar-header">
+        <ul class="nav navbar-nav">
+          <li>
+            <a class="navbar-brand" href="#"><img src="pic/brand.png" style="height: 60">
+            </a>
+          </li>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </ul>
+      </div>
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <div class="navbar-header">
+            <ul class="nav navbar-nav">
+              <li>
+                <form class="navbar-form" action="buy.php" method="post">
+                    <div class="input-group">
+                        <input type="text" name="course_name" class="form-control" placeholder="ค้นหาบทเรียน">
+                        <div class="input-group-btn">
+                            <button class="btn btn" type="button">
+                           <span class="glyphicon glyphicon-search"></span>
+                           <i class="icon-search"></i>
+                           </button>
+                        </div>
+                    </div>
+                </form>
+              </li>
+            </ul>
+          </div>
+          <ul class="nav navbar-nav navbar-right" align="center">
+            <?php $authen->check_session($_SESSION['id']); ?>
+          </ul>
         </div>
-    </div>
-    <div class="navbar navbar-default navbar-static-top" style="background-color:#ff630a; ">
-
-    </div>
+      </div>
+    </nav>
+      <div class="col-md-2" style="background-color:d9d9d9;">
+          <center>
+            <a href="main.php"><i class="fa fa-2x fa-chevron-left fa-fw text-danger" style="margin-top:9px"></i>
+              <font style="font-weight: bold;color:fa4b4b;font-size:150%">ย้อนกลับ</font></a>
+          </center>
+        </div>
+          <br><br>
     <div class="container">
-        <a href="mycourse.php"><button type="button" name="button" class="btn btn-danger btn-lg">กลับ</button></a><br>
         <?php
       $list = new student_controller();
       if (isset($_POST['id_answer'])) {
