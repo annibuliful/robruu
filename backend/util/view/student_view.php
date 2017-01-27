@@ -43,7 +43,8 @@ class student_view
     public function list_course(array $list, $id_user)
     {
         for ($i = 0; $i < count($list); ++$i) {
-            echo "<li class=\"media\">
+            echo "
+            <li class=\"media\">
                 <a class=\"pull-left\" href=\"#\"><img class=\"media-object\" src=\"store/pictures/{$list[$i]['cover']}\" height=\"150\" width=\"150\"></a>
                 <div class=\"media-body\">
                   <font size=\"5\" style=\"font-weight:bold\">{$list[$i]['course_name']}</font>
@@ -59,6 +60,7 @@ class student_view
                 </div>
               </li>";
         }
+        echo "<br><br><br>";
     }
     public function detail_video(string $detail)
     {

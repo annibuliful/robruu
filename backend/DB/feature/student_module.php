@@ -160,7 +160,7 @@ class student
     }
     public function ranking()
     {
-        $sql = $this->sql->prepare('SELECT username FROM user ORDER BY money DESC');
+        $sql = $this->sql->prepare('SELECT username FROM user ORDER BY money DESC LIMIT 5;');
         $sql->execute();
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);

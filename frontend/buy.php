@@ -175,8 +175,8 @@ $(".preview").click(function(){
                               <br>
                                 <div class="col-md-6" align="center">
                                     <a href="buy.php?major=sci"><img src="icon/subject/sci.png" style="height:60;margin-bottom:20"></a>
-                                    <a href="buy.php?major=math"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
-                                    <a href="buy.php?major=thai"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=math"><img src="icon/subject/math.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=thai"><img src="icon/subject/thai.png" style="height:60;margin-bottom:20"></a>
                                     <a href="buy.php?major=eng"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
                                 </div>
                             </div>
@@ -184,7 +184,7 @@ $(".preview").click(function(){
                                 <div class="col-md-6" align="center">
                                     <a href="buy.php?major=social"><img src="icon/subject/social.png" style="height:60;margin-bottom:20"></a>
                                     <a href="buy.php?major=it"><img src="icon/subject/it.png" style="height:60;margin-bottom:20"></a>
-                                    <a href="buy.php?major=art"><img src="icon/subject/eng.png" style="height:60;margin-bottom:20"></a>
+                                    <a href="buy.php?major=art"><img src="icon/subject/art.png" style="height:60;margin-bottom:20"></a>
                                     <a href="buy.php?major=health"><img src="icon/subject/health.png" style="height:60;margin-bottom:20"></a>
                                 </div>
                             </div>
